@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css?family=Lato|Montserrat|Roboto|Open+Sans');
+
+/* Color Theme Swatches in Hex */
+/* Color Theme Swatches in Hex */
+.basic-1-hex { color: #EAEEFA; }
+.basic-2-hex { color: #162C40; }
+.basic-3-hex { color: #728EA6; }
+.basic-4-hex { color: #B6BECE; }
+.basic-5-hex { color: #254559; }
+.basic-6-hex { color: #EDEBF6; }
+
+
+body {
+    font-family: "Open Sans", sans-serif;
+  background: -webkit-linear-gradient(white,#EDEBF6);
+  background: -moz-linear-gradient(white, #EDEBF6);
+  background: -o-linear-gradient(white, #EDEBF6);
+  background: linear-gradient(white, #EDEBF6); 
+}
+
+.navbar{
+  height: 5rem;
+}
+
+.navbar-brand{
+  padding: 1% 5%;
+}
+
+.sidebar-tab{
+  padding:0;
+}
+
+
+/* Style the tab */
+.tab {
+  float: left; 
+  background-color: #162C40;
+  padding:7% 0px;
+  max-width: 5rem;
+  width: 100%; 
+  height: 100vh;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  display: block;
+  background-color: inherit;
+  color: whitesmoke;
+  padding: 30%;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #254559;
+}
+
+.tab-img{
+    width: 100%;
+    max-width: 32px;
+    align-content: center;
+}
+
+/* Create an active/current "tab button" class */
+.tab button.active {
+  background-color: #254559;
+  border-left: 3px solid #B6BECE;
+ 
+}
+
+/* Style the tab content */
+.tab-content {
+  float: left;  
+  padding: 0px 12px;
+  border-right: 1px solid #ccc; 
+  border-left: none;
+  height: 80vh;
+    
+}
+
+.tab-content-content{
+    overflow-y: auto;
+    height: 73vh;
+     
+}
+
+#groups_chat_details{
+     width: 100%;
+      bottom: 0;
+}
+
+.flex-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-element, .chat-group-element{
+  width: inherit;        
+  padding: 5px;
+  margin: 2% 5%;
+  background: -webkit-linear-gradient(bottom, #EDEBF6, transparent);
+  background: -moz-linear-gradient(bottom, #EDEBF6, transparent);
+  background: -o-linear-gradient(bottom, #EDEBF6, transparent);
+  background: linear-gradient(to top, #EDEBF6, transparent);
+  box-shadow: 0px 0px 10px #ccc;  
+   
+}
