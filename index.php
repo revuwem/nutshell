@@ -9,27 +9,23 @@ if(!isset($_SESSION['user_id']))
 ?>
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Nutshell work chat</title>
 
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <!--Custom Styles-->
-    <link href="css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/chatboxstyle.css">
-    <!--Font Awesome-->
-    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    
-     
-     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>    
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.js"></script>
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Nutshell</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!--Font Awesome-->
+  <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
+
+  <!-- Custom styles -->
+  <link href="css/style.css" rel="stylesheet">
     <script>
        function check_group_name(){
                 var group_name=$('#chat_name').val();
@@ -52,389 +48,162 @@ if(!isset($_SESSION['user_id']))
                 {
                     $('.send').attr('disabled', 'disabled');
                 }
-            };   
-        
+            };
       </script>
     
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
   </head>
   <body> 
-     <div class="container-fluid">
-       <div class="row">
-            <div class="container-fluid tab">
-                    <button class="tablinks" onclick="openTab(event, 'Groups')" id="defaultOpen"><i class="fa fa-comments-o" aria-hidden="true"></i></button>               
-                    <button class="tablinks" onclick="openTab(event, 'Dialogs')"><i class="fa fa-comment-o" aria-hidden="true"></i></button>                
-                    <button class="tablinks" onclick="openTab(event, 'Favorites')"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                    <button class="tablinks" onclick="openTab(event, 'Friends')"><i class="fa fa-address-book-o" aria-hidden="true"></i></button>
-                </div>         
-        <div class="container-fluid"> 
-            <nav class="navbar"> 
-                <div class="container-fluid" >
-                     <div class="navbar-header">
-                        <img class="" src="icons/logo.png" alt="nutshell"  >
-                     </div> 
-                     <div class="table-responsive">
-                        <p align="right">Hi - <?php echo $_SESSION['username']; ?> - <a href="logout.php">Logout</a></p>
-                       </div>                      
-                </div>                
-            </nav>
-        <div class="container-fluid content tabcontent app" id="Dialogs">
-        <div class="row app-one">
-          <div class="col-sm-4 side">
-            <!--Садйбар со списком существующих диалогов-->
-            <div class="side-one">
-              <div class="row heading">
-                <div class="col-sm-4 col-xs-4">
-                  <h4>Диалоги</h4>                               
-                </div>
-                <div class="col-sm-1 col-xs-1  heading-dot  pull-right">
-                  <i class="fa fa-ellipsis-v fa-2x  pull-right" aria-hidden="true"></i>
-                </div>
-                <div class="col-sm-2 col-xs-2 heading-compose  pull-right">
-                  <i class="fa fa-comments fa-2x  pull-right" aria-hidden="true"></i>
-                </div>
-              </div>
-      
-              <div class="row searchBox">
-                <div class="col-sm-12 searchBox-inner">
-                  <div class="form-group has-feedback">
-                    <input id="searchText" type="text" class="form-control" name="searchText" placeholder="Поиск">
-                    <span class="form-control-feedback"><i class="fa fa-search" aria-hidden="true"></i></span>
-                  </div>
-                </div>
-              </div>
+  <div class="d-flex" id="wrapper">
 
-            <!--Список диалогов-->
-              <div class="row sideBar">
-              
-              </div>
-                
-            </div>
-            <!--Сайдбар для создания нового диалога-->
-            <div class="side-two">
-              <div class="row newMessage-heading">
-                <div class="row newMessage-main">
-                  <div class="col-sm-2 col-xs-2 newMessage-back">
-                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                  </div>
-                  <div class="col-sm-10 col-xs-10 newMessage-title">
-                    Написать сообщение
-                  </div>
-                </div>
-              </div>
-      
-              <div class="row composeBox">
-                <div class="col-sm-12 composeBox-inner">
-                  <div class="form-group has-feedback">
-                    <input id="composeText" type="text" class="form-control" name="searchText" placeholder="Search People">
-                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                  </div>
-                </div>
-              </div>
-      
-              <div class="row compose-sideBar">
-                <div class="row sideBar-body">
-                  <div class="col-sm-3 col-xs-3 sideBar-avatar">
-                    <div class="avatar-icon">
-                      <img src="https://bootdey.com/img/Content/avatar/avatar1.png">
-                    </div>
-                  </div>
-                  <div class="col-sm-9 col-xs-9 sideBar-main">
-                    <div class="row">
-                      <div class="col-sm-8 col-xs-8 sideBar-name">
-                        <span class="name-meta">John Doe
-                      </span>
-                      </div>
-                      <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                        <span class="time-meta pull-right">18:18
-                      </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-      
-                <div class="row sideBar-body">
-                  <div class="col-sm-3 col-xs-3 sideBar-avatar">
-                    <div class="avatar-icon">
-                      <img src="https://bootdey.com/img/Content/avatar/avatar2.png">
-                    </div>
-                  </div>
-                  <div class="col-sm-9 col-xs-9 sideBar-main">
-                    <div class="row">
-                      <div class="col-sm-8 col-xs-8 sideBar-name">
-                        <span class="name-meta">John Doe
-                      </span>
-                      </div>
-                      <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                        <span class="time-meta pull-right">18:18
-                      </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row sideBar-body">
-                  <div class="col-sm-3 col-xs-3 sideBar-avatar">
-                    <div class="avatar-icon">
-                      <img src="https://bootdey.com/img/Content/avatar/avatar3.png">
-                    </div>
-                  </div>
-                  <div class="col-sm-9 col-xs-9 sideBar-main">
-                    <div class="row">
-                      <div class="col-sm-8 col-xs-8 sideBar-name">
-                        <span class="name-meta">John Doe
-                      </span>
-                      </div>
-                      <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                        <span class="time-meta pull-right">18:18
-                      </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row sideBar-body">
-                  <div class="col-sm-3 col-xs-3 sideBar-avatar">
-                    <div class="avatar-icon">
-                      <img src="https://bootdey.com/img/Content/avatar/avatar4.png">
-                    </div>
-                  </div>
-                  <div class="col-sm-9 col-xs-9 sideBar-main">
-                    <div class="row">
-                      <div class="col-sm-8 col-xs-8 sideBar-name">
-                        <span class="name-meta">John Doe
-                      </span>
-                      </div>
-                      <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                        <span class="time-meta pull-right">18:18
-                      </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row sideBar-body">
-                  <div class="col-sm-3 col-xs-3 sideBar-avatar">
-                    <div class="avatar-icon">
-                      <img src="https://bootdey.com/img/Content/avatar/avatar5.png">
-                    </div>
-                  </div>
-                  <div class="col-sm-9 col-xs-9 sideBar-main">
-                    <div class="row">
-                      <div class="col-sm-8 col-xs-8 sideBar-name">
-                        <span class="name-meta">John Doe
-                      </span>
-                      </div>
-                      <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                        <span class="time-meta pull-right">18:18
-                      </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row sideBar-body">
-                  <div class="col-sm-3 col-xs-3 sideBar-avatar">
-                    <div class="avatar-icon">
-                      <img src="https://bootdey.com/img/Content/avatar/avatar6.png">
-                    </div>
-                  </div>
-                  <div class="col-sm-9 col-xs-9 sideBar-main">
-                    <div class="row">
-                      <div class="col-sm-8 col-xs-8 sideBar-name">
-                        <span class="name-meta">John Doe
-                      </span>
-                      </div>
-                      <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                        <span class="time-meta pull-right">18:18
-                      </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row sideBar-body">
-                  <div class="col-sm-3 col-xs-3 sideBar-avatar">
-                    <div class="avatar-icon">
-                      <img src="https://bootdey.com/img/Content/avatar/avatar2.png">
-                    </div>
-                  </div>
-                  <div class="col-sm-9 col-xs-9 sideBar-main">
-                    <div class="row">
-                      <div class="col-sm-8 col-xs-8 sideBar-name">
-                        <span class="name-meta">John Doe
-                      </span>
-                      </div>
-                      <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                        <span class="time-meta pull-right">18:18
-                      </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row sideBar-body">
-                  <div class="col-sm-3 col-xs-3 sideBar-avatar">
-                    <div class="avatar-icon">
-                      <img src="https://bootdey.com/img/Content/avatar/avatar3.png">
-                    </div>
-                  </div>
-                  <div class="col-sm-9 col-xs-9 sideBar-main">
-                    <div class="row">
-                      <div class="col-sm-8 col-xs-8 sideBar-name">
-                        <span class="name-meta">John Doe
-                      </span>
-                      </div>
-                      <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                        <span class="time-meta pull-right">18:18
-                      </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row sideBar-body">
-                  <div class="col-sm-3 col-xs-3 sideBar-avatar">
-                    <div class="avatar-icon">
-                      <img src="https://bootdey.com/img/Content/avatar/avatar4.png">
-                    </div>
-                  </div>
-                  <div class="col-sm-9 col-xs-9 sideBar-main">
-                    <div class="row">
-                      <div class="col-sm-8 col-xs-8 sideBar-name">
-                        <span class="name-meta">John Doe
-                      </span>
-                      </div>
-                      <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                        <span class="time-meta pull-right">18:18
-                      </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row sideBar-body">
-                  <div class="col-sm-3 col-xs-3 sideBar-avatar">
-                    <div class="avatar-icon">
-                      <img src="https://bootdey.com/img/Content/avatar/avatar5.png">
-                    </div>
-                  </div>
-                  <div class="col-sm-9 col-xs-9 sideBar-main">
-                    <div class="row">
-                      <div class="col-sm-8 col-xs-8 sideBar-name">
-                        <span class="name-meta">John Doe
-                      </span>
-                      </div>
-                      <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                        <span class="time-meta pull-right">18:18
-                      </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-      
-          <div class="col-sm-8 conversation">
-            <div class="row heading">
-              <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
-                <div class="heading-avatar-icon">
-                  <img src="https://bootdey.com/img/Content/avatar/avatar6.png">
-                </div>
-              </div>
-              <div class="col-sm-8 col-xs-7 heading-name">
-                <a class="heading-name-meta">John Doe
-                </a>
-                <span class="heading-online">Online</span>
-              </div>
-              <div class="col-sm-1 col-xs-1  heading-dot pull-right">
-                <i class="fa fa-ellipsis-v fa-2x  pull-right" aria-hidden="true"></i>
-              </div>
-            </div>
-      
-            <div class="row message" id="conversation">
-              <div class="row message-previous">
-                <div class="col-sm-12 previous">
-                  <a onclick="previous(this)" id="ankitjain28" name="20">
-                  Show Previous Message!
-                  </a>
-                </div>
-              </div>
-      
-              <div class="row message-body">
-                <div class="col-sm-12 message-main-receiver">
-                  <div class="receiver">
-                    <div class="message-text">
-                     Hi, what are you doing?!
-                    </div>
-                    <span class="message-time pull-right">
-                      Sun
-                    </span>
-                  </div>
-                </div>
-              </div>
-      
-              <div class="row message-body">
-                <div class="col-sm-12 message-main-sender">
-                  <div class="sender">
-                    <div class="message-text">
-                      I am doing nothing man!
-                    </div>
-                    <span class="message-time pull-right">
-                      Sun
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-      
-            <div class="row reply">
-              <div class="col-sm-1 col-xs-1 reply-emojis">
-                <i class="fa fa-smile-o fa-2x"></i>
-              </div>
-              <div class="col-sm-9 col-xs-9 reply-main">
-                <textarea class="form-control" rows="1" id="comment"></textarea>
-              </div>
-              <div class="col-sm-1 col-xs-1 reply-recording">
-                <i class="fa fa-microphone fa-2x" aria-hidden="true"></i>
-              </div>
-              <div class="col-sm-1 col-xs-1 reply-send">
-                <i class="fa fa-send fa-2x" aria-hidden="true"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>   
-        </div> 
-        <div class="container-fluid content tabcontent" id="Friends"> 
-                <div class="tab-content col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                        <div class="tab-content-header">
-                            <h4>Пользователи</h4>
-                        </div>
-                        <div class="container-fluid tab-content-content" id="user_details">                            
-                        </div> 
-                </div>
-        </div>
-         <div class="container-fluid content tabcontent" id="Groups">
-                <div class="tab-content col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                        <div class="tab-content-header">
-                            <h4>Беседы<button name="group_chat_creator" id="group_chat_creator" class="btn btn-success btn-xs pull-right">Создать беседу</button></h4>
-                               </div>
-                        <div class="tab-content-content" id="groups_chats_details" style="overflow-y: scroll;">
-                        </div>                
-                     
-                </div>
-                <div class="group-chat-message-space col-lg-7 col-md-7 col-sm-7 col-xs-7">  
-                </div>
-         </div>        
-               
-          <div class="container-fluid content tabcontent" id="Favorites">
-                <div class="tab-content col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                        <div class="tab-content-header">
-                            <h4>Избранное</h4> 
-                        </div>                            
-                        <div class="container-fluid tab-content-content" id="favorites_details">
-                        </div> 
-                </div>
-        </div>             
-        </wrapper>
-     </div>
+<!-- Sidebar -->
+<div class="border-right" id="sidebar-wrapper">
+  <div class="sidebar-heading">Nutshell</div>
+  <div class="list-group list-group-flush">
+    <a class="list-group-item list-group-item-action active" data-toggle="list" href="#Groups" role="tab"><span class="fa fa-comments-o fa-fw" aria-hidden="true"></span> Группы</a>
+    <a class="list-group-item list-group-item-action" data-toggle="list" href="#Dialogs" role="tab"><span class="fa fa-comment-o fa-fw" aria-hidden="true"></span> Диалоги</a>
+    <a class="list-group-item list-group-item-action" data-toggle="list" href="#Tasks" role="tab"><span class="fa fa-tasks fa-fw" aria-hidden="true"></span> Задачи</a>
+    <a class="list-group-item list-group-item-action" data-toggle="list" href="#Contacts" role="tab"><span class="fa fa-address-book-o fa-fw" aria-hidden="true"></span> Контакты</a>        
+    <a class="list-group-item list-group-item-action" data-toggle="list" href="#Marks" role="tab"><span class="fa fa-thumb-tack fa-fw" aria-hidden="true"></span> Закладки</a>    
+    <a class="list-group-item list-group-item-action" data-toggle="list" href="#Profile" role="tab"><span class="fa fa-cogs fa-fw" aria-hidden="true"></span> Профиль</a>    
+  </div>
 </div>
+<!-- /#sidebar-wrapper -->
+
+<!-- Page Content -->
+<div id="page-content-wrapper">
+
+  <nav class="navbar navbar-expand-lg navbar-light border-bottom justify-content-between">       
+    <a class="btn" id="menu-toggle"><i class="fa fa-align-left" aria-hidden="true"></i></a>
+    <a class="btn" href="logout.php"><span class="fa fa-sign-out fa-fw" aria-hidden="true"></span>Выход</a>
+  </nav>
+
+  <div class="container-fluid tab-content">
+    <div class="tab-pane show active" id="Groups" role="tabpanel">
+      <h3>Группы</h3>
+    </div>
+    <div class="tab-pane" id="Dialogs" role="tabpanel">
+        <div class="container-fluid app">
+            <div class="row app-one">
+              <div class="col col-4 side">
+                <div class="row header">
+                  <div class="col">
+                    <p class="header-text">Диалоги</p> 
+                  </div>
+                </div>
+                <div class="row searchBox">
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="searchDialog" name="searchDialog" placeholder="Поиск"><span class="fa fa-search"></span> 
+                  </div>
+                </div>
+                <div class="row side-body">
+                <ul class="list-unstyled list-group">
+                  <li class="list-group-item">
+                    <div class="row">
+                      <div class="col dialog-item">
+                          <div class="row">
+                              <div class="col-3">
+                                <img class="rounded-circle  avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png">
+                              </div>
+                              <div class="col-9">
+                                <p>User Name</p>
+                                <span class="float-right fa fa-angle-right"></span> 
+                              </div>                 
+                          </div>
+                          <div class="row">
+                              <div class="col-9 last-message-text"><p>last message last message last message</p></div>
+                              <div class="col-3"><span class="small">18:18</span></div>                              
+                          </div>
+                      </div>                
+                  </li>            
+                  </ul>  
+                </div>
+              </div>
+              <div class="col col-8">
+                <div class="row header">
+                  <div class="col col-2 col-md-1" >
+                    <button type="button" class="close">&times;</button>
+                  </div>                  
+                  <div class="col col-10 header-info">
+                    <img class="rounded-circle  avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png"><span class="rounded-circle online"></span>
+                    <p class="header-text">User Name</p>
+                  </div>            
+                </div>
+                <div class="row history">
+                  <div class="col col-12">
+                    <div class="row message-sender">
+                     <div class="col col-2"><img class="rounded-circle  avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png"><span class="rounded-circle online"></span></div>
+                      <div class="col col-8 col-lg-4"><p>Some message text!</p></div>
+                      <div class="col col-2 col-md-2"><span>18:18</span></div>
+                    </div>
+                    <div class="row message-receiver justify-content-end">
+                     <div class="col col-2"><span>18:18</span></div>
+                      <div class="col col-8 col-lg-4"><p class="float-right">Some message text!</p></div>
+                      <div class="col col-2 col-md-1"><img class="rounded-circle  avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png"><span class="rounded-circle online"></span></div>
+                    </div>
+                  </div>            
+                </div>
+                <div class="row reply">
+                  <form action="" class="input-group">
+                    <input type="text" class="col-11 form-control" placeholder="Введите сообщение...">
+                    <button class="col-1 btn form-control"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>              
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>                
+    </div><!--/#Dialogs-->
+    <div class="tab-pane" id="Tasks" role="tabpanel">
+      <h3>Задачи</h3>
+    </div>
+    <div class="tab-pane" id="Contacts" role="tabpanel">
+      <h3>Контакты</h3>
+    </div>
+    <div class="tab-pane" id="Marks" role="tabpanel">
+      <h3>Закладки</h3>
+    </div>
+    <div class="tab-pane" id="Profile" role="tabpanel">
+        <div class="grid profile-content">
+            <aside class="sidebar">
+
+            </aside>
+            <main class="edit-profile">
+
+            </main>
+        </div><!--/.profile-content-->      
+    </div>
+  </div><!--/#tab-content-->
+</div>
+<!-- /#page-content-wrapper -->
+
+</div>
+<!-- Bootstrap core JavaScript -->
+<script src="js/jquery/jquery.min.js"></script>
+  <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
+<!-- /#wrapper -->
+<!-- Menu Toggle Script -->
+<script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");     
+    });
+
+    $(function(){
+        $(".heading-compose").click(function() {
+          $(".side-two").css({
+            "left": "0"
+          });
+        });
+
+        $(".newMessage-back").click(function() {
+          $(".side-two").css({
+            "left": "-100%"
+          });
+        });
+    });
+  </script>
     <script>
-      function openTab(evt, tabName) {
+        function openTab(evt, tabName) {
           var i, tabcontent, tablinks;
           tabcontent = document.getElementsByClassName("tabcontent");
           for (i = 0; i < tabcontent.length; i++) {
@@ -450,21 +219,23 @@ if(!isset($_SESSION['user_id']))
 
         // Get the element with id="defaultOpen" and click on it
         document.getElementById("defaultOpen").click();
-      </script>   
-    <script>
+
+
+
         $(function(){
-      $(".heading-compose").click(function() {
-        $(".side-two").css({
-          "left": "0"
-        });
-      });
-  
-      $(".newMessage-back").click(function() {
-        $(".side-two").css({
-          "left": "-100%"
-        });
-      });
-  })
+            $(".heading-compose").click(function() {
+                $(".side-two").css({
+                "left": "0"
+                });
+            });
+        
+            $(".newMessage-back").click(function() {
+                $(".side-two").css({
+                "left": "-100%"
+                });
+            });
+        })
+
         $(document).ready(function(){           
               
             

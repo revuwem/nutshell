@@ -1,113 +1,196 @@
-@import url('https://fonts.googleapis.com/css?family=Lato|Montserrat|Roboto|Open+Sans');
-
-/* Color Theme Swatches in Hex */
+/*!
+ * Start Bootstrap - Simple Sidebar (https://startbootstrap.com/template-overviews/simple-sidebar)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-simple-sidebar/blob/master/LICENSE)
+ */
+ @import url('https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Roboto');
 /* Color Theme Swatches in Hex */
 .basic-1-hex { color: #EAEEFA; }
 .basic-2-hex { color: #162C40; }
 .basic-3-hex { color: #728EA6; }
-.basic-4-hex { color: #B6BECE; }
+.basic-4-hex { color: #D0DDD8; }
 .basic-5-hex { color: #254559; }
-.basic-6-hex { color: #EDEBF6; }
+
+/* Color Theme Swatches in RGBA */
+.basic-1-rgba { color: rgba(234, 238, 250, 1); }
+.basic-2-rgba { color: rgba(22, 44, 64, 1); }
+.basic-3-rgba { color: rgba(114, 142, 166, 1); }
+.basic-4-rgba { color: rgba(208, 221, 216, 1); }
+.basic-5-rgba { color: rgba(37, 69, 89, 1); }
+
 
 
 body {
-    font-family: "Open Sans", sans-serif;
-  background: -webkit-linear-gradient(white,#EDEBF6);
-  background: -moz-linear-gradient(white, #EDEBF6);
-  background: -o-linear-gradient(white, #EDEBF6);
-  background: linear-gradient(white, #EDEBF6); 
+  overflow-x: hidden;
+  font-family: 'Open Sans', sans-serif;  
 }
 
-.navbar{
-  height: 5rem;
+a{
+  font-size: 0.9rem !important;
 }
 
-.navbar-brand{
-  padding: 1% 5%;
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+  background-color: rgba(22, 44, 64, 1);
+  
 }
 
-.sidebar-tab{
-  padding:0;
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.5rem;  
+  text-align: center;
+  color: #EAEEFA;
+  font-family: 'Raleway', sans-serif;
 }
 
-
-/* Style the tab */
-.tab {
-  float: left; 
-  background-color: #162C40;
-  padding:7% 0px;
-  max-width: 5rem;
-  width: 100%; 
-  height: 100vh;
+#sidebar-wrapper .list-group {
+  width: 15rem;   
 }
 
-/* Style the buttons inside the tab */
-.tab button {
-  display: block;
-  background-color: inherit;
-  color: whitesmoke;
-  padding: 30%;
+#sidebar-wrapper .list-group-item{
+  background-color: rgba(22, 44, 64, 1);
+  color: #728EA6;
+  font-family: 'Roboto', sans-serif; 
+}
+
+#sidebar-wrapper a:hover{
+  background-color: #254559; 
+}
+
+#sidebar-wrapper a.active{
+  color: #EAEEFA;
+  border: none;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
+
+.tab-content{
+  padding: 0;
+  height: 90%;
+  font-size: 1em;
+}
+
+.tab-pane{
+  height: 100%;
+}
+
+.app{
+  height: 100%;  
+}
+.app-one{
+  height: 100%;
+}
+.side{  
+  height: 100%;
+  border-right: 1px solid #CFC8C4;  
+}
+
+.header{
+  padding: 0.3em;  
+  border-bottom: 1px solid #CFC8C4; 
+  line-height: 3;
+}
+
+.header-info img, p{
+  display: inline;
+}
+
+.form-control{
+  border: none !important;  
+}
+
+.searchBox{
+  margin: .5rem 0;
+}
+
+.fa-search{
+  padding: 0.5em;
+}
+
+.side-body{
+  max-height: calc(100% - 86px);
+  overflow-y: auto;
+}
+
+ul{
+  display: table;
+  width: 100%;
+}
+
+.list-group > li{
   width: 100%;
   border: none;
-  outline: none;
-  text-align: left;
+  border-bottom: 1px solid #CFC8C4;  
+}
+
+.last-message-text{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.avatar{
+  width: 36px;
+  height: 40px;
+}
+
+.history{
+  height: 85%;
+  padding: 0.5rem;
+  background-color: rgba(232, 220, 215, 0.1);
+  border-bottom: 1px solid #CFC8C4;
+  overflow: auto;  
+}
+
+.message-receiver, .message-sender{
+  margin: 1rem;
+  padding: 1.5rem;
+}
+
+.message-receiver{
+  background-color: rgba(232, 220, 215, 0.2);  
+}
+
+.message-sender{
+  background-color: rgba(206, 200, 195, 0.2);
+}
+
+.online{
+  position: relative;
+  width: 5em;
+   height: 5em;
+}
+
+.fa{
   cursor: pointer;
-  transition: 0.3s;
-  font-size: 17px;
 }
 
-/* Change background color of buttons on hover */
-.tab button:hover {
-  background-color: #254559;
-}
-
-.tab-img{
-    width: 100%;
-    max-width: 32px;
-    align-content: center;
-}
-
-/* Create an active/current "tab button" class */
-.tab button.active {
-  background-color: #254559;
-  border-left: 3px solid #B6BECE;
- 
-}
-
-/* Style the tab content */
-.tab-content {
-  float: left;  
-  padding: 0px 12px;
-  border-right: 1px solid #ccc; 
-  border-left: none;
-  height: 80vh;
-    
-}
-
-.tab-content-content{
-    overflow-y: auto;
-    height: 73vh;
-     
-}
-
-#groups_chat_details{
-     width: 100%;
-      bottom: 0;
-}
-
-.flex-container{
-    display: flex;
-    flex-direction: column;
-}
-
-.dialog-element, .chat-group-element{
-  width: inherit;        
-  padding: 5px;
-  margin: 2% 5%;
-  background: -webkit-linear-gradient(bottom, #EDEBF6, transparent);
-  background: -moz-linear-gradient(bottom, #EDEBF6, transparent);
-  background: -o-linear-gradient(bottom, #EDEBF6, transparent);
-  background: linear-gradient(to top, #EDEBF6, transparent);
-  box-shadow: 0px 0px 10px #ccc;  
-   
+.grid{
+  display: grid;
 }
