@@ -165,18 +165,15 @@ if(!isset($_SESSION['user_id']))
     <div class="tab-pane" id="Profile" role="tabpanel">
         <div class="container-fluid profile-content">
             <div class="row">
-                <div class="col col-12 col-sm-6 aside">
-                    <div class="row"><!--User info header-->
-                        <div class="container text-center">
-                            <img class="rounded-circle avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png">
-                        </div>
-                    </div><!--/.header-->
+                <div class="container col-12 col-lg-5 aside shadow">                    
                     <div class="row aside-body">
                         <div class="container text-center"><!--User Info-->
                             <ul class="list-unstyled">
-                                <li>Username</li>
-                                <li>John Doe</li>
-                                <li>designer</li>
+                                <li><img class="rounded-circle avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png"></li>
+                                <br>
+                                <li><p>Username</p></li>
+                                <li><h5>John Doe</h5></li>
+                                <li><p class="small">designer</p></li>
                             </ul>
                         </div><!--/User Info-->
                         <div class="container"><!--Contacts-->
@@ -200,11 +197,11 @@ if(!isset($_SESSION['user_id']))
                         </div><!--/User Info-->
                     </div><!--/.aside-body-->                    
                 </div><!--/.aside-->
-                <div class="col col-12 col-sm-6 main">                    
+                <div class="container col-12 col-lg-6 main shadow">                    
                     <div class="row">
                         <form action="edit_userprofile.php">
-                            <div class="container"><h5>Редактировать профиль</h5><br></div>                            
-                            <div class="container bg-light shadow-sm" id="edit-user-info">
+                            <div class="container"><h5>Редактировать профиль</h5></div>                            
+                            <div class="container shadow-sm edit-profile-panel" id="edit-user-info">
                                 <h6>Основное</h6>
                                 <label for="inputUserName">Имя пользователя</label>
                                 <input type="text" class="form-control" name="inputUserName" id="inputUserName">
@@ -215,25 +212,25 @@ if(!isset($_SESSION['user_id']))
                                 <label for="inputUserPosition">Должность</label>
                                 <input type="text" class="form-control" name="inputUserPosition" id="inputUserPosition">
                                 <br>
-                                <button class="btn btn-default form-control" type="submit" name="saveUserInfo" id="saveUserInfo">Сохранить</button>
+                                <button class="btn btn-save-profile-changes form-control" type="submit" name="saveUserInfo" id="saveUserInfo">Сохранить</button>
                             </div><!--/#edit-user-info-->
-                            <div class="container bg-light shadow-sm" id="edit-user-contacts">
+                            <div class="container shadow-sm edit-profile-panel" id="edit-user-contacts">
                                 <h6>Контакты</h6>  
                                 <label for="inputUserWorkNumber">Рабочий номер</label>
-                                <input type="text" class="form-control" name="inputUserWorkNumber" id="inputUserWorkNumber">
+                                <input type="phone" class="form-control" name="inputUserWorkNumber" id="inputUserWorkNumber">
                                 <label for="inputUserMobileNumber">Мобильный номер</label>
-                                <input type="text" class="form-control" name="inputUserMobileNumber" id="inputUserMobileNumber">                                
+                                <input type="phone" class="form-control" name="inputUserMobileNumber" id="inputUserMobileNumber">                                
                                 <br>
-                                <button class="btn btn-default form-control" type="submit" name="saveUserContacts" id="saveUserContacts">Сохранить</button>
+                                <button class="btn btn-save-profile-changes form-control" type="submit" name="saveUserContacts" id="saveUserContacts">Сохранить</button>
                             </div><!--/#edit-user-contacts-->
-                            <div class="container bg-light shadow-sm" id="edit-user-password">
+                            <div class="container shadow-sm edit-profile-panel" id="edit-user-password">
                                 <h6>Безопасность</h6>
                                 <label for="inputCurrentUserPassword">Текущий пароль</label>
                                 <input type="password" class="form-control" name="inputCurrentUserPassword" id="inputCurrentUserPassword">
                                 <label for="inputNewUserPassword">Новый пароль</label>
                                 <input type="password" class="form-control" name="inputNewUserPassword" id="inputNewUserPassword">                                
                                 <br>
-                                <button class="btn btn-default form-control" type="submit" name="saveUserPassword" id="saveUserPassword">Сохранить</button>
+                                <button class="btn btn-save-profile-changes form-control" type="submit" name="saveUserPassword" id="saveUserPassword">Сохранить</button>
                             </div><!--/#edit-user-password-->
                         </form>
                     </div><!--/.main-body-->

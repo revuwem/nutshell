@@ -18,6 +18,21 @@
 .basic-4-rgba { color: rgba(208, 221, 216, 1); }
 .basic-5-rgba { color: rgba(37, 69, 89, 1); }
 
+/* Color Theme Swatches in Hex */
+.Фиолетовая-1-hex { color: #9C70BF; }
+.Фиолетовая-2-hex { color: #684A7F; }
+.Фиолетовая-3-hex { color: #D095FF; }
+.Фиолетовая-4-hex { color: #342540; }
+.Фиолетовая-5-hex { color: #BB86E5; }
+
+/* Color Theme Swatches in RGBA */
+.Фиолетовая-1-rgba { color: rgba(155, 111, 191, 1); }
+.Фиолетовая-2-rgba { color: rgba(103, 74, 126, 1); }
+.Фиолетовая-3-rgba { color: rgba(208, 149, 255, 1); }
+.Фиолетовая-4-rgba { color: rgba(52, 37, 63, 1); }
+.Фиолетовая-5-rgba { color: rgba(186, 133, 228, 1); }
+
+
 
 
 body {
@@ -36,7 +51,7 @@ a{
   -moz-transition: margin .25s ease-out;
   -o-transition: margin .25s ease-out;
   transition: margin .25s ease-out;
-  background-color: rgba(22, 44, 64, 1);
+  background-color: rgba(52, 37, 63, 1);
   
 }
 
@@ -53,7 +68,7 @@ a{
 }
 
 #sidebar-wrapper .list-group-item{
-  background-color: rgba(22, 44, 64, 1);
+  background-color: rgba(52, 37, 63, 1);
   color: #728EA6;
   font-family: 'Roboto', sans-serif; 
 }
@@ -193,16 +208,43 @@ ul{
 }
 
 /*Tab Profile*/
-#Profile form{
+.profile-content .aside, .main{
+  padding-top: .5rem;
+  padding-bottom: .8rem;
+  margin: .8rem;
+  font-size: .9em;
+  align-content: center;
+}
+
+.profile-content form{
   width: 100%;
 }
 
-#Profile .avatar{
+.profile-content input{
+  font-size: .9em;
+}
+
+.profile-content .avatar{
     width: 7em;
     height: 7em;
 }
 
+.profile-content .aside{  
+  max-height: 30rem; 
+}
+
 .profile-content .aside-body .container:nth-child(2){
-    margin: 1.5rem;
-    font-size: .8em;    
+  margin: 1.5rem;          
+}
+
+.edit-profile-panel{
+  margin: 1.2rem 0;
+  padding: 1.2rem;
+}
+
+.btn-save-profile-changes{
+  width: 100%;
+  background-color: #684A7F;
+  color: #EAEEFA;
+
 }
