@@ -157,7 +157,16 @@ if(!isset($_SESSION['user_id']))
       <h3>Задачи</h3>
     </div>
     <div class="tab-pane" id="Contacts" role="tabpanel">
-      <h3>Контакты</h3>
+      <div class="container contacts-content">
+        <div class="row">
+            <div class="container contacts-panel">
+                <h4>Контакты</h4>
+                <table class="table table-striped table-bordered">
+                    thead
+                </table>
+            </div>
+        </div>
+      </div><!--/.contacts-content-->
     </div>
     <div class="tab-pane" id="Marks" role="tabpanel">
       <h3>Закладки</h3>
