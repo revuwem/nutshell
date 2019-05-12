@@ -208,9 +208,9 @@ if(!isset($_SESSION['user_id']))
                 </div><!--/.aside-->
                 <div class="container col-12 col-lg-6 main shadow">                    
                     <div class="row">
-                        <form action="edit_userprofile.php">
+                        <form action="edit_userprofile.php" method="post">
                             <div class="container"><h5>Редактировать профиль</h5></div>                            
-                            <div class="container shadow-sm edit-profile-panel" id="edit-user-info">
+                            <div class="container shadow-sm edit-profile-panel" id="edit-user-basic-info">
                                 <h6>Основное</h6>
                                 <label for="inputUserName">Имя пользователя</label>
                                 <input type="text" class="form-control" name="inputUserName" id="inputUserName">
@@ -221,8 +221,8 @@ if(!isset($_SESSION['user_id']))
                                 <label for="inputUserPosition">Должность</label>
                                 <input type="text" class="form-control" name="inputUserPosition" id="inputUserPosition">
                                 <br>
-                                <button class="btn btn-save-profile-changes form-control" type="submit" name="saveUserInfo" id="saveUserInfo">Сохранить</button>
-                            </div><!--/#edit-user-info-->
+                                <button class="btn btn-save-profile-changes form-control" type="submit" name="saveUserBasicInfo" id="saveUserBasicInfo">Сохранить</button>
+                            </div><!--/#edit-user-basic-info-->
                             <div class="container shadow-sm edit-profile-panel" id="edit-user-contacts">
                                 <h6>Контакты</h6>  
                                 <label for="inputUserWorkNumber">Рабочий номер</label>
