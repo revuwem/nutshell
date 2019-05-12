@@ -163,14 +163,83 @@ if(!isset($_SESSION['user_id']))
       <h3>Закладки</h3>
     </div>
     <div class="tab-pane" id="Profile" role="tabpanel">
-        <div class="grid profile-content">
-            <aside class="sidebar">
-
-            </aside>
-            <main class="edit-profile">
-
-            </main>
-        </div><!--/.profile-content-->      
+        <div class="container-fluid profile-content">
+            <div class="row">
+                <div class="col col-12 col-sm-6 aside">
+                    <div class="row"><!--User info header-->
+                        <div class="container text-center">
+                            <img class="rounded-circle avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png">
+                        </div>
+                    </div><!--/.header-->
+                    <div class="row aside-body">
+                        <div class="container text-center"><!--User Info-->
+                            <ul class="list-unstyled">
+                                <li>Username</li>
+                                <li>John Doe</li>
+                                <li>designer</li>
+                            </ul>
+                        </div><!--/User Info-->
+                        <div class="container"><!--Contacts-->
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" class="text-center">Контакты</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Рабочий номер</td>
+                                        <td>+7999(888)77-66</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Мобильный номер</td>
+                                        <td>+7999(888)77-66</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div><!--/User Info-->
+                    </div><!--/.aside-body-->                    
+                </div><!--/.aside-->
+                <div class="col col-12 col-sm-6 main">                    
+                    <div class="row">
+                        <form action="edit_userprofile.php">
+                            <div class="container"><h5>Редактировать профиль</h5><br></div>                            
+                            <div class="container bg-light shadow-sm" id="edit-user-info">
+                                <h6>Основное</h6>
+                                <label for="inputUserName">Имя пользователя</label>
+                                <input type="text" class="form-control" name="inputUserName" id="inputUserName">
+                                <label for="inputPersonFirstName">Имя</label>
+                                <input type="text" class="form-control" name="inputPersonFirstName" id="inputPersonFirstName">
+                                <label for="inputPersonLastName">Фамилия</label>
+                                <input type="text" class="form-control" name="inputPersonLastName" id="inputPersonLastName">
+                                <label for="inputUserPosition">Должность</label>
+                                <input type="text" class="form-control" name="inputUserPosition" id="inputUserPosition">
+                                <br>
+                                <button class="btn btn-default form-control" type="submit" name="saveUserInfo" id="saveUserInfo">Сохранить</button>
+                            </div><!--/#edit-user-info-->
+                            <div class="container bg-light shadow-sm" id="edit-user-contacts">
+                                <h6>Контакты</h6>  
+                                <label for="inputUserWorkNumber">Рабочий номер</label>
+                                <input type="text" class="form-control" name="inputUserWorkNumber" id="inputUserWorkNumber">
+                                <label for="inputUserMobileNumber">Мобильный номер</label>
+                                <input type="text" class="form-control" name="inputUserMobileNumber" id="inputUserMobileNumber">                                
+                                <br>
+                                <button class="btn btn-default form-control" type="submit" name="saveUserContacts" id="saveUserContacts">Сохранить</button>
+                            </div><!--/#edit-user-contacts-->
+                            <div class="container bg-light shadow-sm" id="edit-user-password">
+                                <h6>Безопасность</h6>
+                                <label for="inputCurrentUserPassword">Текущий пароль</label>
+                                <input type="password" class="form-control" name="inputCurrentUserPassword" id="inputCurrentUserPassword">
+                                <label for="inputNewUserPassword">Новый пароль</label>
+                                <input type="password" class="form-control" name="inputNewUserPassword" id="inputNewUserPassword">                                
+                                <br>
+                                <button class="btn btn-default form-control" type="submit" name="saveUserPassword" id="saveUserPassword">Сохранить</button>
+                            </div><!--/#edit-user-password-->
+                        </form>
+                    </div><!--/.main-body-->
+                </div><!--/.main-->
+            </div>
+        </div><!--/.profile-content-->
     </div>
   </div><!--/#tab-content-->
 </div>

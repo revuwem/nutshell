@@ -100,6 +100,14 @@ a{
   height: 100%;
 }
 
+.header{
+  padding: 0.3em;  
+  border-bottom: 1px solid #CFC8C4; 
+  line-height: 3;
+  min-height: 4rem;
+}
+
+/*Tab Dialogs*/
 .app{
   height: 100%;  
 }
@@ -111,17 +119,10 @@ a{
   border-right: 1px solid #CFC8C4;  
 }
 
-.header{
-  padding: 0.3em;  
-  border-bottom: 1px solid #CFC8C4; 
-  line-height: 3;
-}
-
 .header-info img, p{
   display: inline;
 }
-
-.form-control{
+#Dialogs .form-control{
   border: none !important;  
 }
 
@@ -191,6 +192,17 @@ ul{
   cursor: pointer;
 }
 
-.grid{
-  display: grid;
+/*Tab Profile*/
+#Profile form{
+  width: 100%;
+}
+
+#Profile .avatar{
+    width: 7em;
+    height: 7em;
+}
+
+.profile-content .aside-body .container:nth-child(2){
+    margin: 1.5rem;
+    font-size: .8em;    
 }
