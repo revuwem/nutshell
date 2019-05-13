@@ -20,9 +20,7 @@ function updateUserBasicInfo($connect, $username, $firstname, $lastname, $positi
                 ':user_id' => $_SESSION['user_id']
             )
         );
-        $count=$statement->fetchColumn();
-        echo $count;
-                      
+        $count=$statement->fetchColumn();       
         if($count==0)
         {
             try{        
@@ -38,11 +36,11 @@ function updateUserBasicInfo($connect, $username, $firstname, $lastname, $positi
                     )
                 );
                 $result=$statement->rowCount();
-                if($result=1){
-                    $message='Основная информация о Вас обновлена';
+                if($result==1){
+                    $message='Изменения сохранены.';
                 }
                 else{
-                    $message='Что-то пошла не так! Попробуйте еще раз';
+                    $message='Что-то пошло не так! Попробуйте еще раз.';
                 }
             }
             catch(Exception $ex)
@@ -59,12 +57,67 @@ function updateUserBasicInfo($connect, $username, $firstname, $lastname, $positi
         $message='Пожалуйста, заполните все поля!';
     }
 echo $message;
-}
+};
+
+function updateUserContactsInfo($connect, $worknumber, $mobilenumber){
+    $output='';
+    try{
+        $query="UPDATE `users` SET `worknumber` = :worknumber, `mobilenumber` = :mobilenumber WHERE `users`.`user_id` = :user_id;";
+        $statement=$connect->prepare($query);
+        $statement->execute(
+            array(
+            ':worknumber' => $worknumber,
+            ':mobilenumber' => $mobilenumber,
+            ':user_id' => $_SESSION['user_id']
+            )
+        );
+        $result=$statement->rowCount();
+        if($result==1)
+        {
+            $output='Изменения сохранены.';
+        }
+        else{
+            $output='Что-то пошло не так! Попробуйте еще раз.';
+        }
+    }
+    catch(Exception $ex){
+        $ouptup=$ex;
+    }    
+};
+
+function updateUserPassword($connect, $newPassword){
+    $output='';
+    try {
+        $query="UPDATE `users` SET `password` = :password WHERE `users`.`user_id` = :user_id;";
+        $statement=$connect->prepare($query);
+        $statement->execute(
+            array(
+                ':password' => password_hash($newPassword, PASSWORD_DEFAULT),
+                ':user_id' => $_SESSION['user_id']
+            )
+        );
+        $result=$statement->rowCount();
+        if($result==1)
+        {
+            $output='Изменения сохранены.';
+        }
+        else {
+            $output='Что-то пошло не так! Попробуйте еще раз.';
+        }
+    } catch (Exception $ex) {
+        $ouptup=$ex;
+    }
+};
 
 switch($_GET['action']){
-    case 'basic':
-        echo 'Я работаю';
+    case 'basic':        
         updateUserBasicInfo($connect, $_POST["inputUserName"], $_POST['inputPersonFirstName'], $_POST['inputPersonLastName'], $_POST['inputUserPosition']);
+        break;
+    case 'contacts':
+        updateUserContactsInfo($connect, $_POST["inputUserWorkNumber"], $_POST["inputUserMobileNumber"]);
+        break;
+    case 'security':
+        updateUserPassword($connect, $_POST["inputNewUserPassword"]);
         break;
 }
 ?>

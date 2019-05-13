@@ -217,12 +217,14 @@ if(!isset($_SESSION['user_id']))
                         <form method="post" action="javascript:void(null);" onsubmit="editUserPassword()" id="userPasswordInfo">
                             <div class="container shadow form-group" >
                                 <h6>Безопасность</h6>
-                                <label id="editContactsResult"></label>  
+                                <label id="editPasswordResult"></label>  
                                 <label for="inputCurrentUserPassword">Текущий пароль</label>
                                 <input type="password" class="form-control" name="inputCurrentUserPassword" id="inputCurrentUserPassword">
                                 <label for="inputNewUserPassword">Новый пароль</label>
-                                <input type="password" class="form-control" name="inputNewUserPassword" id="inputNewUserPassword">                                
-                                <br>
+                                <input type="password" class="form-control" name="inputNewUserPassword" id="inputNewUserPassword" placeholder="Придумайте новый пароль"> 
+                                <label for="inputNewUserPassword">Подтверждение пароля</label>
+                                <input type="password" class="form-control" name="inputConfirmNewUserPassword" id="inputConfirmNewUserPassword" placeholder="Подтвердите новый пароль" onkeyup="checkPassUpdate(); return false;">                               
+                                <br> <div class="confirm-password-valid"></div> 
                                 <button class="btn btn-save-profile-changes form-control" type="submit" name="saveUserPassword" id="saveUserPassword">Сохранить</button>
                             </div><!--/#edit-user-password-->
                         </form>
