@@ -185,7 +185,7 @@ if(!isset($_SESSION['user_id']))
                                 <li><p class="small">designer</p></li>
                             </ul>
                         </div><!--/User Info-->
-                        <div class="container"><!--Contacts-->
+                        <div class="container text-center"><!--Contacts-->
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
@@ -207,11 +207,12 @@ if(!isset($_SESSION['user_id']))
                     </div><!--/.aside-body-->                    
                 </div><!--/.aside-->
                 <div class="container col-12 col-lg-6 main shadow">                    
-                    <div class="row">
-                        <form action="edit_userprofile.php" method="post">
-                            <div class="container"><h5>Редактировать профиль</h5></div>                            
-                            <div class="container shadow-sm edit-profile-panel" id="edit-user-basic-info">
+                    <div class="row">                        
+                      <div class="container"><h5>Редактировать профиль</h5></div>
+                        <form method="post" action="javascript:void(null);" onsubmit="editUserBasicInfo()" id="userBasicInfo">                            
+                            <div class="container shadow-sm form-group">
                                 <h6>Основное</h6>
+                                <label id="editBasicInfoResult"></label>
                                 <label for="inputUserName">Имя пользователя</label>
                                 <input type="text" class="form-control" name="inputUserName" id="inputUserName">
                                 <label for="inputPersonFirstName">Имя</label>
@@ -223,17 +224,23 @@ if(!isset($_SESSION['user_id']))
                                 <br>
                                 <button class="btn btn-save-profile-changes form-control" type="submit" name="saveUserBasicInfo" id="saveUserBasicInfo">Сохранить</button>
                             </div><!--/#edit-user-basic-info-->
-                            <div class="container shadow-sm edit-profile-panel" id="edit-user-contacts">
-                                <h6>Контакты</h6>  
-                                <label for="inputUserWorkNumber">Рабочий номер</label>
-                                <input type="phone" class="form-control" name="inputUserWorkNumber" id="inputUserWorkNumber">
-                                <label for="inputUserMobileNumber">Мобильный номер</label>
-                                <input type="phone" class="form-control" name="inputUserMobileNumber" id="inputUserMobileNumber">                                
-                                <br>
-                                <button class="btn btn-save-profile-changes form-control" type="submit" name="saveUserContacts" id="saveUserContacts">Сохранить</button>
-                            </div><!--/#edit-user-contacts-->
-                            <div class="container shadow-sm edit-profile-panel" id="edit-user-password">
+                        </form>
+                        <form method="post" action="javascript:void(null);" onsubmit="editUserContactsInfo()" id="userContactsInfo">
+                          <div class="container shadow-sm form-group">
+                            <h6>Контакты</h6>
+                            <label id="editContactsResult"></label>  
+                            <label for="inputUserWorkNumber">Рабочий номер</label>
+                            <input type="phone" class="form-control" name="inputUserWorkNumber" id="inputUserWorkNumber">
+                            <label for="inputUserMobileNumber">Мобильный номер</label>
+                            <input type="phone" class="form-control" name="inputUserMobileNumber" id="inputUserMobileNumber">                                
+                            <br>
+                            <button class="btn btn-save-profile-changes form-control" type="submit" name="saveUserContacts" id="saveUserContacts">Сохранить</button>
+                          </div><!--/#edit-user-contacts-->
+                        </form>
+                        <form method="post" action="javascript:void(null);" onsubmit="editUserPassword()" id="userPasswordInfo">
+                            <div class="container shadow-sm form-group" >
                                 <h6>Безопасность</h6>
+                                <label id="editContactsResult"></label>  
                                 <label for="inputCurrentUserPassword">Текущий пароль</label>
                                 <input type="password" class="form-control" name="inputCurrentUserPassword" id="inputCurrentUserPassword">
                                 <label for="inputNewUserPassword">Новый пароль</label>
@@ -252,9 +259,13 @@ if(!isset($_SESSION['user_id']))
 <!-- /#page-content-wrapper -->
 
 </div>
-<!-- Bootstrap core JavaScript -->
+<!-- jQuery -->
 <script src="js/jquery/jquery.min.js"></script>
-  <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script src="js/bootstrap/bootstrap.bundle.min.js"></script>
+<!--Background Scripts-->
+<script src="js/background.js"></script>
+
 <!-- /#wrapper -->
 <!-- Menu Toggle Script -->
 <script>
@@ -278,6 +289,21 @@ if(!isset($_SESSION['user_id']))
     });
   </script>
     <script>
+        function edit_profile(){
+            var msg = $('#editProfileForm').serialize();
+            $.ajax({
+              type: 'POST',
+              url: 'edit_userprofile.php',
+              data: msg,
+              success: function(data){
+                
+              },
+              error: function(xhr, str){
+                alert('Возникла ошибка: ', xhr.responseCode);
+              }
+            });
+        }
+
         function openTab(evt, tabName) {
           var i, tabcontent, tablinks;
           tabcontent = document.getElementsByClassName("tabcontent");
@@ -595,7 +621,7 @@ if(!isset($_SESSION['user_id']))
                     var to_chat_id = $(this).data('toChat');
                     fetch_group_chat_history(to_chat_id);
                 });
-            };
+            };            
         }); 
       </script>
   </body>

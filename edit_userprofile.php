@@ -4,8 +4,7 @@ session_start();
 
 $message='';
 //Обновление основной информации
-if(isset($_POST('saveUserBasicInfo')))
-{
+
     if(!empty ($_POST['inputUserName']) and !empty($_POST['inputPersonFirstName']) and !empty($_POST['inputPersonLastName']) and !empty($_POST['inputUserPosition']))
     {
         $new_username=$_POST['inputUserName'];
@@ -21,7 +20,7 @@ if(isset($_POST('saveUserBasicInfo')))
         $count=$statement->fetchColumn();
         if($count>0)
         {
-            $message='<label class="text-danger">Имя пользователя должно быть уникальным</label>';
+            $message_basic_info='<label class="text-danger">Имя пользователя должно быть уникальным</label>';
         }
         else
         {
@@ -38,21 +37,19 @@ if(isset($_POST('saveUserBasicInfo')))
             $count=$statement->rowCount();
             if($count=1)
             {
-                $message='<label class="text-success">Основная информация обновлена</label>';
+                $message_basic_info='<label class="text-success">Основная информация обновлена</label>';
             }
             else 
             {
-                $message='<label class="text-danger">Не удалось внести изменения</label>';
+                $message_basic_info='<label class="text-danger">Не удалось внести изменения</label>';                
             }
         }
     }
     else 
     {
         {
-            $message='<label class="text-danger">Пожалуйста, укажите всю основную информацию о себе</label>';
+            $message_basic_info='<label class="text-danger">Пожалуйста, укажите всю основную информацию о себе</label>';
         }
-    }
-    echo $message;
-}
+    }    
 
 ?>
