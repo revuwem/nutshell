@@ -2,54 +2,63 @@
 include('db_connection.php');
 session_start();
 
-$message='';
-//Обновление основной информации
 
-    if(!empty ($_POST['inputUserName']) and !empty($_POST['inputPersonFirstName']) and !empty($_POST['inputPersonLastName']) and !empty($_POST['inputUserPosition']))
+function updateUserBasicInfo($message){
+    $message='';
+    if(!empty($_POST["inputUserName"]) && !empty($_POST["inputPersonFirstName"]) && !empty($_POST["inputPersonLastName"]) && !empty($_POST["inputUserPosition"]))
     {
-        $new_username=$_POST['inputUserName'];
-        $new_personFirstName=$_POST['inputPersonFirstName'];
-        $new_personLastName=$_POST['inputPersonLastName'];
-        $new_position=$_POST['inputUserPosition'];
+        $newUsername=$_POST["inputUserName"];
+        $newPersonFirstName=$_POST["inputPersonFirstName"];
+        $newPersonLastName=$_POST["inputPersonLastName"];
+        $newPosititon=$_POST["inputUserPosition"];
 
-        $query="SELECT COUNT(*) FROM users WHERE username= :username";
+        //Проверка на дублирование имени пользователя
+        $query="SELECT COUNT(*) FROM users WHERE username = :username and user_id = :user_id";
         $statement=$connect->prepare($query);
         $statement->execute(
-            array(':username'=>$new_username)
+            array(
+                ':username' => $newUsername,
+                ':user_id'  => $_SESSION["user_id"]
+            )
         );
-        $count=$statement->fetchColumn();
-        if($count>0)
+        $count=$statement->fetchAll();
+        if($count=0)
         {
-            $message_basic_info='<label class="text-danger">Имя пользователя должно быть уникальным</label>';
-        }
-        else
-        {
-            $query="UPDATE `users` SET `username` = :username, `firstname` = :firstname, `lastname` = :lastname, `position` = :position
-                    WHERE `users`.`user_id` = '".$_SESSION['user_id']."';
-                ";
-            $statement=$connect->prepare($query);
-            $statement->execute(
-                array(':username' => $new_username,
-                ':firstname' => $new_personFirstName,
-                ':lastname'=>$new_personLastName,
-                ':position' => $new_position)
-            );
-            $count=$statement->rowCount();
-            if($count=1)
-            {
-                $message_basic_info='<label class="text-success">Основная информация обновлена</label>';
+            try{        
+                $query="UPDATE `users` SET `username` = :username, `firstname` = :newfirstname, `lastname` = :newlastname, `position` = :newposition
+                        WHERE `users`.`user_id` = '".$_SESSION['user_id']."';";
+                $statement->prepare($query);
+                $statement->execute(
+                    array(
+                        ':username' => $newUsername,
+                        ':newfirstname' => $newPersonFirstName,
+                        ':newlastname' => $newPersonLastName,
+                        ':newposition' => $newPosititon
+                    )
+                );
+                $result=$statement->rowCount();
+                if($result=1){
+                    $message='Основная информация о Вас обновлена';
+                }
+                else{
+                    $message='Что-то пошла не так! Попробуйте еще раз';
+                }
             }
-            else 
+            catch(Exception $ex)
             {
-                $message_basic_info='<label class="text-danger">Не удалось внести изменения</label>';                
+                $message=$ex;
             }
         }
+        else{
+            $message='Имя пользователя должно быть уникальным!';
+        }
+        
     }
-    else 
-    {
-        {
-            $message_basic_info='<label class="text-danger">Пожалуйста, укажите всю основную информацию о себе</label>';
-        }
-    }    
+    else{
+        $message='Пожалуйста, заполните все поля!';
+    }
+echo $message;
+}
+
 
 ?>

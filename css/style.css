@@ -4,19 +4,6 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-simple-sidebar/blob/master/LICENSE)
  */
  @import url('https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Roboto');
-/* Color Theme Swatches in Hex */
-.basic-1-hex { color: #EAEEFA; }
-.basic-2-hex { color: #162C40; }
-.basic-3-hex { color: #728EA6; }
-.basic-4-hex { color: #D0DDD8; }
-.basic-5-hex { color: #254559; }
-
-/* Color Theme Swatches in RGBA */
-.basic-1-rgba { color: rgba(234, 238, 250, 1); }
-.basic-2-rgba { color: rgba(22, 44, 64, 1); }
-.basic-3-rgba { color: rgba(114, 142, 166, 1); }
-.basic-4-rgba { color: rgba(208, 221, 216, 1); }
-.basic-5-rgba { color: rgba(37, 69, 89, 1); }
 
 /* Color Theme Swatches in Hex */
 .Фиолетовая-1-hex { color: #9C70BF; }
@@ -31,9 +18,6 @@
 .Фиолетовая-3-rgba { color: rgba(208, 149, 255, 1); }
 .Фиолетовая-4-rgba { color: rgba(52, 37, 63, 1); }
 .Фиолетовая-5-rgba { color: rgba(186, 133, 228, 1); }
-
-
-
 
 body {
   overflow-x: hidden;
@@ -218,6 +202,12 @@ ul{
 
 .profile-content form{
   width: 100%;
+  margin: 1.5rem;
+  padding: .5rem;
+}
+
+.profile-content form .form-group{
+  padding: .5rem;
 }
 
 .profile-content input{
@@ -233,18 +223,8 @@ ul{
   max-height: 30rem; 
 }
 
-.profile-content .aside-body .container:nth-child(2){
-  margin: 1.5rem;          
-}
-
-.edit-profile-panel{
-  margin: 1.2rem 0;
-  padding: 1.2rem;
-}
-
 .btn-save-profile-changes{
   width: 100%;
   background-color: #684A7F;
   color: #EAEEFA;
-
 }

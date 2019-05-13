@@ -26,30 +26,7 @@ if(!isset($_SESSION['user_id']))
 
   <!-- Custom styles -->
   <link href="css/style.css" rel="stylesheet">
-    <script>
-       function check_group_name(){
-                var group_name=$('#chat_name').val();
-                if(group_name.length!=0)
-                {                       
-                    $('#create_chat').removeAttr('disabled');
-                }
-                else
-                {
-                    $('#create_chat').attr('disabled', 'disabled');
-                }
-            };
-        function check_text_message(){
-                var text_message=$('.text-message').val();
-                if(text_message.length!=0)
-                {                       
-                    $('.send').removeAttr('disabled');
-                }
-                else
-                {
-                    $('.send').attr('disabled', 'disabled');
-                }
-            };
-      </script>
+    
     
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
   </head>
@@ -209,24 +186,24 @@ if(!isset($_SESSION['user_id']))
                 <div class="container col-12 col-lg-6 main shadow">                    
                     <div class="row">                        
                       <div class="container"><h5>Редактировать профиль</h5></div>
-                        <form method="post" action="javascript:void(null);" onsubmit="editUserBasicInfo()" id="userBasicInfo">                            
-                            <div class="container shadow-sm form-group">
+                        <form method="post" id="userBasicInfo" action="javascript:void(null);" onsubmit="editUserBasicInfo()">                             
+                            <div class="container shadow form-group">
                                 <h6>Основное</h6>
                                 <label id="editBasicInfoResult"></label>
                                 <label for="inputUserName">Имя пользователя</label>
-                                <input type="text" class="form-control" name="inputUserName" id="inputUserName">
+                                <input type="text" class="form-control" name="inputUserName" id="inputUserName" required value=<?php $_SESSION['username'] ?>>
                                 <label for="inputPersonFirstName">Имя</label>
-                                <input type="text" class="form-control" name="inputPersonFirstName" id="inputPersonFirstName">
+                                <input type="text" class="form-control" name="inputPersonFirstName" id="inputPersonFirstName" required>
                                 <label for="inputPersonLastName">Фамилия</label>
-                                <input type="text" class="form-control" name="inputPersonLastName" id="inputPersonLastName">
+                                <input type="text" class="form-control" name="inputPersonLastName" id="inputPersonLastName" required>
                                 <label for="inputUserPosition">Должность</label>
-                                <input type="text" class="form-control" name="inputUserPosition" id="inputUserPosition">
+                                <input type="text" class="form-control" name="inputUserPosition" id="inputUserPosition" required>
                                 <br>
-                                <button class="btn btn-save-profile-changes form-control" type="submit" name="saveUserBasicInfo" id="saveUserBasicInfo">Сохранить</button>
+                                <input class="btn btn-save-profile-changes form-control" type="submit" name="saveUserBasicInfo" id="saveUserBasicInfo">
                             </div><!--/#edit-user-basic-info-->
                         </form>
                         <form method="post" action="javascript:void(null);" onsubmit="editUserContactsInfo()" id="userContactsInfo">
-                          <div class="container shadow-sm form-group">
+                          <div class="container shadow form-group">
                             <h6>Контакты</h6>
                             <label id="editContactsResult"></label>  
                             <label for="inputUserWorkNumber">Рабочий номер</label>
@@ -238,7 +215,7 @@ if(!isset($_SESSION['user_id']))
                           </div><!--/#edit-user-contacts-->
                         </form>
                         <form method="post" action="javascript:void(null);" onsubmit="editUserPassword()" id="userPasswordInfo">
-                            <div class="container shadow-sm form-group" >
+                            <div class="container shadow form-group" >
                                 <h6>Безопасность</h6>
                                 <label id="editContactsResult"></label>  
                                 <label for="inputCurrentUserPassword">Текущий пароль</label>
@@ -259,6 +236,7 @@ if(!isset($_SESSION['user_id']))
 <!-- /#page-content-wrapper -->
 
 </div>
+
 <!-- jQuery -->
 <script src="js/jquery/jquery.min.js"></script>
 <!-- Bootstrap core JavaScript -->
@@ -273,356 +251,7 @@ if(!isset($_SESSION['user_id']))
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");     
     });
-
-    $(function(){
-        $(".heading-compose").click(function() {
-          $(".side-two").css({
-            "left": "0"
-          });
-        });
-
-        $(".newMessage-back").click(function() {
-          $(".side-two").css({
-            "left": "-100%"
-          });
-        });
-    });
   </script>
-    <script>
-        function edit_profile(){
-            var msg = $('#editProfileForm').serialize();
-            $.ajax({
-              type: 'POST',
-              url: 'edit_userprofile.php',
-              data: msg,
-              success: function(data){
-                
-              },
-              error: function(xhr, str){
-                alert('Возникла ошибка: ', xhr.responseCode);
-              }
-            });
-        }
-
-        function openTab(evt, tabName) {
-          var i, tabcontent, tablinks;
-          tabcontent = document.getElementsByClassName("tabcontent");
-          for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-          }
-          tablinks = document.getElementsByClassName("tablinks");
-          for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-          }
-          document.getElementById(tabName).style.display = "block";
-          evt.currentTarget.className += " active";
-        }
-
-        // Get the element with id="defaultOpen" and click on it
-        document.getElementById("defaultOpen").click();
-
-
-
-        $(function(){
-            $(".heading-compose").click(function() {
-                $(".side-two").css({
-                "left": "0"
-                });
-            });
-        
-            $(".newMessage-back").click(function() {
-                $(".side-two").css({
-                "left": "-100%"
-                });
-            });
-        })
-
-        $(document).ready(function(){           
-              
-            
-                fetch_user(); 
-                fetch_dialogs();
-                fetch_groups_chats();
-
-
-            function update_activity_data()
-            {
-                update_last_activity();
-                fetch_user();   
-                update_chat_history_data();                
-                fetch_dialogs();
-                fetch_groups_chats();
-                update_group_chat_history_data();                
-            };
-
-            setInterval(update_activity_data, 5000);                   
-            
-            
-            function fetch_user()
-            {
-                $.ajax({
-                    url:"fetch_user.php",
-                    method:"POST",
-                    success:function(data){
-                        $('#user_details').html(data);
-                    }
-                })
-            };
-            
-            function fetch_dialogs()
-            {
-                $.ajax({
-                    url: "fetch_dialogs.php",
-                    method: "POST",
-                    success:function(data){
-                        $('#dialogs_details').html(data);
-                    }
-                })
-            };
-            
-            function fetch_groups_chats(){              
-              $.ajax({
-                  url:"fetch_groups.php",
-                  method:"POST",
-                  success:function(data){
-                      $('#groups_chats_details').html(data);
-                  }
-              })  
-            };
-            
-            function update_last_activity()
-            {
-                $.ajax({
-                    url:"update_last_activity.php", 
-                    success:function(){
-                        
-                    }                   
-                })
-            };  
-            
-            function make_chat_dialog_box(to_user_id, to_user_name)
-            {
-                $('.message-space').empty();
-                var message_box = '<div class="message-space-header container">'; 
-                message_box = '<div class="row">'; 
-                message_box += '<div class="col-md-11 col-xs-11"><span>'+to_user_name+'</span></div>';
-                message_box += '<div class="col-md-1 col-xs-1"><button class="close_chat btn btn-warning btn-xs">x</button></div>';
-                message_box += '</div>';               
-                message_box += '<div class="message-box" id="user_model_details">';
-                message_box += '<div class="chat_history" data-touserid="'+to_user_id+'" id="chat_history_'+to_user_id+'"></div>';
-                message_box += fetch_user_chat_history(to_user_id);
-                message_box += '</div>';    
-                //message_box += '<div class="container">';
-                message_box += '<form action="" method="post">';
-                message_box += '<textarea name="chat_message_'+to_user_id+'" id="chat_message_'+to_user_id+'" class="form-control chat_message text-message" placeholder="Напишите сообщение..." onkeyup="check_text_message();"></textarea>';
-                message_box += '<br><button align="right" type="button" name="send_chat" id="'+to_user_id+'" class="btn btn-info send_chat send" disabled>Отправить</button>'; 
-                message_box += '</form>';                
-                $('.message-space').append(message_box);  
-            }
-            
-            $(document).on('click', '.close_chat', function(){
-                $('.message-space').empty();
-            });
-            
-            
-            $(document).on('click', '.start_chat', function(){
-                var to_user_id = $(this).data('touserid');
-                var to_user_name = $(this).data('tousername'); 
-                make_chat_dialog_box(to_user_id, to_user_name); 
-                var block = document.getElementById("user_model_details");
-                block.scrollTop = block.scrollHeight;
-            });
-            
-            $(document).on('click', '.send_chat', function(){
-                var to_user_id = $(this).attr('id');
-                var chat_message = $('#chat_message_'+to_user_id).val();
-                $.ajax({
-                    url:"insert_chat.php",
-                    method: "POST",
-                    data:{to_user_id:to_user_id, chat_message:chat_message},
-                    success: function(data)
-                    {  
-                        $('#chat_message_'+to_user_id).val('');
-                        $('#chat_history_'+to_user_id).html(data);
-                    }
-                })
-            });
-            
-          function fetch_user_chat_history(to_user_id)
-            {
-               $.ajax({
-                   url: "fetch_user_chat_history.php",
-                   method: "POST",
-                   data:{to_user_id:to_user_id},
-                   success: function(data){
-                       $('#chat_history_'+to_user_id).html(data);
-                   }
-               })
-            };
-            
-            
-            function update_chat_history_data()
-            {
-                $('.chat_history').each(function(){
-                    var to_user_id = $(this).data('to_user_id');
-                    fetch_user_chat_history(to_user_id);
-                });
-            };
-            
-            $(document).on('focus', '.chat_message', function(){
-               var is_type = 'yes';
-                $.ajax({
-                    url:"update_is_type_status.php",
-                    method:"POST",
-                    data:{is_type:is_type},
-                    success:function()
-                    {
-                        
-                    }                    
-                    
-                })
-            });
-            
-            $(document).on('blur', '.chat_message', function(){ 
-                var is_type='no';
-                $.ajax({
-                    url:"update_is_type_status.php",
-                    method:"POST",
-                    data:{is_type:is_type},
-                    success:function()
-                    {
-                        
-                    }
-                })
-                    
-            });           
-           
-            
-            function create_group_chat_box()
-            {            
-                $('.group-chat-message-space').empty();
-                var chat_creator = '<div class="container-fluid chat-creator">';  
-                chat_creator += '<form action="" method="post">';
-                chat_creator += '<label for="chat_name">Название</label>';
-                chat_creator += '<input type="text" class="form-control" id="new_chat_name" name="chat_name" value="" required">';
-                chat_creator += '<br><button type="button" id="create_group_chat" class="form-control btn btn-sm btn-primary">Создать чат</button>';
-                chat_creator += '</form>';
-                chat_creator += '<div class="container-fluid" id="chat_group_control">';
-                chat_creator += '</div>';
-                chat_creator += '</div>';  
-                $('.group-chat-message-space').append(chat_creator);
-            };
-            
-            $(document).on('click', '#group_chat_creator', function(){                
-                create_group_chat_box();                
-            });
-            
-            $(document).on('click', '#create_group_chat', function(){
-                if($('#new_chat_name').val()!="")
-                    {
-                        var chat_name=$('#new_chat_name').val();  
-                        $.ajax({
-                            url:"create_group_chat.php",
-                            method:"POST",
-                            data:{group_name:chat_name},
-                            success:function(data){
-                                $('#new_chat_name').val(''); start_chat_group_control(data);
-                            }
-                        })
-                    }
-                else alert("Не указано название беседы");
-                
-            });           
-            
-            //Отображение таблицы управления участниками группы
-            function start_chat_group_control(chat_id)
-            {
-                $.ajax({
-                    url:"fetch_group_chat_control.php",
-                    method:"POST",
-                    data:{chat_id:chat_id},
-                    success:function(data){
-                        $("#group-chat-message-space").html(data);
-                    }
-                })
-            };
-            
-            $(document).on('click', '.edit_group_chat', function(){
-                var chat_id = $(this).data('chatgroupid');
-                start_chat_group_control(chat_id);
-            });
-            
-            
-            
-            
-            //Функция формирует область просмотра сообщений чата группы
-            function make_chat_group_box(to_chat_id, to_chat_name)
-            {
-                $('.group-chat-message-space').empty();
-                var message_box = '<div class="message-space-header container">'; 
-                message_box = '<div class="row">'; 
-                message_box += '<div class="col-md-11 col-xs-11"><span>'+to_chat_name+'</span></div>';
-                message_box += '<div class="col-md-1 col-xs-1"><button class="close_group_chat btn btn-warning">x</button></div>';
-                message_box += '</div>';               
-                message_box += '<div class="message-box" id="chat_group_model_details">';
-                message_box += '<div class="chat_group_history" data-to-chat="'+to_chat_id+'" id="chat_group_history_'+to_chat_id+'"></div>';
-                message_box += fetch_group_chat_history(to_chat_id);
-                message_box += '</div>';
-                message_box += '<form action="" method="post">';
-                message_box += '<textarea name="chat_group_message_'+to_chat_id+'" id="chat_group_message_'+to_chat_id+'" class="form-control chat_group_message text-message" placeholder="Напишите сообщение..." onkeyup="check_text_message();"></textarea>';
-                message_box += '<button type="button" name="send_group_chat" id="'+to_chat_id+'" class="btn btn-info send_group_chat send" disabled>Отправить</button>'; 
-                message_box += '</form>';                
-                $('.group-chat-message-space').append(message_box);  
-            };            
-            
-            
-            $(document).on('click', '.close_group_chat', function(){
-                $('.group-chat-message-space').empty();
-            }); 
-            
-            $(document).on('click', '.start_group_chat', function(){
-                var to_group_chat_id = $(this).data('tochatgroupid');
-                var to_group_chat_name = $(this).data('tochatgroupname'); 
-                make_chat_group_box(to_group_chat_id, to_group_chat_name);                
-            });
-            
-            $(document).on('click', '.send_group_chat', function(){
-                var to_chat_id = $(this).attr('id');
-                var chat_message = $('#chat_group_message_'+to_chat_id).val();
-                $.ajax({
-                    url:"insert_group_chat.php",
-                    method: "POST",
-                    data:{to_chat_id:to_chat_id, chat_message:chat_message},
-                    success: function(data)
-                    {  
-                        $('#chat_group_message_'+to_chat_id).val('');
-                        $('#chat_group_history_'+to_chat_id).html(data);
-                    }
-                })
-            });
-            
-            
-            function fetch_group_chat_history(to_chat_id)
-            {
-               $.ajax({
-                   url: "fetch_group_chat_history.php",
-                   method: "POST",
-                   data:{to_chat_id:to_chat_id},
-                   success: function(data){
-                       $('#chat_group_history_'+to_chat_id).html(data);
-                   }
-               })
-            };
-            
-            
-            function update_group_chat_history_data()
-            {
-                $('.chat_group_history').each(function(){
-                    var to_chat_id = $(this).data('toChat');
-                    fetch_group_chat_history(to_chat_id);
-                });
-            };            
-        }); 
-      </script>
+    
   </body>
 </html>
