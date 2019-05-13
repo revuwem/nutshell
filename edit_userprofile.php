@@ -2,32 +2,33 @@
 include('db_connection.php');
 session_start();
 
-
-function updateUserBasicInfo($message){
+function updateUserBasicInfo($connect, $username, $firstname, $lastname, $position){
     $message='';
-    if(!empty($_POST["inputUserName"]) && !empty($_POST["inputPersonFirstName"]) && !empty($_POST["inputPersonLastName"]) && !empty($_POST["inputUserPosition"]))
+    if($username!='' && $firstname!='' && $lastname!='' && $position!='')
     {
-        $newUsername=$_POST["inputUserName"];
-        $newPersonFirstName=$_POST["inputPersonFirstName"];
-        $newPersonLastName=$_POST["inputPersonLastName"];
-        $newPosititon=$_POST["inputUserPosition"];
+        $newUsername=$username;
+        $newPersonFirstName=$firstname;
+        $newPersonLastName=$lastname;
+        $newPosititon=$position;
 
         //Проверка на дублирование имени пользователя
-        $query="SELECT COUNT(*) FROM users WHERE username = :username and user_id = :user_id";
-        $statement=$connect->prepare($query);
+        $query="SELECT COUNT(*) FROM users WHERE username = :username and user_id != :user_id";
+        $statement=$connect->prepare($query);        
         $statement->execute(
             array(
                 ':username' => $newUsername,
-                ':user_id'  => $_SESSION["user_id"]
+                ':user_id' => $_SESSION['user_id']
             )
         );
-        $count=$statement->fetchAll();
-        if($count=0)
+        $count=$statement->fetchColumn();
+        echo $count;
+                      
+        if($count==0)
         {
             try{        
                 $query="UPDATE `users` SET `username` = :username, `firstname` = :newfirstname, `lastname` = :newlastname, `position` = :newposition
                         WHERE `users`.`user_id` = '".$_SESSION['user_id']."';";
-                $statement->prepare($query);
+                $statement=$connect->prepare($query);
                 $statement->execute(
                     array(
                         ':username' => $newUsername,
@@ -60,5 +61,10 @@ function updateUserBasicInfo($message){
 echo $message;
 }
 
-
+switch($_GET['action']){
+    case 'basic':
+        echo 'Я работаю';
+        updateUserBasicInfo($connect, $_POST["inputUserName"], $_POST['inputPersonFirstName'], $_POST['inputPersonLastName'], $_POST['inputUserPosition']);
+        break;
+}
 ?>
