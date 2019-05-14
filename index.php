@@ -188,44 +188,50 @@ if(!isset($_SESSION['user_id']))
                       <div class="container"><h5>Редактировать профиль</h5></div>
                         <form method="post" id="userBasicInfo" action="javascript:void(null);" onsubmit="editUserBasicInfo()">                             
                             <div class="container shadow form-group">
-                                <h6>Основное</h6>
-                                <label id="editBasicInfoResult"></label>
+                                <h6>Основное</h6>                                
+                                <div class="alert alert-primary" id="editBasicInfoResult" style="display:none">
+                                  
+                                </div>  
                                 <label for="inputUserName">Имя пользователя</label>
-                                <input type="text" class="form-control" name="inputUserName" id="inputUserName" required value=<?php $_SESSION['username'] ?>>
+                                <input type="text" class="form-control" name="inputUserName" id="inputUserName" required pattern="[A-Za-z]">
                                 <label for="inputPersonFirstName">Имя</label>
-                                <input type="text" class="form-control" name="inputPersonFirstName" id="inputPersonFirstName" required>
+                                <input type="text" class="form-control" name="inputPersonFirstName" id="inputPersonFirstName" required pattern="[A-Za-zА-Яа-яЁё]">
                                 <label for="inputPersonLastName">Фамилия</label>
-                                <input type="text" class="form-control" name="inputPersonLastName" id="inputPersonLastName" required>
+                                <input type="text" class="form-control" name="inputPersonLastName" id="inputPersonLastName" required pattern="[A-Za-zА-Яа-яЁё]">
                                 <label for="inputUserPosition">Должность</label>
-                                <input type="text" class="form-control" name="inputUserPosition" id="inputUserPosition" required>
+                                <input type="text" class="form-control" name="inputUserPosition" id="inputUserPosition" required pattern="[A-Za-zА-Яа-яЁё]">
                                 <br>
-                                <input class="btn btn-save-profile-changes form-control" type="submit" name="saveUserBasicInfo" id="saveUserBasicInfo">
+                                <input class="btn btn-save-profile-changes form-control" type="submit" name="saveUserBasicInfo" id="saveUserBasicInfo" value="Сохранить">
                             </div><!--/#edit-user-basic-info-->
                         </form>
                         <form method="post" action="javascript:void(null);" onsubmit="editUserContactsInfo()" id="userContactsInfo">
                           <div class="container shadow form-group">
                             <h6>Контакты</h6>
-                            <label id="editContactsResult"></label>  
+                            <div class="alert alert-primary" id="editContactsResult" style="display:none">
+                                  
+                            </div>  
                             <label for="inputUserWorkNumber">Рабочий номер</label>
-                            <input type="phone" class="form-control" name="inputUserWorkNumber" id="inputUserWorkNumber">
-                            <label for="inputUserMobileNumber">Мобильный номер</label>
-                            <input type="phone" class="form-control" name="inputUserMobileNumber" id="inputUserMobileNumber">                                
+                            <input type="tel" class="form-control" name="inputUserWorkNumber" id="inputUserWorkNumber">
+                            <label for="inputUserMobileNumber">Мобильный номер<small>   +7(xxx)xxx-xx-xx</small> </label>
+                            <input type="tel" class="form-control" name="inputUserMobileNumber" id="inputUserMobileNumber" pattern="+7\([0-9]{3}\)[0-9]{3}\-[0-9]{2}\-[0-9]{2}">                                
                             <br>
-                            <button class="btn btn-save-profile-changes form-control" type="submit" name="saveUserContacts" id="saveUserContacts">Сохранить</button>
+                            <input class="btn btn-save-profile-changes form-control" type="submit" name="saveUserContacts" id="saveUserContacts" value="Сохранить">
                           </div><!--/#edit-user-contacts-->
                         </form>
                         <form method="post" action="javascript:void(null);" onsubmit="editUserPassword()" id="userPasswordInfo">
                             <div class="container shadow form-group" >
-                                <h6>Безопасность</h6>
-                                <label id="editPasswordResult"></label>  
+                                <h6>Безопасность</h6>                                 
+                                <div class="alert alert-primary" id="editPasswordResult" style="display:none">
+                                  
+                                </div> 
                                 <label for="inputCurrentUserPassword">Текущий пароль</label>
                                 <input type="password" class="form-control" name="inputCurrentUserPassword" id="inputCurrentUserPassword">
                                 <label for="inputNewUserPassword">Новый пароль</label>
-                                <input type="password" class="form-control" name="inputNewUserPassword" id="inputNewUserPassword" placeholder="Придумайте новый пароль"> 
-                                <label for="inputNewUserPassword">Подтверждение пароля</label>
+                                <input type="password" class="form-control" name="inputNewUserPassword" id="inputNewUserPassword" placeholder="Придумайте новый пароль" onkeyup="checkPassUpdate(); return false;"> 
+                                <label for="inputConfirmNewUserPassword">Подтверждение пароля</label>
                                 <input type="password" class="form-control" name="inputConfirmNewUserPassword" id="inputConfirmNewUserPassword" placeholder="Подтвердите новый пароль" onkeyup="checkPassUpdate(); return false;">                               
-                                <br> <div class="confirm-password-valid"></div> 
-                                <button class="btn btn-save-profile-changes form-control" type="submit" name="saveUserPassword" id="saveUserPassword">Сохранить</button>
+                                <br> <div class="confirm-password-valid"></div> <br>
+                                <input class="btn btn-save-profile-changes form-control" type="submit" name="saveUserPassword" id="saveUserPassword" value="Сохранить">
                             </div><!--/#edit-user-password-->
                         </form>
                     </div><!--/.main-body-->
@@ -245,6 +251,8 @@ if(!isset($_SESSION['user_id']))
 <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
 <!--Background Scripts-->
 <script src="js/background.js"></script>
+<!--Handlers Scripts-->
+<script src="js/handlers.js"></script>
 
 <!-- /#wrapper -->
 <!-- Menu Toggle Script -->

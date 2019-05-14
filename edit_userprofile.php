@@ -79,34 +79,50 @@ function updateUserContactsInfo($connect, $worknumber, $mobilenumber){
         else{
             $output='Что-то пошло не так! Попробуйте еще раз.';
         }
+        echo $output; 
     }
     catch(Exception $ex){
         $ouptup=$ex;
-    }    
+    }      
 };
 
-function updateUserPassword($connect, $newPassword){
+function updateUserPassword($connect, $currentPassword, $newPassword){
     $output='';
     try {
-        $query="UPDATE `users` SET `password` = :password WHERE `users`.`user_id` = :user_id;";
-        $statement=$connect->prepare($query);
-        $statement->execute(
-            array(
-                ':password' => password_hash($newPassword, PASSWORD_DEFAULT),
-                ':user_id' => $_SESSION['user_id']
-            )
-        );
-        $result=$statement->rowCount();
-        if($result==1)
-        {
-            $output='Изменения сохранены.';
-        }
-        else {
-            $output='Что-то пошло не так! Попробуйте еще раз.';
-        }
+            $query="SELECT password FROM users WHERE user_id= :user_id";
+            $statement=$connect->prepare($query);
+            $statement->execute(
+                array(':user_id' => $_SESSION['user_id'])
+            );
+            $result=$statement->fetchAll();
+            foreach($result as $row)
+            if(password_verify($currentPassword, $row["password"]))
+            {
+                //Обновление пароля
+                $query="UPDATE `users` SET `password` = :password WHERE `users`.`user_id` = :user_id;";
+                $statement=$connect->prepare($query);
+                $statement->execute(
+                    array(
+                        ':password' => password_hash($newPassword, PASSWORD_DEFAULT),
+                        ':user_id' => $_SESSION['user_id']
+                    )
+                );
+                $result=$statement->rowCount();
+                if($result==1)
+                {
+                    $output='Изменения сохранены.';
+                }
+                else {
+                    $output='Что-то пошло не так! Попробуйте еще раз.';
+                }
+            }
+            else{
+                $output='Текущий пароль неверен. Для продолжения введите правильный пароль.';
+            }
+            echo $output;
     } catch (Exception $ex) {
         $ouptup=$ex;
-    }
+    }        
 };
 
 switch($_GET['action']){
@@ -117,7 +133,7 @@ switch($_GET['action']){
         updateUserContactsInfo($connect, $_POST["inputUserWorkNumber"], $_POST["inputUserMobileNumber"]);
         break;
     case 'security':
-        updateUserPassword($connect, $_POST["inputNewUserPassword"]);
+        updateUserPassword($connect, $_POST["inputCurrentUserPassword"], $_POST["inputNewUserPassword"]);
         break;
 }
 ?>
