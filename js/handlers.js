@@ -5,11 +5,13 @@ handlers.js
 
 //Функция обновления основной информации о пользователе
 function editUserBasicInfo(){
-    var formdata = $('#userBasicInfo').serialize();    
+    var formdata = $('#userBasicInfo').serialize();  
+    $('#editBasicInfoResult').css("display", "none");  
     $.ajax({
       type: "POST", 
       url: "edit_userprofile.php?action=basic",
       data: formdata,
+      mimeType: "multipart/form-data",
       success: function(data){
         $('#editBasicInfoResult').html(data);
         $('#editBasicInfoResult').css("display", "block");
@@ -18,11 +20,13 @@ function editUserBasicInfo(){
         alert('Возникла ошибка: ', xhr.responseCode);
       }
     });
+    getUserInfo();
 } 
 
 //Функция обновления контактов пользователя
 function editUserContactsInfo(){
   var formdata=$('#userContactsInfo').serialize();
+  $('#editBasicInfoResult').css("display", "none"); 
   $.ajax({
     type:"POST",
     url:"edit_userprofile.php?action=contacts",
@@ -35,6 +39,7 @@ function editUserContactsInfo(){
       alert('Возникла ошибка: ', xhr.responseCode);
     }
   });
+  getUserInfo();
 }
 
 //Функция валидации пароля перед обновлением
@@ -70,6 +75,7 @@ function checkPassUpdate(){
 //Функция обновления пароля пользователя
 function editUserPassword(){
   var formdata=$('#userPasswordInfo').serialize(); 
+  $('#editBasicInfoResult').css("display", "none"); 
   $.ajax({
     type: "POST",
     url: "edit_userprofile.php?action=security",
@@ -85,4 +91,5 @@ function editUserPassword(){
       alert('Возникла ошибка: ', xhr.responseCode);
     }
   });
+  getUserInfo();
 }
