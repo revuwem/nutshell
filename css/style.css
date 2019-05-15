@@ -67,7 +67,7 @@ a{
 }
 
 #page-content-wrapper {
-  min-width: 100vw;
+  min-width: 100vw;  
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -91,19 +91,24 @@ a{
 
 .tab-content{
   padding: 0;
-  height: 90%;
-  font-size: 1em;
+  height: 91%;
+  font-size: 1em;  
 }
 
 .tab-pane{
-  height: 100%;
+  height: 100%;  
 }
+
+/*background-image: url(../images/background/color-design-flora-1166644.jpg);
+  background-position: center top; 
+  background-size: 100% auto;  
+  background-attachment: fixed;
+  background-repeat: no-repeat;*/
 
 .header{
   padding: 0.3em;  
   border-bottom: 1px solid #CFC8C4; 
-  line-height: 3;
-  min-height: 4rem;
+  line-height: 3;  
 }
 
 /*Tab Dialogs*/
@@ -190,6 +195,12 @@ ul{
 .fa{
   cursor: pointer;
 }
+
+/*Tab Contacts*/
+.contacts-content .form-control{
+  border: none;
+}
+
 
 /*Tab Profile*/
 .profile-content .aside, .main{

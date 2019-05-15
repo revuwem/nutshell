@@ -134,14 +134,34 @@ if(!isset($_SESSION['user_id']))
       <h3>Задачи</h3>
     </div>
     <div class="tab-pane" id="Contacts" role="tabpanel">
-      <div class="container contacts-content">
-        <div class="row">
-            <div class="container contacts-panel">
-                <h4>Контакты</h4>
-                <table class="table table-striped table-bordered">
-                    thead
-                </table>
+      <div class="row">
+        <div class="container contacts-content">        
+          <div class="row header">
+              <div class="col col-12 col-sm-8">                  
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" id="searchContact" name="searchContact" placeholder="Поиск по имени">
+                  <div class="input-group-append">
+                    <span class="fa fa-search fa-fw"></span>
+                  </div>
+                </div>
+              </div>  
+              <div class="col col-12 col-sm-4">
+                <div class="form-group">
+                  <select class="form-control" id="filterContactsByPosition">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
+                  </div>
+              </div>          
+          </div>
+          <div class="row main justify-content-center">
+            <div class="col col-12 col-md-8 shadow" id="contacts-panel">
+              
             </div>
+          </div>
         </div>
       </div><!--/.contacts-content-->
     </div>

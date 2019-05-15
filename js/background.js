@@ -7,6 +7,29 @@ $(document).ready(function() {
 
     getUserInfo();  
 
+    function updates(){
+        getUserInfo();
+        fetch_user();
+        update_last_activity();
+        
+    }
+
+    setInterval(updates, 3000);
+
+    //Обновление активности пользователя
+    function update_last_activity() {
+        $.ajax({
+            url:"update_last_activity.php", 
+            success:function(){
+                      
+            },
+            error: function(xhr, str){
+                debugger;
+                alert("Ошибка обновления активности: ", xhr.responseCode);  
+            }                 
+        });
+    };
+
     //Получение информации в профиле пользователя
     function getUserInfo() {
         $.ajax({
@@ -33,11 +56,23 @@ $(document).ready(function() {
                 alert("Ошибка ", xhr.responseCode);                
             }
         });
-    };
+    }; //getUserInfo
+
+    //Получение списка контактов
+    function fetch_user() {
+        $.ajax({
+            url:"fetch_user.php",
+            method:"POST",
+            success:function(data){
+                $('#contacts-panel').html(data);
+            },
+            error: function(xhr, str){
+                debugger;
+                alert("Ошибка получения списка контактов: ", xhr.responseCode);  
+            } 
+        });
+    }; //fetch_user
 
 }); //document.ready
 
-function newFunction(getUserInfo) {
-    getUserInfo();
-}
 
