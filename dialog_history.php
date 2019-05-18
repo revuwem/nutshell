@@ -9,7 +9,7 @@
         <div class="container-fluid dialog-history">            
         </div>
     </div>
-    <div class="row input-dialog-reply">
+    <div class="row input-dialog-reply input-reply">
         <form action="javascript:void(null);" onsubmit="sendDialogMessage()" id="dialogReplyForm" method="POST">
             <div class="input-group">
                 <input type="text" class="form-control" name="dialogReply" id="dialogReply"

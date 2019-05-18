@@ -31,7 +31,7 @@ $output='';
                                     <img class="rounded-circle  avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png">
                                 </div>
                                 <div class="col col-10 col-sm-9 col-md-10 col-lg-11">
-                                    <p>'.get_user_name($rowDialog['from_user_id'], $connect).'</p><span class="label label-success rounded-circle"> '.count_unseen_message($rowDialog['from_user_id'], $_SESSION['user_id'], $connect).'</span><br> 
+                                    <p class="font-weight-bold">'.get_user_name($rowDialog['from_user_id'], $connect).'</p><span class="label label-success rounded-circle"> '.count_unseen_message($rowDialog['from_user_id'], $_SESSION['user_id'], $connect).'</span><br> 
                                 ';
                     if($message['from_user_id']==$_SESSION['user_id']){
                         $output .= '<p class="last-message">Вы:  '.$message['chat_message'].'</p>';

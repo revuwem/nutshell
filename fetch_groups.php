@@ -18,24 +18,31 @@ if(count($resultGroups)>0)
    {
       
        $query="
-        SELECT chat_message FROM chat_groups_messages WHERE to_chat_group_id='".$rowGroup['chat_group_id']."' ORDER BY timestamp DESC LIMIT 1
+        SELECT chat_message, from_user_id FROM chat_groups_messages WHERE to_chat_group_id='".$rowGroup['chat_group_id']."' ORDER BY timestamp DESC LIMIT 1
        ";
        
        $statement=$connect->prepare($query);
        $statement->execute();
-       $result=$statement->fetchAll();
-       $output .= '<li class="list-group-item btn btn-light groupElement" data-chatgroupid="'.$rowGroup['chat_group_id'].'" data-chatgroupname="'.get_group_chat_name($rowGroup['chat_group_id'], $connect).'">
-                        <div class="row">
-                            <div class="col col-2 col-sm-3 col-md-3 col-lg-3">
-                                <img class="rounded-circle  avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png">
-                            </div>
-                            <div class="col col-10 col-sm-9 col-md-9 col-lg-9">
-                                <p>'.get_group_chat_name($rowGroup['chat_group_id'], $connect).'</p><br>
-       ';
+       $result=$statement->fetchAll();      
        foreach($result as $messages)
        {
-          $message=$messages['chat_message'];
-           $output .= '<p class="last-message">'.$message.'</p>';  
+
+            $output .= '<li class="list-group-item btn btn-light groupElement" data-chatgroupid="'.$rowGroup['chat_group_id'].'" data-chatgroupname="'.get_group_chat_name($rowGroup['chat_group_id'], $connect).'">
+            <div class="row">
+                <div class="col col-2 col-sm-3 col-md-2 col-lg-1">
+                    <img class="rounded-circle  avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png">
+                </div>
+                <div class="col col-10 col-sm-9 col-md-10 col-lg-11">
+                    <p class="font-weight-bold">'.get_group_chat_name($rowGroup['chat_group_id'], $connect).'</p><br>
+            ';
+           $message=$messages['chat_message'];
+
+           if($messages['from_user_id']==$_SESSION['user_id']){
+                $output .= '<p class="last-message">Вы: '.$message.'</p>'; 
+           }
+           else{
+                $output .= '<p class="last-message">'.get_user_name($messages['from_user_id'], $connect).': '.$message.'</p>';  
+           }             
        }
 
        $output .= '</div>                    

@@ -209,24 +209,20 @@ ul{
   padding-top: .3rem; 
 }
 
-.input-dialog-reply{
+.input-reply{
   height: 7%;
 }
 
-.input-dialog-reply form{
+.input-reply form{
   width: 100%;
 }
 
-.input-dialog-reply .input-group{
+.input-reply .input-group{
   width: 100%;
 }
 #dialogReply{
   width: 80%;
 }
-
-
-
-
 
 /*Tab Contacts*/
 .contacts-content .form-control{

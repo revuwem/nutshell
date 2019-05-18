@@ -189,6 +189,12 @@ $(document).ready(function() {
             }
         });
     });
+
+    //Закрыть окно диалога
+    $(document).on('click', '#close-group-form', function(){
+        $('#groups').empty();
+        link_groups_list();
+    });
     
 
        

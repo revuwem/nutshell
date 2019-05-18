@@ -109,3 +109,20 @@ function sendDialogMessage() {
       }
   });
 };
+
+
+//Отправка сообщения в группе
+function sendGroupMessage() {
+  var to_chat_id = $('#send-group-chat').data('tochatid');
+  var chat_message = $('#groupReply').val();
+  $.ajax({
+      url:"insert_group_chat.php",
+      method: "POST",
+      data:{to_chat_id:to_chat_id, chat_message:chat_message},
+      success: function(data)
+      {  
+          $('#groupReply').val('');
+          $('.group-history').html(data);
+      }
+  });
+};
