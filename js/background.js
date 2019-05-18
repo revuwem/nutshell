@@ -8,7 +8,8 @@ $(document).ready(function() {
     getUserInfo();
     fetch_dialogs();  
     fetch_groups_chats();
-    link_dialog_list();
+    link_dialogs_list();
+    link_groups_list();
 
     function updates(){
         fetch_user();
@@ -20,12 +21,22 @@ $(document).ready(function() {
     setInterval(updates, 3000);
 
 
-    function link_dialog_list() {
+    function link_dialogs_list() {
         $.ajax({
-            url:"dialogs_list.php",
+            url:"dialogs_list_html.php",
             method: "get",
             success:function(data){
-                $('.app-dialogs').html(data);
+                $('#list-dialogs').html(data);
+            }
+        });
+    };
+
+    function link_groups_list() {
+        $.ajax({
+            url:"groups_list_html.php",
+            method: "get",
+            success:function(data){
+                $('#list-groups').html(data);
             }
         });
     };
@@ -121,7 +132,7 @@ $(document).ready(function() {
             timeout: 4000,
             method:"POST",
             success:function(data){
-                $('#groups_chats_details').html(data);
+                $('#groups_details').html(data);
             }
         });  
       };

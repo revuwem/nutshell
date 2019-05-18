@@ -1,4 +1,4 @@
-<div class="container dialog-menu shadow">
+<div class="container menu shadow">
     <div class="container-fluid side-list">
         <div class="row searchBox">
             <div class="container-fluid input-group">

@@ -58,13 +58,13 @@ if(!isset($_SESSION['user_id']))
   <div class="container-fluid tab-content">
     <div class="tab-pane show active" id="Groups" role="tabpanel">
       <div class="container-fluid chat-app">
-        <div class="row app-groups">      
+        <div class="row app" id="list-groups">      
         </div> 
       </div>
     </div>
     <div class="tab-pane" id="Dialogs" role="tabpanel">
       <div class="container-fluid chat-app">
-        <div class="row app-dialogs">      
+        <div class="row app" id="list-dialogs">      
         
         </div>
       </div>          
