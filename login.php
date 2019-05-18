@@ -74,12 +74,13 @@ session_start();
        <br>
        <p class="text-danger"><?php echo $message; ?></p>
         <form class="login-form" method="post">
-         <label for="username" style="text-align:left">Логин</label>
+         <label for="username" style="text-align:left">Имя пользователя</label>
           <input type="text" class="form-control" name="username" placeholder="логин" required/>
            <label for="password">Пароль</label>
           <input type="password" class="form-control" name="password" placeholder="пароль" required/>
           <button type="submit" name="login" class="log-btn">Войти</button>
           <p class="message">Не зарегистрированы? <a href="registration.php">Создайте аккаунт</a></p>
+          <p class="message">Забыли пароль? <a href="resetpassword.php">Восстановите пароль</a></p>
         </form>
       </div>       
    </div>   

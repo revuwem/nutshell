@@ -4,8 +4,8 @@ session_start();
 
 function can_upload($file){
 	// если имя пустое, значит файл не выбран
-    if($file['name'] == '')
-		return 'Вы не выбрали файл.'.$file['name'];
+    if($file['inputUserPhoto'] == '')
+		return 'Вы не выбрали файл.'.$file['inputUserPhoto'];
 	
 	/* если размер файла 0, значит его не пропустили настройки 
 	сервера из-за того, что он слишком большой */

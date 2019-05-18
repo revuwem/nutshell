@@ -2,7 +2,7 @@
 include('db_connection.php');
 session_start();
 
-function getUserData($connect, $user_id) {
+function getUserData($connect) {
     $output='';
     try {
         $query="SELECT * FROM `users` WHERE user_id= :user_id";
@@ -19,5 +19,5 @@ function getUserData($connect, $user_id) {
     }
 };
 
-getUserData($connect, $_SESSION['user_id']);
+getUserData($connect);
 ?>

@@ -57,78 +57,16 @@ if(!isset($_SESSION['user_id']))
 
   <div class="container-fluid tab-content">
     <div class="tab-pane show active" id="Groups" role="tabpanel">
-      <h3>Группы</h3>
+    <div class="container-fluid chat-app">
+    <div class="row app-groups">      
+    </div> 
     </div>
     <div class="tab-pane" id="Dialogs" role="tabpanel">
-        <div class="container-fluid app">
-            <div class="row app-one">
-              <div class="col col-4 side">
-                <div class="row header">
-                  <div class="col">
-                    <p class="header-text">Диалоги</p> 
-                  </div>
-                </div>
-                <div class="row searchBox">
-                  <div class="input-group">
-                    <input type="text" class="form-control" id="searchDialog" name="searchDialog" placeholder="Поиск"><span class="fa fa-search"></span> 
-                  </div>
-                </div>
-                <div class="row side-body">
-                <ul class="list-unstyled list-group">
-                  <li class="list-group-item">
-                    <div class="row">
-                      <div class="col dialog-item">
-                          <div class="row">
-                              <div class="col-3">
-                                <img class="rounded-circle  avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png">
-                              </div>
-                              <div class="col-9">
-                                <p>User Name</p>
-                                <span class="float-right fa fa-angle-right"></span> 
-                              </div>                 
-                          </div>
-                          <div class="row">
-                              <div class="col-9 last-message-text"><p>last message last message last message</p></div>
-                              <div class="col-3"><span class="small">18:18</span></div>                              
-                          </div>
-                      </div>                
-                  </li>            
-                  </ul>  
-                </div>
-              </div>
-              <div class="col col-8">
-                <div class="row header">
-                  <div class="col col-2 col-md-1" >
-                    <button type="button" class="close">&times;</button>
-                  </div>                  
-                  <div class="col col-10 header-info">
-                    <img class="rounded-circle  avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png"><span class="rounded-circle online"></span>
-                    <p class="header-text">User Name</p>
-                  </div>            
-                </div>
-                <div class="row history">
-                  <div class="col col-12">
-                    <div class="row message-sender">
-                     <div class="col col-2"><img class="rounded-circle  avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png"><span class="rounded-circle online"></span></div>
-                      <div class="col col-8 col-lg-4"><p>Some message text!</p></div>
-                      <div class="col col-2 col-md-2"><span>18:18</span></div>
-                    </div>
-                    <div class="row message-receiver justify-content-end">
-                     <div class="col col-2"><span>18:18</span></div>
-                      <div class="col col-8 col-lg-4"><p class="float-right">Some message text!</p></div>
-                      <div class="col col-2 col-md-1"><img class="rounded-circle  avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png"><span class="rounded-circle online"></span></div>
-                    </div>
-                  </div>            
-                </div>
-                <div class="row reply">
-                  <form action="" class="input-group">
-                    <input type="text" class="col-11 form-control" placeholder="Введите сообщение...">
-                    <button class="col-1 btn form-control"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>              
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>                
+      <div class="container-fluid chat-app">
+        <div class="row app-dialogs">      
+        
+        </div>
+      </div>          
     </div><!--/#Dialogs-->
     <div class="tab-pane" id="Tasks" role="tabpanel">
       <h3>Задачи</h3>
@@ -178,8 +116,8 @@ if(!isset($_SESSION['user_id']))
                                 <li><img class="rounded-circle avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png"></li>
                                 <br>
                                 <li><p id="username-profile"></p></li>
-                                <li><h5 id="person-profile">John Doe</h5></li>
-                                <li><p class="small" id="position-profile">designer</p></li>
+                                <li><h5 id="person-profile"></h5></li>
+                                <li><p class="small" id="position-profile"></p></li>
                             </ul>
                         </div><!--/User Info-->
                         <div class="container text-center"><!--Contacts-->
@@ -192,11 +130,11 @@ if(!isset($_SESSION['user_id']))
                                 <tbody>
                                     <tr>
                                         <td>Рабочий номер</td>
-                                        <td id="worknumber-profile">+7999(888)77-66</td>
+                                        <td id="worknumber-profile"></td>
                                     </tr>
                                     <tr>
                                         <td>Мобильный номер</td>
-                                        <td id="mobilenumber-profile">+7999(888)77-66</td>
+                                        <td id="mobilenumber-profile"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -205,16 +143,13 @@ if(!isset($_SESSION['user_id']))
                 </div><!--/.aside-->
                 <div class="container col-12 col-lg-6 main shadow">                    
                     <div class="row">                        
-                      <div class="container"><h5>Редактировать профиль</h5></div>
+                      <div class="container"><br><h5>Редактировать профиль</h5></div>
                         <form method="post" enctype="multipart/form-data" id="userBasicInfo" action="javascript:void(null);" onsubmit="editUserBasicInfo()">                             
                             <div class="container shadow form-group">
                                 <h6>Основное</h6>                                
                                 <div class="alert alert-primary" id="editBasicInfoResult" style="display:none">
                                   
                                 </div>  
-                                <label for="inputUserName">Имя пользователя</label>
-                                <input type="text" class="form-control" name="inputUserName" id="inputUserName" > 
-                                <!-- required pattern="[A-Za-z]" -->
                                 <label for="inputPersonFirstName">Имя</label>
                                 <input type="text" class="form-control" name="inputPersonFirstName" id="inputPersonFirstName" >
                                 <!-- required pattern="[A-Za-zА-Яа-яЁё]" -->

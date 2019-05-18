@@ -21,7 +21,7 @@ function editUserBasicInfo(){
       }
     });
     getUserInfo();
-} 
+};
 
 //Функция обновления контактов пользователя
 function editUserContactsInfo(){
@@ -34,13 +34,13 @@ function editUserContactsInfo(){
     success: function(data){
       $('#editContactsResult').html(data);
       $('#editContactsResult').css("display", "block");
+      getUserInfo();
     },
     error: function(xhr, str){
       alert('Возникла ошибка: ', xhr.responseCode);
     }
-  });
-  getUserInfo();
-}
+  });  
+};
 
 //Функция валидации пароля перед обновлением
 function checkPassUpdate(){  
@@ -68,7 +68,7 @@ function checkPassUpdate(){
     message.style.color=successColor;
     message.innerHTML=" Введеные пароли не совпадают!"
   }
-}
+};
   
 
 
@@ -92,4 +92,20 @@ function editUserPassword(){
     }
   });
   getUserInfo();
-}
+};
+
+//Отправка сообщения в диалоге
+function sendDialogMessage() {
+  var to_user_id = $('#send-dialog-chat').data('touserid');
+  var chat_message = $('#dialogReply').val();
+  $.ajax({
+      url:"insert_chat.php",
+      method: "POST",
+      data:{to_user_id:to_user_id, chat_message:chat_message},
+      success: function(data)
+      {  
+          $('#dialogReply').val('');
+          $('.dialog-history').html(data);
+      }
+  });
+};

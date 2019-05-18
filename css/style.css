@@ -22,6 +22,7 @@
 body {
   overflow-x: hidden;
   font-family: 'Open Sans', sans-serif;  
+  font-size: .9em;
 }
 
 a{
@@ -91,12 +92,13 @@ a{
 
 .tab-content{
   padding: 0;
-  height: 91%;
-  font-size: 1em;  
+  height: 100%;
+  font-size: 1em;
 }
 
 .tab-pane{
-  height: 100%;  
+  height: 100%;
+  padding: 1.2rem;
 }
 
 /*background-image: url(../images/background/color-design-flora-1166644.jpg);
@@ -105,96 +107,125 @@ a{
   background-attachment: fixed;
   background-repeat: no-repeat;*/
 
-.header{
-  padding: 0.3em;  
-  border-bottom: 1px solid #CFC8C4; 
-  line-height: 3;  
+
+
+
+/*Chat app*/
+
+.chat-app{
+  height: 100%;
 }
 
-/*Tab Dialogs*/
-.app{
-  height: 100%;  
+.chat-app input{
+  height: 2.5rem;
+  font-size: .9em;
 }
+
+.avatar{
+  width: 4em;
+  height: 4em;
+  padding: .2rem;
+}
+
 .app-one{
-  height: 100%;
-}
-.side{  
-  height: 100%;
-  border-right: 1px solid #CFC8C4;  
+  height:100%;
 }
 
-.header-info img, p{
-  display: inline;
+.menu{
+  height: 100%;
 }
-#Dialogs .form-control{
-  border: none !important;  
+
+.side-list{
+  height: 100%;
+  overflow: hidden;
+}
+
+.side-list .side-body{
+  height: 85%;
 }
 
 .searchBox{
+  /* height: 1%; */
   margin: .5rem 0;
 }
 
-.fa-search{
-  padding: 0.5em;
+.input-group{
+  padding:.3rem;
 }
-
-.side-body{
-  max-height: calc(100% - 86px);
+.dialog-list{
+  /* height: 100%; */
   overflow-y: auto;
 }
 
 ul{
   display: table;
   width: 100%;
+  height: 100%;
 }
 
 .list-group > li{
   width: 100%;
   border: none;
-  border-bottom: 1px solid #CFC8C4;  
+  border-bottom: 1px solid #CFC8C4;
+  text-align: left !important;
+  font-size: .8rem;
+  margin: .2rem 0;
 }
 
-.last-message-text{
+.list-group > li:hover{
+  cursor: pointer;
+}
+
+.last-message{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.avatar{
-  width: 36px;
-  height: 40px;
+
+.main .header{
+  height: 8%;  
+}
+
+.main .header img, p{  
+  display:inline;
+}
+
+.main .header .avatar{
+  width: 3rem;
+  height: 3rem;
+  padding: .3rem;
 }
 
 .history{
-  height: 85%;
-  padding: 0.5rem;
-  background-color: rgba(232, 220, 215, 0.1);
-  border-bottom: 1px solid #CFC8C4;
-  overflow: auto;  
+  height: 30rem;  
+  margin-bottom: 1rem;   
+  border: 1px solid #CFC8C4;
 }
 
-.message-receiver, .message-sender{
-  margin: 1rem;
-  padding: 1.5rem;
+.dialog-history{
+  height: 100%;
+  overflow-y: auto; 
 }
 
-.message-receiver{
-  background-color: rgba(232, 220, 215, 0.2);  
+.input-dialog-reply{
+  height: 7%;
 }
 
-.message-sender{
-  background-color: rgba(206, 200, 195, 0.2);
+.input-dialog-reply form{
+  width: 100%;
 }
 
-.online{
-  position: relative;
-  width: 5em;
-   height: 5em;
+.input-dialog-reply .input-group{
+  width: 100%;
+}
+#dialogReply{
+  width: 90%;
 }
 
-.fa{
-  cursor: pointer;
-}
+
+
+
 
 /*Tab Contacts*/
 .contacts-content .form-control{
@@ -202,8 +233,12 @@ ul{
 }
 
 
+
+
+
+
 /*Tab Profile*/
-.profile-content .aside, .main{
+.profile-content .aside .main{
   padding-top: .5rem;
   padding-bottom: .8rem;
   margin: .8rem;
@@ -225,10 +260,6 @@ ul{
   font-size: .9em;
 }
 
-.profile-content .avatar{
-    width: 7em;
-    height: 7em;
-}
 
 .profile-content .aside{  
   max-height: 30rem; 

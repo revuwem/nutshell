@@ -5,16 +5,30 @@ background.js
 
 $(document).ready(function() {
 
-    getUserInfo();  
+    getUserInfo();
+    fetch_dialogs();  
+    fetch_groups_chats();
+    link_dialog_list();
 
     function updates(){
-        getUserInfo();
         fetch_user();
         update_last_activity();
-        
+        fetch_dialogs();
+        fetch_groups_chats();
     }
 
     setInterval(updates, 3000);
+
+
+    function link_dialog_list() {
+        $.ajax({
+            url:"dialogs_list.php",
+            method: "get",
+            success:function(data){
+                $('.app-dialogs').html(data);
+            }
+        });
+    };
 
     //Обновление активности пользователя
     function update_last_activity() {
@@ -24,8 +38,7 @@ $(document).ready(function() {
                       
             },
             error: function(xhr, str){
-                debugger;
-                alert("Ошибка обновления активности: ", xhr.responseCode);  
+                alert("Ошибка обновления активности:", xhr.responseCode);  
             }                 
         });
     };
@@ -52,7 +65,6 @@ $(document).ready(function() {
                 $('#inputUserMobileNumber').val(result[0]["mobilenumber"]);
             },
             error: function(xhr, str){
-                debugger;
                 alert("Ошибка ", xhr.responseCode);                
             }
         });
@@ -62,16 +74,103 @@ $(document).ready(function() {
     function fetch_user() {
         $.ajax({
             url:"fetch_user.php",
+            timeout: 4000,
             method:"POST",
             success:function(data){
                 $('#contacts-panel').html(data);
-            },
-            error: function(xhr, str){
-                debugger;
-                alert("Ошибка получения списка контактов: ", xhr.responseCode);  
-            } 
+            }
         });
     }; //fetch_user
+
+    //Слайдер окно чата
+    $(function(){
+        $(".dialogElement").click(function() {
+          $("#side-chatbox").css({
+            "right": "0"
+          });
+        }); 
+      
+      $("#hide-side-chatbox").click(function() {
+          $("#side-chatbox").css({
+            "right": "-100%"
+          });
+        });
+    });
+
+    //Список диалогов
+    function fetch_dialogs()
+            {
+                $.ajax({
+                    url: "fetch_dialogs.php",
+                    timeout: 4000,
+                    method: "POST",
+                    success:function(data){
+                        $('#dialogs_details').html(data);
+                    },
+                    error: function(xhr, str){
+                        debugger;
+                        alert("Ошибка диалоги", xhr.responseCode);                
+                    }
+                });
+            };
+    
+    //Список бесед
+    function fetch_groups_chats(){              
+        $.ajax({
+            url:"fetch_groups.php",
+            timeout: 4000,
+            method:"POST",
+            success:function(data){
+                $('#groups_chats_details').html(data);
+            }
+        });  
+      };
+
+    //Получение истории диалога 
+    function fetch_user_chat_history(to_user_id) {
+        $.ajax({
+            url: "fetch_user_chat_history.php",
+            method: "POST",
+            data:{to_user_id:to_user_id},
+            success: function(data){
+                $('.dialog-history').html(data);
+            }
+        });
+    };
+
+    //Окно диалога
+    $(document).on('click', '.start-chat', function(){
+        fetch_user_chat_history($(this).data('touserid'));
+        $('#dialog-sender').html($(this).data('tousername'));
+        $('#send-dialog-chat').attr('data-touserid', $(this).data('touserid'));
+        var targetDiv = $(".dialog-history");
+        targetDiv.scrollTop( targetDiv.prop('scrollHeight') );
+    });
+
+    //Получение истории группы 
+    function fetch_group_chat_history(to_group_id) {
+        $.ajax({
+            url: "fetch_group_chat_history.php",
+            method: "POST",
+            data:{to_chat_id:to_group_id},
+            success: function(data){
+                $('#group-history').html(data);
+            }
+        });
+    };
+
+    //Окно группы
+    $(document).on('click', '.start-group-chat', function(){
+        fetch_group_chat_history($(this).data('togroupid'));
+        $('#dialog-sender').html($(this).data('tousername'));
+        $('#send-dialog-chat').attr('data-touserid', $(this).data('touserid'));
+        var targetDiv = $(".dialog-history");
+        targetDiv.scrollTop( targetDiv.prop('scrollHeight') );
+    });
+
+       
+      
+   
 
 }); //document.ready
 
