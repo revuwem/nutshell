@@ -24,7 +24,7 @@ if(count($resultGroups)>0)
        $statement=$connect->prepare($query);
        $statement->execute();
        $result=$statement->fetchAll();
-       $output .= '<li class="list-group-item btn btn-light dialogElement" data-chatgroupid="'.$rowGroup['chat_group_id'].'" data-chatgroupname="'.get_group_chat_name($rowGroup['chat_group_id'], $connect).'">
+       $output .= '<li class="list-group-item btn btn-light groupElement" data-chatgroupid="'.$rowGroup['chat_group_id'].'" data-chatgroupname="'.get_group_chat_name($rowGroup['chat_group_id'], $connect).'">
                         <div class="row">
                             <div class="col col-2 col-sm-3 col-md-3 col-lg-3">
                                 <img class="rounded-circle  avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png">
@@ -32,12 +32,6 @@ if(count($resultGroups)>0)
                             <div class="col col-10 col-sm-9 col-md-9 col-lg-9">
                                 <p>'.get_group_chat_name($rowGroup['chat_group_id'], $connect).'</p><br>
        ';
-
-
-       /*$output .= '<div class="container-fluid dialog-element"> 
-                   <span class="col-lg-9 col-md-9 col-sm-9 col-xs-9" style="font-weight:bold">'.get_group_chat_name($rowGroup['chat_group_id'], $connect).'</span> 
-                   <a href="" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 btn pull-right edit-group_chat" type="button" data-chatgroupid="'.$rowGroup['chat_group_id'].'" data-chatgroupname="'.get_group_chat_name($rowGroup['chat_group_id'], $connect).'"><i class="fa fa-cog fa-1x" aria-hidden="true"></i></a>';
-       */
        foreach($result as $messages)
        {
           $message=$messages['chat_message'];

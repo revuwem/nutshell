@@ -89,6 +89,7 @@ a{
   #wrapper.toggled #sidebar-wrapper {
     margin-left: -15rem;
   }
+
 }
 
 .tab-content{
@@ -199,12 +200,13 @@ ul{
 .history{
   height: 75%;  
   max-height: 25rem; 
-  border: 1px solid #CFC8C4;
+  
 }
 
 .dialog-history{
   height: 100%;
-  overflow-y: auto; 
+  overflow-y: auto;
+  padding-top: .3rem; 
 }
 
 .input-dialog-reply{

@@ -5,20 +5,18 @@ background.js
 
 $(document).ready(function() {
 
-    getUserInfo();
-    fetch_dialogs();  
-    fetch_groups_chats();
+    getUserInfo(); 
     link_dialogs_list();
     link_groups_list();
 
     function updates(){
         fetch_user();
         update_last_activity();
-        fetch_dialogs();
+        fetch_dialogs();        
         fetch_groups_chats();
     }
 
-    setInterval(updates, 3000);
+    setInterval(updates, 5000);
 
 
     function link_dialogs_list() {
@@ -27,6 +25,7 @@ $(document).ready(function() {
             method: "get",
             success:function(data){
                 $('#dialogs').html(data);
+                fetch_dialogs(); 
             }
         });
     };
@@ -36,7 +35,8 @@ $(document).ready(function() {
             url:"groups_list_html.php",
             method: "get",
             success:function(data){
-                $('#list-groups').html(data);
+                $('#groups').html(data);
+                fetch_groups_chats();
             }
         });
     };
@@ -91,24 +91,9 @@ $(document).ready(function() {
                 $('#contacts-panel').html(data);
             }
         });
-    }; //fetch_user
+    };    
 
-    //Слайдер окно чата
-    $(function(){
-        $(".dialogElement").click(function() {
-          $("#side-chatbox").css({
-            "right": "0"
-          });
-        }); 
-      
-      $("#hide-side-chatbox").click(function() {
-          $("#side-chatbox").css({
-            "right": "-100%"
-          });
-        });
-    });
-
-    //Список диалогов
+    //Получение списка диалогов
     function fetch_dialogs(){
         $.ajax({
             url: "fetch_dialogs.php",
@@ -173,6 +158,7 @@ $(document).ready(function() {
     });
         
 
+
     //Получение истории группы 
     function fetch_group_chat_history(to_group_id) {
         $.ajax({
@@ -180,19 +166,30 @@ $(document).ready(function() {
             method: "POST",
             data:{to_chat_id:to_group_id},
             success: function(data){
-                $('#group-history').html(data);
+                $('.group-history').html(data);
             }
         });
     };
 
     //Окно группы
-    $(document).on('click', '.start-group-chat', function(){
-        fetch_group_chat_history($(this).data('togroupid'));
-        $('#dialog-sender').html($(this).data('tousername'));
-        $('#send-dialog-chat').attr('data-touserid', $(this).data('touserid'));
-        var targetDiv = $(".dialog-history");
-        targetDiv.scrollTop( targetDiv.prop('scrollHeight') );
+    $(document).on('click', '.groupElement', function(){
+        $('#groups').empty();
+        var to_chat_id=$(this).data('chatgroupid');
+        var to_chat_name=$(this).data('chatgroupname');
+        $.ajax({
+            url:"group_history.php",
+            method: "get",
+            success:function(result){
+                $('#groups').html(result);
+                fetch_group_chat_history(to_chat_id);
+                $('#group-name').html(to_chat_name);
+                $('#send-group-chat').attr('data-tochatid', to_chat_id);
+                var targetDiv = $(".group-history");
+                targetDiv.scrollTop( targetDiv.prop('scrollHeight') );            
+            }
+        });
     });
+    
 
        
       
