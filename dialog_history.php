@@ -1,13 +1,12 @@
-<div class="container-fluid d-none d-sm-block col-sm-7 col-md-7 col-lg-8 main shadow">
+<div class="container message-space shadow">
     <div class="row header">
-        <div class="col col-12"><img class="rounded-circle  avatar"
+        <div class="col col-12"><button class="btn" id="close-dialog-form"><span class="fa fa-arrow-left fa-fw"aria-hidden="true"></span></button><img class="rounded-circle  avatar"
                 src="https://bootdey.com/img/Content/avatar/avatar1.png">
             <p id="dialog-sender"></p>
         </div>
     </div>
     <div class="row history">
-        <div class="container-fluid dialog-history">
-            Здесь будет история сообщений
+        <div class="container-fluid dialog-history">            
         </div>
     </div>
     <div class="row input-dialog-reply">

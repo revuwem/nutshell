@@ -64,7 +64,7 @@ if(!isset($_SESSION['user_id']))
     </div>
     <div class="tab-pane" id="Dialogs" role="tabpanel">
       <div class="container-fluid chat-app">
-        <div class="row app" id="list-dialogs">      
+        <div class="row app" id="dialogs">      
         
         </div>
       </div>          

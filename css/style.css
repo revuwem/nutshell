@@ -23,6 +23,7 @@ body {
   overflow-x: hidden;
   font-family: 'Open Sans', sans-serif;  
   font-size: .9em;
+  max-height: 100vh;
 }
 
 a{
@@ -131,7 +132,7 @@ a{
   height:100%;
 }
 
-.menu{
+.menu, .message-space{
   height: 100%;
 }
 
@@ -149,9 +150,7 @@ a{
   margin: .5rem 0;
 }
 
-.input-group{
-  padding:.3rem;
-}
+
 .dialog-list{
   /* height: 100%; */
   overflow-y: auto;
@@ -198,8 +197,8 @@ ul{
 }
 
 .history{
-  height: 30rem;  
-  margin-bottom: 1rem;   
+  height: 75%;  
+  max-height: 25rem; 
   border: 1px solid #CFC8C4;
 }
 
@@ -220,7 +219,7 @@ ul{
   width: 100%;
 }
 #dialogReply{
-  width: 90%;
+  width: 80%;
 }
 
 

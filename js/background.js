@@ -26,7 +26,7 @@ $(document).ready(function() {
             url:"dialogs_list_html.php",
             method: "get",
             success:function(data){
-                $('#list-dialogs').html(data);
+                $('#dialogs').html(data);
             }
         });
     };
@@ -109,21 +109,19 @@ $(document).ready(function() {
     });
 
     //Список диалогов
-    function fetch_dialogs()
-            {
-                $.ajax({
-                    url: "fetch_dialogs.php",
-                    timeout: 4000,
-                    method: "POST",
-                    success:function(data){
-                        $('#dialogs_details').html(data);
-                    },
-                    error: function(xhr, str){
-                        debugger;
-                        alert("Ошибка диалоги", xhr.responseCode);                
-                    }
-                });
-            };
+    function fetch_dialogs(){
+        $.ajax({
+            url: "fetch_dialogs.php",
+            timeout: 4000,
+            method: "POST",
+            success:function(data){
+                $('#dialogs_details').html(data);
+            },
+            error: function(xhr, str){
+                                  
+            }
+        });
+    };
     
     //Список бесед
     function fetch_groups_chats(){              
@@ -138,7 +136,7 @@ $(document).ready(function() {
       };
 
     //Получение истории диалога 
-    function fetch_user_chat_history(to_user_id) {
+    function fetch_dialog_chat_history(to_user_id) {
         $.ajax({
             url: "fetch_user_chat_history.php",
             method: "POST",
@@ -150,13 +148,30 @@ $(document).ready(function() {
     };
 
     //Окно диалога
-    $(document).on('click', '.start-chat', function(){
-        fetch_user_chat_history($(this).data('touserid'));
-        $('#dialog-sender').html($(this).data('tousername'));
-        $('#send-dialog-chat').attr('data-touserid', $(this).data('touserid'));
-        var targetDiv = $(".dialog-history");
-        targetDiv.scrollTop( targetDiv.prop('scrollHeight') );
+    $(document).on('click', '.dialogElement', function(){
+        $('#dialogs').empty();
+        var to_user_id=$(this).data('touserid');
+        var to_user_name=$(this).data('tousername');
+        $.ajax({
+            url:"dialog_history.php",
+            method: "get",
+            success:function(result){
+                $('#dialogs').html(result);
+                fetch_dialog_chat_history(to_user_id);
+                $('#dialog-sender').html(to_user_name);
+                $('#send-dialog-chat').attr('data-touserid', to_user_id);
+                var targetDiv = $(".dialog-history");
+                targetDiv.scrollTop( targetDiv.prop('scrollHeight') );            
+            }
+        });
     });
+
+    //Закрыть окно диалога
+    $(document).on('click', '#close-dialog-form', function(){
+        $('#dialogs').empty();
+        link_dialogs_list();
+    });
+        
 
     //Получение истории группы 
     function fetch_group_chat_history(to_group_id) {
