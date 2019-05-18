@@ -28,7 +28,7 @@ if(!isset($_SESSION['user_id']))
   <link href="css/style.css" rel="stylesheet">
     
     
-     
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
   </head>
   <body> 
   <div class="d-flex" id="wrapper">
@@ -58,8 +58,8 @@ if(!isset($_SESSION['user_id']))
   <div class="container-fluid tab-content">
     <div class="tab-pane show active" id="Groups" role="tabpanel">
       <div class="container-fluid chat-app">
-          <div class="row app-groups">      
-          </div> 
+        <div class="row app-groups">      
+        </div> 
       </div>
     </div>
     <div class="tab-pane" id="Dialogs" role="tabpanel">

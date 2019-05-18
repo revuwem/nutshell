@@ -92,11 +92,13 @@ a{
 
 .tab-content{
   padding: 0;
-  height: 37rem;  
+  height: 90%;
+  font-size: 1em;
 }
 
 .tab-pane{
-  min-height: 100%;  
+  height: 100%;
+  padding: 1.2rem;
 }
 
 /*background-image: url(../images/background/color-design-flora-1166644.jpg);
@@ -111,7 +113,7 @@ a{
 /*Chat app*/
 
 .chat-app{
-  height: 0%;
+  height: 100%;
 }
 
 .chat-app input{
@@ -125,7 +127,7 @@ a{
   padding: .2rem;
 }
 
-.app-one{
+.app-dialogs{
   height:100%;
 }
 

@@ -8,7 +8,7 @@ $(document).ready(function() {
     getUserInfo();
     fetch_dialogs();  
     fetch_groups_chats();
-   // link_dialog_list();
+    link_dialog_list();
 
     function updates(){
         fetch_user();
