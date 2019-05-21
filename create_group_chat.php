@@ -26,5 +26,20 @@ else
     $ouput=$statement->fetchAll();
     echo $output;
 }
-
 ?>
+
+<form action="" method="post" id="createGroupForm">
+    <div class="container">
+        <div class="row">
+            <div class="input-group">
+                <input type="text" class="form-control" name="group_name" id="group_name" required>
+                <div class="input-group-append">
+                    <button class="btn btn-dark" type="submit" name="create_group" id="create_group">Создать</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+        </div>        
+    </div>
+</form>

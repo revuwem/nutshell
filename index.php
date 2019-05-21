@@ -27,8 +27,20 @@ if(!isset($_SESSION['user_id']))
   <!-- Custom styles -->
   <link href="css/style.css" rel="stylesheet">
     
-    
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
+  <script>
+    function check_text_message(){
+        var text_message=$('#dialogReplyForm').val();
+        if(text_message.length!=0)
+        {                       
+            $('#send-dialog-chat').removeAttr('disabled');
+        }
+        else
+        {
+            $('#send-dialog-chat').attr('disabled', 'disabled');
+        }
+    };
+  </script>  
+  
   </head>
   <body> 
   <div class="d-flex" id="wrapper">

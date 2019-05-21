@@ -13,10 +13,10 @@
         <form action="javascript:void(null);" onsubmit="sendDialogMessage()" id="dialogReplyForm" method="POST">
             <div class="input-group">
                 <input type="text" class="form-control" name="dialogReply" id="dialogReply"
-                    placeholder="Введите ваше сообщение..." autocomplete="false">
+                    placeholder="Введите ваше сообщение..." autocomplete="false" onkeyup="check_text_message();">
                 <div class="input-group-append">
                     <button class="btn form-control" type="submit" name="send-dialog-chat" id="send-dialog-chat"
-                        data-touserid=""><span class="fa fa-paper-plane" aria-hidden="true"></span></button>
+                        data-touserid="" disabled><span class="fa fa-paper-plane" aria-hidden="true"></span></button>
                 </div>
             </div>
         </form>

@@ -4,6 +4,18 @@ background.js
 */
 
 $(document).ready(function() {
+    
+    function check_text_message(){
+        var text_message=$('.text-message').val();
+        if(text_message.length!=0)
+        {                       
+            $('.send').removeAttr('disabled');
+        }
+        else
+        {
+            $('.send').attr('disabled', 'disabled');
+        }
+    };
 
     getUserInfo(); 
     link_dialogs_list();

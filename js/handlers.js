@@ -126,3 +126,30 @@ function sendGroupMessage() {
       }
   });
 };
+
+var fActive = '';
+
+function filterDialogs(value){
+  if(fActive != value){
+  $('.dialogElement').filter('.'+value).slideDown();
+  $('.dialogElement').filter(':not(.'+value+')').slideUp();
+  fActive = value;
+  }
+ };
+
+function filterDialogList(){
+  alert($('#searchDialog').val());
+    var param = $('#searchDialog').val(); 
+    if(param!="")
+    {
+      filterDialogs(param);
+    }
+    else{
+      $('.dialogElement').slideDown();
+      fActive = 'all';
+    }  
+};
+
+$('#btnSearchDialog').click(function(){
+  filterDialogList();
+});

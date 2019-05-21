@@ -2,9 +2,9 @@
     <div class="container-fluid side-list">
         <div class="row searchBox">
             <div class="container-fluid input-group">
-                <input type="text" class="form-control" name="searchDialog" id="searchDialog" placeholder="Поиск...">
+                <input type="text" class="form-control" name="searchDialog" onkeypress="filterDialogList()" id="searchDialog" placeholder="Поиск...">
                 <div class="input-group-append">
-                    <button class="btn form-control"><span class="fa fa-search fa-fw"
+                    <button class="btn form-control" id="btnSearchDialog"><span class="fa fa-search fa-fw"
                             aria-hidden="true"></span></button>
                 </div>
             </div>
