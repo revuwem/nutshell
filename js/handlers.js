@@ -127,29 +127,45 @@ function sendGroupMessage() {
   });
 };
 
-var fActive = '';
 
-function filterDialogs(value){
-  if(fActive != value){
-  $('.dialogElement').filter('.'+value).slideDown();
-  $('.dialogElement').filter(':not(.'+value+')').slideUp();
-  fActive = value;
-  }
- };
 
-function filterDialogList(){
-  alert($('#searchDialog').val());
-    var param = $('#searchDialog').val(); 
-    if(param!="")
-    {
-      filterDialogs(param);
+//Ограничение на отправку сообщения 
+//Если поле ввода не пустое и строка сообщения не состоит из пробелов - разблокировать кнопку "Отправить"
+function check_text_message(text){  
+    if(text.length!=0 && text.trim()!="")  
+    {                       
+        $('.send-chat').removeAttr('disabled');
     }
-    else{
-      $('.dialogElement').slideDown();
-      fActive = 'all';
+    else
+    {
+        $('.send-chat').attr('disabled', 'disabled');
     }  
 };
 
-$('#btnSearchDialog').click(function(){
-  filterDialogList();
+$(document).on('keypress', '.input-message', function(){
+  check_text_message($(this).val());
 });
+
+$(document).on('keyup', '.input-message', function(){
+check_text_message($(this).val());
+});
+
+$(document).on('keydown', '.input-message', function(){
+check_text_message($(this).val());
+});
+
+//Фильтр контактов для создания или открытия диалога
+$(document).on('click', '#search_dialog', function(){  
+    $('#dialogs_details').css("display", "none");
+    $('#dialogs_filter_details').css("display", "block");
+});
+
+$(document).on('click', '#btn_cancel_search_dialog', function(){
+  $('#dialogs_details').css("display", "block");
+  $('#dialogs_filter_details').css("display", "none");
+});
+
+
+
+
+

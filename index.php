@@ -28,17 +28,7 @@ if(!isset($_SESSION['user_id']))
   <link href="css/style.css" rel="stylesheet">
     
   <script>
-    function check_text_message(){
-        var text_message=$('#dialogReplyForm').val();
-        if(text_message.length!=0)
-        {                       
-            $('#send-dialog-chat').removeAttr('disabled');
-        }
-        else
-        {
-            $('#send-dialog-chat').attr('disabled', 'disabled');
-        }
-    };
+    
   </script>  
   
   </head>

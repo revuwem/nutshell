@@ -314,15 +314,7 @@
                     $('#create_chat').attr('disabled', 'disabled');
                 }
             };
-        function check_text_message(){
-                var text_message=$('.text-message').val();
-                if(text_message.length!=0)
-                {                       
-                    $('.send').removeAttr('disabled');
-                }
-                else
-                {
-                    $('.send').attr('disabled', 'disabled');
-                }
-            };
+
+
+        
      

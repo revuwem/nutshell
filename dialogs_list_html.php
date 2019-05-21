@@ -2,17 +2,22 @@
     <div class="container-fluid side-list">
         <div class="row searchBox">
             <div class="container-fluid input-group">
-                <input type="text" class="form-control" name="searchDialog" onkeypress="filterDialogList()" id="searchDialog" placeholder="Поиск...">
+                <input type="text" class="form-control" name="search_dialog" id="search_dialog" placeholder="Поиск...">
                 <div class="input-group-append">
-                    <button class="btn form-control" id="btnSearchDialog"><span class="fa fa-search fa-fw"
+                    <button class="btn form-control" id="btn_search_dialog"><span class="fa fa-search fa-fw"
+                            aria-hidden="true"></span></button>
+                    <button class="btn form-control" id="btn_cancel_search_dialog"><span class="fa fa-close fa-fw"
                             aria-hidden="true"></span></button>
                 </div>
             </div>
         </div>
         <!--/.searchBox-->
         <div class="row side-body">
-            <div class="col-12 dialog-list">
+            <div class="col-12" id="dialogs-list">
                 <ul class="list-unstyled list-group" id="dialogs_details">
+                </ul>
+                <ul class="list-unstyled list-group" id="dialogs_filter_details" style="display: none;">
+                <li>бла</li>
                 </ul>
             </div>
         </div>

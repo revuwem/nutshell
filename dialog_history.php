@@ -12,10 +12,10 @@
     <div class="row input-dialog-reply input-reply">
         <form action="javascript:void(null);" onsubmit="sendDialogMessage()" id="dialogReplyForm" method="POST">
             <div class="input-group">
-                <input type="text" class="form-control" name="dialogReply" id="dialogReply"
-                    placeholder="Введите ваше сообщение..." autocomplete="false" onkeyup="check_text_message();">
+                <input type="text" class="form-control input-message" name="dialogReply" id="dialogReply"
+                    placeholder="Введите ваше сообщение..." autocomplete="off" >
                 <div class="input-group-append">
-                    <button class="btn form-control" type="submit" name="send-dialog-chat" id="send-dialog-chat"
+                    <button class="btn form-control send-chat" type="submit" name="send-dialog-chat" id="send-dialog-chat"
                         data-touserid="" disabled><span class="fa fa-paper-plane" aria-hidden="true"></span></button>
                 </div>
             </div>

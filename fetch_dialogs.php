@@ -44,7 +44,7 @@ $output='';
 
     }
 $output .= '</div>
-        </li>
+        </li>    
 ';
 echo $output;
 

@@ -12,11 +12,11 @@
     <div class="row input-group-reply input-reply">
         <form action="javascript:void(null);" onsubmit="sendGroupMessage()" id="groupReplyForm" method="POST">
             <div class="input-group">
-                <input type="text" class="form-control" name="groupReply" id="groupReply"
+                <input type="text" class="form-control input-message" name="groupReply" id="groupReply"
                     placeholder="Введите ваше сообщение..." autocomplete="false">
                 <div class="input-group-append">
-                    <button class="btn form-control" type="submit" name="send-group-chat" id="send-group-chat"
-                        data-touserid=""><span class="fa fa-paper-plane" aria-hidden="true"></span></button>
+                    <button class="btn form-control send-chat" type="submit" name="send-group-chat" id="send-group-chat"
+                        data-touserid="" disabled ><span class="fa fa-paper-plane" aria-hidden="true"></span></button>
                 </div>
             </div>
         </form>

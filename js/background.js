@@ -4,18 +4,6 @@ background.js
 */
 
 $(document).ready(function() {
-    
-    function check_text_message(){
-        var text_message=$('.text-message').val();
-        if(text_message.length!=0)
-        {                       
-            $('.send').removeAttr('disabled');
-        }
-        else
-        {
-            $('.send').attr('disabled', 'disabled');
-        }
-    };
 
     getUserInfo(); 
     link_dialogs_list();
@@ -30,6 +18,18 @@ $(document).ready(function() {
 
     setInterval(updates, 5000);
 
+    //Обновление активности пользователя
+    function update_last_activity() {
+        $.ajax({
+            url:"update_last_activity.php", 
+            success:function(){
+                      
+            },
+            error: function(xhr, str){
+                 
+            }                 
+        });
+    };
 
     function link_dialogs_list() {
         $.ajax({
@@ -51,20 +51,7 @@ $(document).ready(function() {
                 fetch_groups_chats();
             }
         });
-    };
-
-    //Обновление активности пользователя
-    function update_last_activity() {
-        $.ajax({
-            url:"update_last_activity.php", 
-            success:function(){
-                      
-            },
-            error: function(xhr, str){
-                alert("Ошибка обновления активности:", xhr.responseCode);  
-            }                 
-        });
-    };
+    };    
 
     //Получение информации в профиле пользователя
     function getUserInfo() {
@@ -208,6 +195,15 @@ $(document).ready(function() {
         link_groups_list();
     });
     
+
+    $(document).on('click', '#btnSearchDialog', function(){
+        
+    });
+
+    
+    // $('#btnSearchDialog').click(function(){
+    //     filterDialogList();
+    //   });
 
        
       
