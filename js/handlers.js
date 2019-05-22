@@ -154,16 +154,67 @@ $(document).on('keydown', '.input-message', function(){
 check_text_message($(this).val());
 });
 
-//Фильтр контактов для создания или открытия диалога
+/*Фильтр контактов для создания или открытия диалога*/
+//UI
 $(document).on('click', '#search_dialog', function(){  
     $('#dialogs_details').css("display", "none");
-    $('#dialogs_filter_details').css("display", "block");
+    $('#dialogs_filter_details').css("display", "block");    
+    $('#btn_cancel_search_dialog>span').removeClass('fa-search').addClass('fa-close');
+    dialogs_filter_details($(this).val());
 });
 
 $(document).on('click', '#btn_cancel_search_dialog', function(){
   $('#dialogs_details').css("display", "block");
-  $('#dialogs_filter_details').css("display", "none");
+  $('#dialogs_filter_details').css("display", "none");    
+  $('#btn_cancel_search_dialog>span').removeClass('fa-close').addClass('fa-search');
 });
+
+//Выгрузка списка контактов, отфильтрованных по param=username=#search_dialog.value
+function dialogs_filter_details(param)
+{
+  $.ajax({
+    url: "dialogs_filter_details.php",
+    method: "post",
+    data: {username:param},
+    success: function(data){
+        $('#dialogs_filter_details').html(data);
+    },
+    error: function(xhr, str){
+      debugger;
+      console.log("Ошибка фильтра диалогов: ", xhr.responseCode);
+    }
+  });
+};
+
+//Обработка нажатий клавиш в поле поиска контакта для применения фильтра
+$(document).on('keypress', '#search_dialog', function(){
+  dialogs_filter_details($(this).val());
+});
+
+$(document).on('keyup', '#search_dialog', function(){
+  dialogs_filter_details($(this).val());
+});
+
+$(document).on('keydown', '#search_dialog', function(){
+  dialogs_filter_details($(this).val());
+});
+
+
+/*Фильтр групп*/
+//UI
+$(document).on('click', '#search_dialog', function(){  
+  $('#dialogs_details').css("display", "none");
+  $('#dialogs_filter_details').css("display", "block");    
+  $('#btn_cancel_search_dialog>span').removeClass('fa-search').addClass('fa-close');
+  dialogs_filter_details($(this).val());
+});
+
+$(document).on('click', '#btn_cancel_search_dialog', function(){
+$('#dialogs_details').css("display", "block");
+$('#dialogs_filter_details').css("display", "none");    
+$('#btn_cancel_search_dialog>span').removeClass('fa-close').addClass('fa-search');
+});
+
 
 
 

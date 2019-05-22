@@ -40,5 +40,4 @@ $output .= '</table>';
 echo $output;
 ?>
 
-<!--<td><button class="btn btn-primary btn-xs start_chat" type="button" data-touserid="'.$row['user_id'].'" data-tousername="'.$row['username'].'">К диалогу</button></td>-->
 

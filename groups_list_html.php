@@ -2,12 +2,10 @@
     <div class="container-fluid side-list">
         <div class="row searchBox">
             <div class="container-fluid input-group">
-                <input type="text" class="form-control" name="searchDialog" id="searchDialog" placeholder="Поиск...">
+                <input type="text" class="form-control" name="search_group" id="search_group" placeholder="Поиск группы...">
                 <div class="input-group-append">
-                    <button class="btn form-control" id="btnSearchGroup"><span class="fa fa-search fa-fw"
-                            aria-hidden="true"></span></button>
-                    <button class="btn form-control" id="create-group"><span class="fa fa-plus fa-fw"
-                            aria-hidden="true"></span></button>
+                    <button class="btn form-control" id="btn_search_group"><span class="fa fa-search fa-fw"
+                            aria-hidden="true"></span></button>                   
                 </div>
             </div>
         </div>
@@ -15,6 +13,8 @@
         <div class="row side-body">
             <div class="col-12 dialog-list">
                 <ul class="list-unstyled list-group" id="groups_details">
+                </ul>
+                <ul class="list-unstyled list-group" id="groups_filter_details" style="display: none;">                    
                 </ul>
             </div>
         </div>

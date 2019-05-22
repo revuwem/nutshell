@@ -61,14 +61,14 @@ $(document).ready(function() {
             success: function(data){ 
                 var result = JSON.parse(data);               
                 $('#username-profile').html(result[0]["username"]);                 
-                $('#person-profile').html(result[0]["firstname"].concat(" ", result[0]["lastname"]));
+                $('#person-profile').html(result[0]["perconname"]);
                 $('#position-profile').html(result[0]["position"]); 
                 $('#worknumber-profile').html(result[0]["worknumber"]); 
                 $('#mobilenumber-profile').html(result[0]["mobilenumber"]);
                 
                 $('#inputUserName').val(result[0]["username"]); 
-                $('#inputPersonFirstName').val(result[0]["firstname"]); 
-                $('#inputPersonLastName').val(result[0]["lastname"]);                
+                $('#inputPersonFirstName').val(result[0]["perconname"]); 
+                //$('#inputPersonLastName').val(result[0]["lastname"]);                
                 $('#inputUserPosition').val(result[0]["position"]); 
 
                 $('#inputUserWorkNumber').val(result[0]["worknumber"]); 
