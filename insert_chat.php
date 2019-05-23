@@ -2,27 +2,91 @@
 include('db_connection.php');
 session_start();
 
-try{
-$data = array(
-    ':to_user_id'   => $_POST['to_user_id'],
-    ':from_user_id' => $_SESSION['user_id'],
-    ':chat_message' =>  $_POST['chat_message'],
-    ':status'   => '1'
-);
+function insert_chat_message($connect, $chat_id){
+    try
+    {
+        $data = array(
+            ':chat_id' => $chat_id,
+            ':to_user_id'   => $_POST['to_user_id'],
+            ':from_user_id' => $_SESSION['user_id'],
+            ':chat_message' =>  $_POST['chat_message'],
+            ':status'   => '1'
+        );
+        $query="
+            INSERT INTO chat_message (chat_id, to_user_id, from_user_id, chat_message, status)
+            VALUES (:chat_id, :to_user_id, :from_user_id, :chat_message, :status)
+        ";
+        $statement = $connect->prepare($query);
+        if ($statement->execute($data))
+        {
+            echo fetch_user_chat_history($_SESSION['user_id'], $_POST['to_user_id'], $connect);
+        }
+        else echo '<span>Не удалось отправить сообщение</span>';
+    }
+    catch(Exception $ex)
+    {
+        echo $ex;
+    };
+};
 
-$query="
-    INSERT INTO chat_message (to_user_id, from_user_id, chat_message, status)
-    VALUES (:to_user_id, :from_user_id, :chat_message, :status)
-";
-$statement = $connect->prepare($query);
-if ($statement->execute($data))
-{
-    echo fetch_user_chat_history($_SESSION['user_id'], $_POST['to_user_id'], $connect);
-}
-else echo '<span>Не удалось отправить сообщение</span>';
+try{
+    $complicity=array(
+        ':user_sender' => $_SESSION['user_id'],
+        ':user_receiver' => $_POST['to_user_id']);
+
+    $query="SELECT
+            count(chat_id) as count
+            FROM
+            `users_chats_complicity`
+            WHERE
+            (user_1 = :user_sender AND user_2 = :user_receiver) OR (user_1 = :user_receiver AND user_2 = :user_sender)";
+    $statement=$connect->prepare($query);
+    $statement->execute($complicity);
+    $result=$statement->fetchColumn();
+
+    if($result==0)
+    {
+        $query="INSERT INTO `users_chats` (`chat_id`) VALUES (NULL);";
+        $statement=$connect->prepare($query);
+        $statement->execute();
+
+        $query  = $connect->query("SELECT LAST_INSERT_ID() FROM `users_chats`");
+        $chat_id = $query->fetchColumn();
+
+        if($chat_id!='')
+        {  
+
+            $query="INSERT INTO `users_chats_complicity` (`complicity_id`, `chat_id`, `user_1`, `user_2`) VALUES (NULL, '$chat_id', :user_sender, :user_receiver);";
+            $statement=$connect->prepare($query);
+            $statement->execute($complicity);
+            $result=$statement->rowCount();
+            if($result==1)
+            {
+                insert_chat_message($connect, $chat_id);
+            }
+        }
+        else 
+        {
+            echo '<span>Не удалось отправить сообщение</span>';
+            
+        };
+    }
+    else{
+        $query="SELECT
+            chat_id
+            FROM
+            `users_chats_complicity`
+            WHERE
+            (user_1 = :user_sender AND user_2 = :user_receiver) OR (user_1 = :user_receiver AND user_2 = :user_sender)";
+        $statement=$connect->prepare($query);
+        $statement->execute($complicity);
+        $result=$statement->fetchColumn();        
+
+        insert_chat_message($connect, $result);
+    };
 }
 catch(Exception $ex){
     echo $ex;    
-}
+};
 
 ?>
