@@ -165,11 +165,10 @@ ul{
 
 .list-group > li{
   width: 100%;
-  border: none;
-  border-bottom: 1px solid #CFC8C4;
+  border:none;
+  border-bottom: 0.5px solid #D095FF;
   text-align: left !important;
-  font-size: .8rem;
-  margin: .2rem 0;
+  font-size: .8rem;  
 }
 
 .list-group > li:hover{

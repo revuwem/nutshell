@@ -4,7 +4,7 @@
             <div class="container-fluid input-group">
                 <input type="text" class="form-control" name="search_group" id="search_group" placeholder="Поиск группы...">
                 <div class="input-group-append">
-                    <button class="btn form-control" id="btn_search_group"><span class="fa fa-search fa-fw"
+                    <button class="btn form-control" id="btn_cancel_search_group"><span class="fa fa-search fa-fw"
                             aria-hidden="true"></span></button>                   
                 </div>
             </div>

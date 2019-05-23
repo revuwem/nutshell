@@ -25,7 +25,7 @@ $output='';
         foreach($result as $message)
         {
 
-            $output .= '<li class="list-group-item btn btn-light dialogElement start-chat" data-touserid="'.$rowDialog['from_user_id'].'" data-tousername="'.get_user_name($rowDialog['from_user_id'], $connect).'">
+            $output .= '<li class="list-group-item btn btn-light dialogElement start-chat mt-1" data-touserid="'.$rowDialog['from_user_id'].'" data-tousername="'.get_user_name($rowDialog['from_user_id'], $connect).'">
                             <div class="row">
                                  <div class="col col-2 col-sm-3 col-md-2 col-lg-1">
                                     <img class="rounded-circle  avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png">
@@ -40,12 +40,14 @@ $output='';
                         $output .= '<p class="last-message">'.$message['chat_message'].'</p>';
                     } 
                 $output .= '</div>'; 
-        }        
+        };  
+        $output .= '</div>            
+                </li>
+               
+        ';      
 
-    }
-$output .= '</div>
-        </li>    
-';
+    };
+    
 echo $output;
 
 ?>

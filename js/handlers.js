@@ -202,17 +202,47 @@ $(document).on('keydown', '#search_dialog', function(){
 
 /*Фильтр групп*/
 //UI
-$(document).on('click', '#search_dialog', function(){  
-  $('#dialogs_details').css("display", "none");
-  $('#dialogs_filter_details').css("display", "block");    
-  $('#btn_cancel_search_dialog>span').removeClass('fa-search').addClass('fa-close');
-  dialogs_filter_details($(this).val());
+$(document).on('click', '#search_group', function(){  
+  $('#groups_details').css("display", "none");
+  $('#groups_filter_details').css("display", "block");    
+  $('#btn_cancel_search_group>span').removeClass('fa-search').addClass('fa-close');
+  groups_filter_details($(this).val());
 });
 
-$(document).on('click', '#btn_cancel_search_dialog', function(){
-$('#dialogs_details').css("display", "block");
-$('#dialogs_filter_details').css("display", "none");    
-$('#btn_cancel_search_dialog>span').removeClass('fa-close').addClass('fa-search');
+$(document).on('click', '#btn_cancel_search_group', function(){
+$('#groups_details').css("display", "block");
+$('#groups_filter_details').css("display", "none");    
+$('#btn_cancel_search_group>span').removeClass('fa-close').addClass('fa-search');
+});
+
+//Выгрузка списка групп пользователя, отфильтрованных по param=groupname=#search_group.value
+function groups_filter_details(param)
+{
+  $.ajax({
+    url: "groups_filter_details.php",
+    method: "post",
+    data: {groupname:param},
+    success: function(data){
+        $('#groups_filter_details').html(data);
+    },
+    error: function(xhr, str){
+      debugger;
+      console.log("Ошибка фильтра групп: ", xhr.responseCode);
+    }
+  });
+};
+
+//Обработка нажатий клавиш в поле поиска группы для применения фильтра
+$(document).on('keypress', '#search_group', function(){
+  groups_filter_details($(this).val());
+});
+
+$(document).on('keyup', '#search_group', function(){
+  groups_filter_details($(this).val());
+});
+
+$(document).on('keydown', '#search_dialog', function(){
+  groups_filter_details($(this).val());
 });
 
 

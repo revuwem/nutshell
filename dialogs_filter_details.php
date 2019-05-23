@@ -24,13 +24,13 @@ function fetch_filtered_dialogs_details($connect, $param){
             $statement->execute(
                 array($placeholder)
             );
-            $govno='1';
+            
         }
         else{
             $query="SELECT * FROM users WHERE user_id != '".$_SESSION['user_id']."'";
             $statement=$connect->prepare($query);
             $statement->execute();   
-            $govno='2';         
+                    
         }
         
         
@@ -54,7 +54,7 @@ function fetch_filtered_dialogs_details($connect, $param){
                     $status = '<span class="badge badge-pill badge-danger ml-1">Offline</span>';
                 }
 
-                $output .= '<li class="list-group-item btn btn-light dialogElement start-chat" data-touserid="'.$row['user_id'].'" data-tousername="'.get_user_name($row['user_id'], $connect).'">
+                $output .= '<li class="list-group-item btn btn-light dialogElement start-chat mt-1" data-touserid="'.$row['user_id'].'" data-tousername="'.get_user_name($row['user_id'], $connect).'">
                                 <div class="row">
                                     <div class="col col-2 col-sm-3 col-md-2 col-lg-1">
                                         <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="rounded-circle avatar">
@@ -62,14 +62,14 @@ function fetch_filtered_dialogs_details($connect, $param){
                                     <div class="col col-10 col-sm-9 col-md-10 col-lg-11">
                                         <p class="font-weight-bold">'.get_user_name($row['user_id'], $connect).' </p>'.$status.'
                                     </div>
-                                </div>
+                                </div>                                
                             </li>
                 ';        
                     
             };
         }
         else{
-            $output='<li><label>Не найдено контактов по такому запросу.</label>' .$govno.'</li>';
+            $output='<li><label>Не найдено контактов по такому запросу.</label></li>';
         }
         echo $output;
     }
