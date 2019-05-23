@@ -144,8 +144,8 @@ $(document).ready(function() {
                 fetch_dialog_chat_history(to_user_id);
                 $('#dialog-sender').html(to_user_name);
                 $('#send-dialog-chat').attr('data-touserid', to_user_id);
-                var targetDiv = $(".dialog-history");
-                targetDiv.scrollTop( targetDiv.prop('scrollHeight') );            
+                var block = document.getElementsByClassName('.dialog-history');
+                block.scrollTop=block.scrollHeight;        
             }
         });
     });

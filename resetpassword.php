@@ -38,7 +38,7 @@ function reset_password($connect) {
         if($result==1)
         {
 
-            $query="SELECT email, firstname, lastname FROM users WHERE username = :username";
+            $query="SELECT email, perconname FROM users WHERE username = :username";
             $statement=$connect->prepare($query);
             $statement->execute(
                 array(':username' => $_POST["username"])
@@ -49,10 +49,9 @@ function reset_password($connect) {
                 foreach($result as $row)
                 {
                     $email = $row['email'];
-                    $firstname = $row['firstname'];
-                    $lastname = $row['lastname'];
+                    $perconname = $row['perconname'];                    
                 }
-                $hello_mes .="Добрый день, ".$firstname." ".$lastname.". Для вашей учетной записи был запрошен сброс пароля. \r\n";
+                $hello_mes .="Добрый день, ".$perconname.". Для вашей учетной записи был запрошен сброс пароля. \r\n";
                 $hello_mes .="Ваш временный пароль: ".$temp_password.". \r\n"; 
                 $hello_mes .="Пожалуйста, используйте этот пароль для доступа к аккаунту Nutshell. В дальнейшем, Вы сможете изменить пароль в настройках учетной записи Nutshell.";
                 
