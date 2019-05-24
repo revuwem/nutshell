@@ -36,6 +36,21 @@ $output='';
                 $interlocutor=$rowComplicity['user_1'];
             };  
 
+            //Определение статуса пользователя
+                //Если последняя активность > (текущее время-10s) - пользователь в сети(online)
+                $status='';
+                $current_timestamp=strtotime(date('Y-m-d H:i:s').'-10 second');
+                $current_timestamp = date('Y-m-d H:i:s', $current_timestamp);
+                $user_last_activity = fetch_user_last_activity($interlocutor, $connect);
+                if($user_last_activity>$current_timestamp)
+                {
+                $status = '<span class="badge badge-pill badge-success ml-1 p-1"> </span>'; 
+                }
+                else
+                {
+                    $status = '<span class="badge badge-pill badge-danger ml-1 p-1"> </span>';
+                }
+
 
             //Выбираем последнее сообщение диалога и id отправителя
             $query="SELECT chat_message, from_user_id FROM chat_message WHERE chat_id = '".$rowDialog['chat_id']."' ORDER BY timestamp DESC LIMIT 1
@@ -47,19 +62,21 @@ $output='';
 
             foreach($result as $message)
             {
-                $output .= '<li class="list-group-item btn btn-light dialogElement start-chat mt-1" data-touserid="'.$interlocutor.'" data-tousername="'.get_user_name($interlocutor, $connect).'">
+                $output .= '<li class="list-group-item btn dialogElement start-chat mt-1" data-touserid="'.$interlocutor.'" data-tousername="'.get_user_name($interlocutor, $connect).'">
                                 <div class="row">
                                     <div class="col col-2 col-sm-3 col-md-2 col-lg-1">
                                         <img class="rounded-circle  avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png">
                                     </div>
                                     <div class="col col-10 col-sm-9 col-md-10 col-lg-11">
-                                        <p class="font-weight-bold">'.get_user_name($interlocutor, $connect).'</p><span class="label label-success rounded-circle"> '.count_unseen_message($rowDialog['from_user_id'], $_SESSION['user_id'], $connect).'</span><br> 
-                                    ';
+                                        <p class="font-weight-bold">'.get_user_name($interlocutor, $connect).'</p>'.$status.' ';
+
+                        
+                        //Вывод последнего сообщения
                         if($message['from_user_id']==$_SESSION['user_id']){
-                            $output .= '<p class="last-message">Вы:  '.$message['chat_message'].'</p>';
+                            $output .= '<br><p class="last-message">Вы:  '.$message['chat_message'].'</p> <span class="badge badge-info ml-3">'.count_unseen_message($interlocutor, $_SESSION['user_id'], $connect).'</span>';
                         }
                         else{
-                            $output .= '<p class="last-message">'.$message['chat_message'].'</p>';
+                            $output .= '<br><p class="last-message">'.$message['chat_message'].'</p> <span class="badge badge-info ml-3">'.count_unseen_message($interlocutor, $_SESSION['user_id'], $connect).'</span>';
                         } 
                     $output .= '</div>'; 
             }; 

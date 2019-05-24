@@ -101,6 +101,7 @@ a{
 .tab-pane{
   height: 100%;
   padding: 1.2rem;
+  max-height: 87vh;
 }
 
 /*background-image: url(../images/background/color-design-flora-1166644.jpg);
@@ -152,8 +153,8 @@ a{
 }
 
 
-.dialog-list{
-  /* height: 100%; */
+.list-fixed{
+  height: 90%;
   overflow-y: auto;
 }
 
@@ -161,6 +162,7 @@ ul{
   display: table;
   width: 100%;
   height: 100%;
+  margin:0;
 }
 
 .list-group > li{
@@ -179,6 +181,10 @@ ul{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.dialogElement:hover, .groupElement:hover{
+  background-color: rgba(186, 133, 228, 0.2);
 }
 
 
@@ -222,6 +228,7 @@ ul{
 #dialogReply{
   width: 80%;
 }
+
 
 /*Tab Contacts*/
 .contacts-content .form-control{

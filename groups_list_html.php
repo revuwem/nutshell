@@ -11,7 +11,7 @@
         </div>
         <!--/.searchBox-->
         <div class="row side-body">
-            <div class="col-12 dialog-list">
+            <div class="col-12 list-fixed" id="group-list">
                 <ul class="list-unstyled list-group" id="groups_details">
                 </ul>
                 <ul class="list-unstyled list-group" id="groups_filter_details" style="display: none;">                    

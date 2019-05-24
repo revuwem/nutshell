@@ -35,6 +35,7 @@ function fetch_filtered_dialogs_details($connect, $param){
         
         
         $result=$statement->fetchAll();
+
         if(count($result)>0)
         {
             foreach($result as $row){
@@ -47,11 +48,11 @@ function fetch_filtered_dialogs_details($connect, $param){
                 $user_last_activity = fetch_user_last_activity($row['user_id'], $connect);
                 if($user_last_activity>$current_timestamp)
                 {
-                $status = '<span class="badge badge-pill badge-success ml-1">Online</span>'; 
+                $status = '<span class="badge badge-pill badge-success ml-1 p-1"> </span>'; 
                 }
                 else
                 {
-                    $status = '<span class="badge badge-pill badge-danger ml-1">Offline</span>';
+                    $status = '<span class="badge badge-pill badge-danger ml-1 p-1"> </span>';
                 }
 
                 $output .= '<li class="list-group-item btn btn-light dialogElement start-chat mt-1" data-touserid="'.$row['user_id'].'" data-tousername="'.get_user_name($row['user_id'], $connect).'">
