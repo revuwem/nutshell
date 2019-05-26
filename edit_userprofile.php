@@ -1,49 +1,19 @@
 <?php
 include('db_connection.php');
+include('upload_files.php');
 session_start();
 
-function can_upload($file){
-	// если имя пустое, значит файл не выбран
-    if($file['inputUserPhoto'] == '')
-		return 'Вы не выбрали файл.'.$file['inputUserPhoto'];
-	
-	/* если размер файла 0, значит его не пропустили настройки 
-	сервера из-за того, что он слишком большой */
-	if($file['size'] == 0)
-		return 'Файл слишком большой.';
-	
-	// разбиваем имя файла по точке и получаем массив
-	$getMime = explode('.', $file['name']);
-	// нас интересует последний элемент массива - расширение
-	$mime = strtolower(end($getMime));
-	// объявим массив допустимых расширений
-	$types = array('jpg', 'png', 'gif', 'bmp', 'jpeg');
-	
-	// если расширение не входит в список допустимых - return
-	if(!in_array($mime, $types))
-		return 'Недопустимый тип файла.';
-	
-	return true;
-};
-  
-  function make_upload($file){	
-	// формируем уникальное имя картинки: случайное число и name
-	$name = mt_rand(0, 10000) . $file['name'];
-	copy($file['tmp_name'], 'img/' . $name);
-};
 
-function updateUserBasicInfo($connect, $username, $firstname, $lastname, $position, $photo){
+
+function updateUserBasicInfo($connect, $username, $perconname, $position, $filePath, $errorCode){
     $message='';
-    if($username!='' && $firstname!='' && $lastname!='' && $position!='')
+    if($username!='' && $perconname!='' &&  $position!='')
     {
-        
-        // проверяем, можно ли загружать изображение
-      $check = can_upload($photo);
-    
-      if($check === true)
-      {
-            // загружаем изображение на сервер
-            make_upload($photo);
+
+        $newphoto=load_photo($filePath, $errorCode);
+        //Если фото загрузилось на сервер
+        if($newphoto!='')
+        {
             //Проверка на дублирование имени пользователя
             $query="SELECT COUNT(*) FROM users WHERE username = :username and user_id != :user_id";
             $statement=$connect->prepare($query);        
@@ -57,17 +27,15 @@ function updateUserBasicInfo($connect, $username, $firstname, $lastname, $positi
             if($count==0)
             {
                 try{        
-                    $query="UPDATE `users` SET `username` = :username, `firstname` = :newfirstname, `lastname` = :newlastname, `position` = :newposition, `photo` = :newphoto
+                    $query="UPDATE `users` SET `username` = :username, `perconname` = :newperconname, `position` = :newposition, `photo` =:newphoto
                             WHERE `users`.`user_id` = '".$_SESSION['user_id']."';";
                     $statement=$connect->prepare($query);
                     $statement->execute(
                         array(
                             ':username' => $username,
-                            ':newfirstname' => $firstname,
-                            ':newlastname' => $lastname,
+                            ':newperconname' => $perconname,
                             ':newposition' => $position,
-                            ':newphoto' => $photo
-
+                            ':newphoto' => $newphoto
                         )
                     );
                     $result=$statement->rowCount();
@@ -89,7 +57,7 @@ function updateUserBasicInfo($connect, $username, $firstname, $lastname, $positi
         }
         else{
         // выводим сообщение об ошибке
-        echo "<strong>$check</strong>";  
+        echo "<strong>Внимание!</strong>Не удалось загрузить фото.";  
         }
     }
     else{
@@ -166,7 +134,7 @@ function updateUserPassword($connect, $currentPassword, $newPassword){
 
 switch($_GET['action']){
     case 'basic':        
-        updateUserBasicInfo($connect, $_POST["inputUserName"], $_POST['inputPersonFirstName'], $_POST['inputPersonLastName'], $_POST['inputUserPosition'], $_FILES['inputUserPhoto']);
+        updateUserBasicInfo($connect, $_POST["inputUserName"], $_POST['inputPersonName'], $_POST['inputUserPosition'], $_FILES['inputUserPhoto']['tmp_name'], $_FILES['inputUserPhoto']['error']);
         break;
     case 'contacts':
         updateUserContactsInfo($connect, $_POST["inputUserWorkNumber"], $_POST["inputUserMobileNumber"]);

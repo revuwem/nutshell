@@ -119,7 +119,7 @@ if(!isset($_SESSION['user_id']))
                     <div class="row aside-body">
                         <div class="container text-center"><!--User Info-->
                             <ul class="list-unstyled">
-                                <li><img class="rounded-circle avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png"></li>
+                                <li><img class="rounded-circle avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png" id="profileUserPhoto"></li>
                                 <br>
                                 <li><p id="username-profile"></p></li>
                                 <li><h5 id="person-profile"></h5></li>
@@ -150,25 +150,21 @@ if(!isset($_SESSION['user_id']))
                 <div class="container col-12 col-lg-6 main shadow">                    
                     <div class="row">                        
                       <div class="container"><br><h5>Редактировать профиль</h5></div>
-                        <form method="post" enctype="multipart/form-data" id="userBasicInfo" action="javascript:void(null);" onsubmit="editUserBasicInfo()">                             
+                        <form method="post" enctype="multipart/form-data" id="userBasicInfo">                             
                             <div class="container shadow form-group">
                                 <h6>Основное</h6>                                
-                                <div class="alert alert-primary" id="editBasicInfoResult" style="display:none">
-                                  
+                                <div class="alert alert-primary" id="editBasicInfoResult" style="display:none">                                  
                                 </div>  
-                                <label for="inputPersonFirstName">Имя</label>
-                                <input type="text" class="form-control" name="inputPersonFirstName" id="inputPersonFirstName" >
-                                <!-- required pattern="[A-Za-zА-Яа-яЁё]" -->
-                                <label for="inputPersonLastName">Фамилия</label>
-                                <input type="text" class="form-control" name="inputPersonLastName" id="inputPersonLastName">
-                                <!-- required pattern="[A-Za-zА-Яа-яЁё]" -->
+                                <label for="inputUserName">Имя пользователя</label>
+                                <input type="text" class="form-control" name="inputUserName" id="inputUserName" autocomplete="off">
+                                <label for="inputPersonName">Имя</label>
+                                <input type="text" class="form-control" name="inputPersonName" id="inputPersonName" >
                                 <label for="inputUserPosition">Должность</label>
                                 <input type="text" class="form-control" name="inputUserPosition" id="inputUserPosition" >
                                 <label for="inputUserPhoto">Фотография</label>
                                 <input type="file" class="form-control" accept="image/jpeg,image/png" name="inputUserPhoto" id="inputUserPhoto" >
-                                <!-- required pattern="[A-Za-zА-Яа-яЁё]" -->
                                 <br>
-                                <input class="btn btn-save-profile-changes form-control" type="submit" name="saveUserBasicInfo" id="saveUserBasicInfo" value="Сохранить">
+                                <input class="btn btn-save-profile-changes form-control btn-block" type="submit" name="saveUserBasicInfo" id="saveUserBasicInfo" value="Сохранить">
                             </div><!--/#edit-user-basic-info-->
                         </form>                        
                         <form method="post" action="javascript:void(null);" onsubmit="editUserContactsInfo()" id="userContactsInfo">

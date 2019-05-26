@@ -4,24 +4,29 @@ handlers.js
 */
 
 //Функция обновления основной информации о пользователе
-function editUserBasicInfo(){
-    var formdata = $('#userBasicInfo').serialize();  
-    $('#editBasicInfoResult').css("display", "none");  
+$(function(){
+  $('#userBasicInfo').on('submit', function(e){
+    e.preventDefault();
+    var $that = $(this),
+    formdata = new FormData($that.get(0)); //создаем новый экземпляр объекта и передаем ему форму
+    $('#editBasicInfoResult').css("display", "none"); 
+
     $.ajax({
-      type: "POST", 
-      url: "edit_userprofile.php?action=basic",
-      data: formdata,
-      mimeType: "multipart/form-data",
-      success: function(data){
-        $('#editBasicInfoResult').html(data);
-        $('#editBasicInfoResult').css("display", "block");
-      },
-      error: function(xhr, str){
+        type: "POST", 
+        url: "edit_userprofile.php?action=basic",       
+        processData: false,
+        contentType: false,
+        data: formdata,
+        success: function(data){
+          $('#editBasicInfoResult').html(data);
+          $('#editBasicInfoResult').css("display", "block");
+        },
+        error: function(xhr, str){
         alert('Возникла ошибка: ', xhr.responseCode);
       }
     });
-    getUserInfo();
-};
+  });
+});
 
 //Функция обновления контактов пользователя
 function editUserContactsInfo(){

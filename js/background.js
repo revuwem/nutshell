@@ -59,7 +59,8 @@ $(document).ready(function() {
             type: "POST",
             url: "get_user_info.php",                        
             success: function(data){ 
-                var result = JSON.parse(data);               
+                var result = JSON.parse(data);  
+                $('#profileUserPhoto').attr('src', result[0]["photo"]);             
                 $('#username-profile').html(result[0]["username"]);                 
                 $('#person-profile').html(result[0]["perconname"]);
                 $('#position-profile').html(result[0]["position"]); 
@@ -67,8 +68,7 @@ $(document).ready(function() {
                 $('#mobilenumber-profile').html(result[0]["mobilenumber"]);
                 
                 $('#inputUserName').val(result[0]["username"]); 
-                $('#inputPersonFirstName').val(result[0]["perconname"]); 
-                //$('#inputPersonLastName').val(result[0]["lastname"]);                
+                $('#inputPersonName').val(result[0]["perconname"]);
                 $('#inputUserPosition').val(result[0]["position"]); 
 
                 $('#inputUserWorkNumber').val(result[0]["worknumber"]); 
