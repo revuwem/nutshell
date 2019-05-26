@@ -60,7 +60,10 @@ if(!isset($_SESSION['user_id']))
     <div class="tab-pane show active" id="Groups" role="tabpanel">
       <div class="container-fluid chat-app">
         <div class="row app" id="groups">    
-          <div id="dialog"></div>  
+          <div id="dialog">
+            <div id="create_group_feedback"></div>
+            <input type="text" class="form-control" name="input_new_group_name" id="input_new_group_name" placeholder="Назовите группу...">
+          </div>  
         </div> 
       </div>
     </div>

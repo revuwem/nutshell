@@ -198,7 +198,10 @@ $(document).ready(function() {
 
     $("#dialog").dialog({autoOpen: false,
     title: "Новая группа",    
-    modal:true
+    modal:true,
+    buttons:[{text:"Создать", click: createNewGroup}],
+    width: 400,
+    height: 160
     
 });
 
@@ -207,9 +210,7 @@ $(document).ready(function() {
         $("#dialog").dialog("open");
     });
 
-    function createNewGroup(){
-
-    };
+    
     
 
        

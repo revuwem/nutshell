@@ -19,14 +19,6 @@
                 <ul class="list-unstyled list-group" id="groups_filter_details" style="display: none;">                    
                 </ul>
             </div>           
-        </div>
-        <div id="create_group_dialog">
-               <!-- <div class="input-group">
-                   <input type="text" class="form-control" name="input_new_group_name" id="input_new_group_name" placeholder="Название группы..." autocomplete="off">
-                   <div class="input-group-append">
-                       <button class="btn btn-info">Создать</button>
-                   </div>
-               </div> -->
-           </div>
+        </div>        
     </div>    
 </div>

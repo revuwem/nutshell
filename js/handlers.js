@@ -246,6 +246,34 @@ $(document).on('keydown', '#search_dialog', function(){
 });
 
 
+//Создание группы
+function createNewGroup(group_name){
+  var action = "add";
+  var group_name = $('#input_new_group_name').val();
+  if(group_name!='' && group_name.trim()!='')
+  {
+    $.ajax({
+      url: "groups_functions.php",
+      method:"post",
+      data:{group_name:group_name, action:action},
+      success:function(data){
+        $('#create_group_feedback').html(data);
+      }
+    });
+  }
+  else{
+    var output = '<div class="alert alert-warning alert-dismissible">';
+    output += '<button type="button" class="close" data-dismiss="alert">&times;</button>';
+    output += 'Пожалуйста, укажите <strong>название группы</strong>.';
+    output += '</div>';
+    $('#create_group_feedback').html(output);
+
+    $("#dialog").dialog({      
+      height: 200     
+  });
+  }  
+};
+
 
 
 
