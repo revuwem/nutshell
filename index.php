@@ -26,14 +26,13 @@ if(!isset($_SESSION['user_id']))
 
   <!-- Custom styles -->
   <link href="css/style.css" rel="stylesheet">
-    
-  <script>
-    
-  </script>  
-  
+
+  <!-- jQuery UI  -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="jquery-ui/jquery-ui.theme.css">
   </head>
-  <body> 
-  <div class="d-flex" id="wrapper">
+<body> 
+<div class="d-flex" id="wrapper">
 
 <!-- Sidebar -->
 <div class="border-right" id="sidebar-wrapper">
@@ -60,7 +59,8 @@ if(!isset($_SESSION['user_id']))
   <div class="container-fluid tab-content">
     <div class="tab-pane show active" id="Groups" role="tabpanel">
       <div class="container-fluid chat-app">
-        <div class="row app" id="groups">      
+        <div class="row app" id="groups">    
+          <div id="dialog"></div>  
         </div> 
       </div>
     </div>
@@ -213,6 +213,8 @@ if(!isset($_SESSION['user_id']))
 <script src="js/jquery/jquery.min.js"></script>
 <!-- Bootstrap core JavaScript -->
 <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
+<!--jQuery UI-->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!--Background Scripts-->
 <script src="js/background.js"></script>
 <!--Handlers Scripts-->

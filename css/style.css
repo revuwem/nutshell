@@ -136,6 +136,7 @@ a{
 
 .menu, .message-space{
   height: 100%;
+  overflow-y:auto;
 }
 
 .side-list{
@@ -229,12 +230,28 @@ ul{
   width: 80%;
 }
 
+.group_panel{
+  font-size: .9em;
+}
+
+.group_panel .header{
+  height: 15%;
+}
+
+.group_panel .header{
+  height: 85%;
+}
 
 /*Tab Contacts*/
 .contacts-content .form-control{
   border: none;
 }
 
+#contacts-panel{
+  height:85%;
+  max-height: 95%;
+  overflow-y: auto;
+}
 
 
 

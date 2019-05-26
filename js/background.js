@@ -170,7 +170,7 @@ $(document).ready(function() {
         });
     };
 
-    //Окно группы
+    //Открыть окно группы
     $(document).on('click', '.groupElement', function(){
         $('#groups').empty();
         var to_chat_id=$(this).data('chatgroupid');
@@ -189,21 +189,28 @@ $(document).ready(function() {
         });
     });
 
-    //Закрыть окно диалога
+    //Закрыть окно группы
     $(document).on('click', '#close-group-form', function(){
         $('#groups').empty();
         link_groups_list();
     });
     
 
-    $(document).on('click', '#btnSearchDialog', function(){
-        
+    $("#dialog").dialog({autoOpen: false,
+    title: "Новая группа",    
+    modal:true
+    
+});
+
+    //Открыть диалоговое окно создания группы
+    $(document).on('click', '#btn_create_group_dialog', function(){
+        $("#dialog").dialog("open");
     });
 
+    function createNewGroup(){
+
+    };
     
-    // $('#btnSearchDialog').click(function(){
-    //     filterDialogList();
-    //   });
 
        
       

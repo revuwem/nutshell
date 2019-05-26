@@ -29,9 +29,9 @@ foreach($result as $row)
     }
     $output .= '
         <tr>
-            <td width="15%"><img src="" alt="фото"></td>
-            <td width="60%">'.$row['username'].' '.$status.' '.count_unseen_message($row['user_id'], $_SESSION['user_id'], $connect).' '.fetch_is_type_status($row['user_id'], $connect).'<br></td>            
-            <td width="25%"><button class="btn btn-outline-info btn-sm start_chat" type="button" data-touserid="'.$row['user_id'].'" data-tousername="'.$row['username'].'">К диалогу</button></td>            
+            <td><img src="" alt="фото"></td>
+            <td>'.$row['username'].' '.$status.' '.count_unseen_message($row['user_id'], $_SESSION['user_id'], $connect).' '.fetch_is_type_status($row['user_id'], $connect).'<br></td>            
+            <td><button class="btn btn-outline-info btn-sm start_chat" type="button" data-touserid="'.$row['user_id'].'" data-tousername="'.$row['username'].'">К диалогу</button></td>            
         </tr>
     ';
 }
