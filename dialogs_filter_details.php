@@ -58,7 +58,7 @@ function fetch_filtered_dialogs_details($connect, $param){
                 $output .= '<li class="list-group-item btn btn-light dialogElement start-chat mt-1" data-touserid="'.$row['user_id'].'" data-tousername="'.get_user_name($row['user_id'], $connect).'">
                                 <div class="row">
                                     <div class="col col-2 col-sm-3 col-md-2 col-lg-1">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="rounded-circle avatar">
+                                        <img src="'.get_user_photo($row['user_id'], $connect).'" alt="" class="rounded-circle avatar">
                                     </div>
                                     <div class="col col-10 col-sm-9 col-md-10 col-lg-11">
                                         <p class="font-weight-bold">'.get_user_name($row['user_id'], $connect).' </p>'.$status.'

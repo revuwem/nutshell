@@ -136,6 +136,7 @@ $(document).ready(function() {
         $('#dialogs').empty();
         var to_user_id=$(this).data('touserid');
         var to_user_name=$(this).data('tousername');
+        var to_user_photo=$(this).data('touserphoto');        
         $.ajax({
             url:"dialog_history.php",
             method: "get",
@@ -144,6 +145,7 @@ $(document).ready(function() {
                 fetch_dialog_chat_history(to_user_id);
                 $('#dialog-sender').html(to_user_name);
                 $('#send-dialog-chat').attr('data-touserid', to_user_id);
+                $('#dialog_user_photo').attr('src', to_user_photo);
                 var block = document.getElementsByClassName('.dialog-history');
                 block.scrollTop=block.scrollHeight;        
             }
@@ -175,6 +177,7 @@ $(document).ready(function() {
         $('#groups').empty();
         var to_chat_id=$(this).data('chatgroupid');
         var to_chat_name=$(this).data('chatgroupname');
+        var to_group_photo=$(this).data('chatgroupphoto');
         $.ajax({
             url:"group_history.php",
             method: "get",
@@ -183,6 +186,7 @@ $(document).ready(function() {
                 fetch_group_chat_history(to_chat_id);
                 $('#group-name').html(to_chat_name);
                 $('#send-group-chat').attr('data-tochatid', to_chat_id);
+                $('#group-chat-photo').attr('src', to_group_photo);
                 var targetDiv = $(".group-history");
                 targetDiv.scrollTop( targetDiv.prop('scrollHeight') );            
             }

@@ -24,7 +24,7 @@ function fetch_user_last_activity($user_id, $connect)
     {
        return $row['last_activity']; 
     }
-}
+};
 
 function fetch_user_chat_history($from_user_id, $to_user_id, $connect)
 {
@@ -74,7 +74,7 @@ function fetch_user_chat_history($from_user_id, $to_user_id, $connect)
     $statement=$connect->prepare($query);
     $statement->execute();
     return $output;
-}
+};
 
 function get_user_name($user_id, $connect)
 {
@@ -87,7 +87,27 @@ function get_user_name($user_id, $connect)
     {        
         return $row['perconname'];
     }
-}
+};
+
+function get_user_photo($user_id, $connect){
+    $query="SELECT photo FROM users WHERE user_id = '$user_id'";
+    $statement=$connect->prepare($query);
+    $statement->execute();
+    $result=$statement->fetchAll();
+    foreach($result as $row){
+        return $row['photo'];
+    }
+};
+
+function get_group_photo($group_id, $connect){
+    $query="SELECT photo FROM chat_groups WHERE chat_group_id = '$group_id'";
+    $statement=$connect->prepare($query);
+    $statement->execute();
+    $result=$statement->fetchAll();
+    foreach($result as $row){
+        return $row['photo'];
+    }
+};
 
 function count_unseen_message($from_user_id, $to_user_id, $connect)
 {
@@ -107,7 +127,7 @@ function count_unseen_message($from_user_id, $to_user_id, $connect)
         $output = '<span class="label label-success">'.$count.'</span>';
     }
     return $output;
-}
+};
 
 
 function fetch_is_type_status($user_id, $connect)
@@ -129,7 +149,7 @@ function fetch_is_type_status($user_id, $connect)
         }
     }
     return $output;
-}
+};
 
 function get_group_chat_name($chat_group_id, $connect)
 {
@@ -141,7 +161,7 @@ function get_group_chat_name($chat_group_id, $connect)
     {
         return $row['chat_name'];        
     }
-}
+};
 
 function fetch_group_chat_history($from_user_id, $to_chat_id, $connect)
 {
@@ -175,7 +195,7 @@ function fetch_group_chat_history($from_user_id, $to_chat_id, $connect)
     }
     $output .= '</ul>';
     return $output;
-}
+};
 
 
 

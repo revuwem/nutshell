@@ -119,7 +119,7 @@ if(!isset($_SESSION['user_id']))
                     <div class="row aside-body">
                         <div class="container text-center"><!--User Info-->
                             <ul class="list-unstyled">
-                                <li><img class="rounded-circle avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png" id="profileUserPhoto"></li>
+                                <li><img class="rounded-circle avatar avatar-xl" src="https://bootdey.com/img/Content/avatar/avatar1.png" id="profileUserPhoto"></li>
                                 <br>
                                 <li><p id="username-profile"></p></li>
                                 <li><h5 id="person-profile"></h5></li>

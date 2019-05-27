@@ -62,10 +62,10 @@ $output='';
 
             foreach($result as $message)
             {
-                $output .= '<li class="list-group-item btn dialogElement start-chat mt-1" data-touserid="'.$interlocutor.'" data-tousername="'.get_user_name($interlocutor, $connect).'">
+                $output .= '<li class="list-group-item btn dialogElement start-chat mt-1" data-touserid="'.$interlocutor.'" data-tousername="'.get_user_name($interlocutor, $connect).'" data-touserphoto="'.get_user_photo($interlocutor, $connect).'">
                                 <div class="row">
                                     <div class="col col-2 col-sm-3 col-md-2 col-lg-1">
-                                        <img class="rounded-circle  avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png">
+                                        <img class="rounded-circle  avatar" src="'.get_user_photo($interlocutor, $connect).'">
                                     </div>
                                     <div class="col col-10 col-sm-9 col-md-10 col-lg-11">
                                         <p class="font-weight-bold">'.get_user_name($interlocutor, $connect).'</p>'.$status.' ';

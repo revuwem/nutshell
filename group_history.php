@@ -2,7 +2,7 @@
     <div class="row header">
         <div class="col col-12 clearfix py-1">
             <button class="btn" id="close-group-form"><span class="fa fa-arrow-left fa-fw"aria-hidden="true"></span></button>
-            <img class="rounded-circle  avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png">
+            <img class="rounded-circle  avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png" id="group-chat-photo">
             <p id="group-name"></p>
             <button class="btn float-right" id="group_settings_dialog"><span class="fa fa-cogs fa-fw"aria-hidden="true"></span></button>
         </div>
