@@ -144,6 +144,7 @@ a{
 .menu, .message-space{
   height: 100%;
   overflow-y:auto;
+  max-height: 87vh;
 }
 
 .side-list{

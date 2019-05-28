@@ -4,7 +4,7 @@
             <button class="btn" id="close-group-form"><span class="fa fa-arrow-left fa-fw"aria-hidden="true"></span></button>
             <img class="rounded-circle  avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png" id="group-chat-photo">
             <p id="group-name"></p>
-            <button class="btn float-right" id="group_settings_dialog"><span class="fa fa-cogs fa-fw"aria-hidden="true"></span></button>
+            <button class="btn float-right" id="btn_group_settings_dialog" data-groupid=""><span class="fa fa-cogs fa-fw"aria-hidden="true"></span></button>
         </div>
     </div>
     <div class="row history">

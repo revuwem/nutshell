@@ -89,10 +89,28 @@ function add_new_group($connect, $group_name){
     };
 };
 
+function get_group_data($connect, $group_id){
+    try{
+
+        $query="SELECT * FROM `chat_groups` WHERE chat_group_id=?";
+        $statement=$connect->prepare($query);
+        $statement->execute(array($group_id));
+        $result=$statement->fetchAll();
+
+        $json=json_encode($result);
+        echo $json;
+    }
+    catch(Exception $ex)
+    {
+        echo $ex;
+    }
+}
+
 
 switch($_POST["action"])
 {
-    case 'add': add_new_group($connect, $_POST['group_name']);
+    case 'add': add_new_group($connect, $_POST['group_name']);break;
+    case  'info': get_group_data($connect, $_POST['group_id']); break;
 }
 ?>
 

@@ -63,7 +63,10 @@ if(!isset($_SESSION['user_id']))
           <div id="dialog">
             <div id="create_group_feedback"></div>
             <input type="text" class="form-control" name="input_new_group_name" id="input_new_group_name" placeholder="Назовите группу...">
-          </div>  
+          </div> 
+          <div id="group_settings_dialog">
+            <div id="settings_group_feedback"></div>           
+          </div>           
         </div> 
       </div>
     </div>

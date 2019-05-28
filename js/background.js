@@ -186,6 +186,7 @@ $(document).ready(function() {
                 fetch_group_chat_history(to_chat_id);
                 $('#group-name').html(to_chat_name);
                 $('#send-group-chat').attr('data-tochatid', to_chat_id);
+                $('#btn_group_settings_dialog').attr('data-groupid', to_chat_id);
                 $('#group-chat-photo').attr('src', to_group_photo);
                 var targetDiv = $(".group-history");
                 targetDiv.scrollTop( targetDiv.prop('scrollHeight') );            
@@ -205,13 +206,32 @@ $(document).ready(function() {
     modal:true,
     buttons:[{text:"Создать", click: createNewGroup}],
     width: 400,
-    height: 160
-    
-});
+    height: 160    
+    });
 
     //Открыть диалоговое окно создания группы
     $(document).on('click', '#btn_create_group_dialog', function(){
         $("#dialog").dialog("open");
+    });
+
+    $('#group_settings_dialog').dialog({
+        autoOpen: false,
+        title: "Настройки группы",
+        modal:true,
+        buttons:[{text:"Сохранить"}, {text: "Закрыть", click: function(){$(this).dialog("close")}}],
+        width:500,
+        height: 500
+    });
+
+    $(document).on('click', '#btn_group_settings_dialog', function(){
+        $('#group_settings_dialog').dialog("open");
+        $.ajax({
+            url: "group_settings_form.php",
+            method: "post",
+            success:function(data){
+                $("#group_settings_dialog").html(data);
+            }
+        });
     });
 
     
