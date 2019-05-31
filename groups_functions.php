@@ -1,5 +1,6 @@
 <?php
 include('db_connection.php');
+include('upload_files.php');
 session_start();
 
 
@@ -99,18 +100,102 @@ function get_group_data($connect, $group_id){
 
         $json=json_encode($result);
         echo $json;
+        
     }
     catch(Exception $ex)
     {
         echo $ex;
     }
-}
+};
 
+function get_group_participants($connect, $group_id){
+
+    try{
+
+        $output='';
+
+        $query="SELECT * FROM `chat_groups_participants` WHERE chat_group_id=?
+        ";
+
+        $statement=$connect->prepare($query);
+        $statement->execute(array($group_id));
+        $result=$statement->fetchAll();
+
+        foreach($result as $row){
+            $output .= '<tr>
+                <td width="70%"><img class="avatar rounded-circle" src="'.get_user_photo($row['user_id'], $connect).'"> '.get_user_name($row['user_id'], $connect).'</td> 
+                <td width="30%"><br><button class="btn btn-danger btn-xs drop_user_from_chat" type="button" data-deleteduserid="'.$row['user_id'].'">Удалить</button></td>
+            </tr>
+            ';
+        };
+        
+        echo $output;
+    }
+    catch(Exception $ex){
+        echo $ex;
+    }
+};
+
+function update_group_photo($connect, $group_id, $filePath, $errorCode){
+
+    
+    echo $o=';jgf';
+
+    // try {
+        
+    //     $newphoto=load_photo($filePath, $errorCode);
+    //     if($newphoto!=''){
+
+    //         $query="UPDATE `chat_groups` SET `photo` = :newphoto WHERE `chat_groups`.`chat_group_id` = :group_id";
+    //         $statement=$connect->prepare($query);
+    //         $statement->execute(
+    //             array(
+    //                 ':newphoto' => $newphoto,
+    //                 ':group_id' => $group_id
+    //             )
+    //         );
+    //         $result=$statement->rowCount();
+    //         if($result==1)
+    //         {
+    //            echo $output='<div class="alert alert-success alert-dismissible">
+    //                             <button type="button" class="close" data-dismiss="alert">&times;</button>
+    //                             <strong>Успешно!</strong> Фото будет обновлено.
+    //                         </div>';
+    //         }
+    //         else{
+    //             echo $output='<div class="alert alert-warning alert-dismissible">
+    //                             <button type="button" class="close" data-dismiss="alert">&times;</button>
+    //                             <strong>Хуй там!</strong> Поешь говна клоун.
+    //                         </div>';
+    //         };            
+    //     }
+    //     else{            
+    //         echo $output='<div class="alert alert-danger alert-dismissible">
+    //                             <button type="button" class="close" data-dismiss="alert">&times;</button>
+    //                             <strong>Ха!</strong> Это фото настолько говно, что даже не загрузилось.
+    //                         </div>';
+    //     };
+    // } catch (Exception $th) {
+    //     echo $th;
+    // }
+};
+
+
+function update_group_name($connect){
+    $output='<div class="alert alert-warning alert-dismissible">
+                                 <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <strong>Хуй там!</strong> Поешь говна клоун.
+                             </div>';
+    echo $output;
+};
 
 switch($_POST["action"])
 {
     case 'add': add_new_group($connect, $_POST['group_name']);break;
-    case  'info': get_group_data($connect, $_POST['group_id']); break;
+    case 'info': get_group_data($connect, $_POST['group_id']); break;
+    case 'participants': get_group_participants($connect, $_POST['group_id']); break; 
+                   break;
+    case 'update_group_name': update_group_name($connect); break;
 }
 ?>
 

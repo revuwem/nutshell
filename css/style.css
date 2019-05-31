@@ -167,7 +167,7 @@ a{
   overflow-y: auto;
 }
 
-ul{
+.chat-app ul{
   display: table;
   width: 100%;
   height: 100%;
@@ -295,4 +295,143 @@ ul{
   width: 100%;
   background-color: #684A7F;
   color: #EAEEFA;
+}
+
+/* Tab Tasks */
+
+.todo-panel{
+  height: 100%;
+  overflow-y:auto;
+  max-height: 87vh;
+}
+
+.todo-panel-app
+{
+  height: 100%;  
+}
+
+.todo-panel * {
+  box-sizing: border-box;  
+}
+
+/* Remove margins and padding from the list */
+.todo-panel ul {
+  margin: 0;
+  padding: 0;
+}
+
+/* Style the list items */
+.todo-panel ul>li {
+  cursor: pointer;
+  position: relative;
+  padding: 12px 8px 12px 40px;
+  background: #eee;
+  transition: 0.2s;
+
+   /* make the list items unselectable */
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+}
+
+/* Set all odd list items to a different color (zebra-stripes) */
+.todo-panel ul>li:nth-child(odd) {
+  background: #f9f9f9;
+}
+
+/* Darker background-color on hover */
+.todo-panel ul>li:hover{
+  background: #ddd;
+}
+
+/* When clicked on, add a background color and strike out text */
+.todo-panel ul>li.checked{
+  background: #888;
+  color: #fff;
+  text-decoration: line-through;
+}
+
+/* Add a "checked" mark whern clicked on */
+.todo-panel ul>li.checked::before{
+  content:'';
+  position: absolute;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  top: 10px;
+  left: 16px;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 7px;
+}
+
+/* Style the close button */
+.todo-panel .btnDeleteTaskElement{
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: .8em;
+}
+
+.todo-panel .btnUpdateTaskElement{
+  position: absolute;
+  right: 2em;
+  top:0;
+  bottom: 0;
+  padding: .8em;   
+}
+
+.todo-panel .btnDeleteTaskElement:hover{
+  background-color: rgba(208, 149, 255, 1);
+  color: white;
+}
+
+.todo-panel .btnUpdateTaskElement:hover{
+  background-color: rgba(103, 74, 126, 0.9);
+  color: white;
+}
+
+/* Style the header */
+ .todo-panel .header{
+  background-color: rgba(103, 74, 126, 1);
+  color: #eee;
+  text-align: center;
+ }
+
+ /* Clear floats after the header */
+ .todo-panel .header:after{
+   content: "";
+   display: table;
+   clear: both;
+ }
+
+ /* Style the input */
+ .todo-panel input{
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  width: 75%;
+  padding: 10px;
+  float: left;
+  font-size: .8rem;
+ }
+
+ /* Style the "add" button */
+.todo-panel .taskBtn{
+  padding: 10px;
+  width: 25%;
+  background: #d9d9d9;
+  color: #555;
+  float: left;
+  text-align: center;
+  font-size: .8rem;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 0;
+}
+
+.todo-panel .taskBtn:hover{
+  background-color: #bbb;
 }
