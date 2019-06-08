@@ -165,14 +165,14 @@ function update_group_photo($connect, $group_id, $filePath, $errorCode){
     //         else{
     //             echo $output='<div class="alert alert-warning alert-dismissible">
     //                             <button type="button" class="close" data-dismiss="alert">&times;</button>
-    //                             <strong>Хуй там!</strong> Поешь говна клоун.
+    //                             <strong>Не удалось!</strong> Ошибка.
     //                         </div>';
     //         };            
     //     }
     //     else{            
     //         echo $output='<div class="alert alert-danger alert-dismissible">
     //                             <button type="button" class="close" data-dismiss="alert">&times;</button>
-    //                             <strong>Ха!</strong> Это фото настолько говно, что даже не загрузилось.
+    //                              <strong>Не удалось!</strong> Ошибка.
     //                         </div>';
     //     };
     // } catch (Exception $th) {
@@ -184,7 +184,7 @@ function update_group_photo($connect, $group_id, $filePath, $errorCode){
 function update_group_name($connect){
     $output='<div class="alert alert-warning alert-dismissible">
                                  <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <strong>Хуй там!</strong> Поешь говна клоун.
+                                 <strong>Не удалось!</strong> Ошибка.
                              </div>';
     echo $output;
 };

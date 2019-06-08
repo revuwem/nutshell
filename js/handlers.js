@@ -271,52 +271,51 @@ function createNewGroup(group_name) {
 };
 
 
-//Обновление фото группы
-// function update_group_photo(){
-//   var form=$('#form_updateGroupPhoto'),
-//   formdata= new FormData(form.get(0)),
-//   action='update_photo',
-//   group_id=$('#group_settings_dialog').data('groupid');
+function update_group_photo(){
+  var form=$('#form_updateGroupPhoto'),
+  formdata= new FormData(form.get(0)),
+  action='update_photo',
+  group_id=$('#group_settings_dialog').data('groupid');
 
-//   $.ajax({
-//     type: "POST",
-//     url: "groups_functions.php",
-//     processData: false,
-//     contentType: false,
-//     data:{formdata: formdata, action: action, group_id:group_id},
-//     success: function(data){
-//       $('#update-photo-feedback').html(data);
-//     },
-//     error:function(xhr, str){
-//       debugger;
-//       alert('Ошибка загрузки фото ', xhr.responseCode);
-//     }
-//   }); 
-// };
+  $.ajax({
+    type: "POST",
+    url: "groups_functions.php",
+    processData: false,
+    contentType: false,
+    data:{formdata: formdata, action: action, group_id:group_id},
+    success: function(data){
+      $('#update-photo-feedback').html(data);
+    },
+    error:function(xhr, str){
+      debugger;
+      alert('Ошибка загрузки фото ', xhr.responseCode);
+    }
+  }); 
+};
 
 //TODO: настройки группы: изменить фото, название, удалить\добавить участников
 
 
 //Код ниже абсолютно не работает
 
-// function update_group_name(){
-//   var new_name=$('#new_group_name').val();
-//   if(new_name!='' && new_name.trim()!='')
-//   {
-//     var action = 'update_group_name';
-//     $.ajax({
-//       url: "groups_functions.php",
-//       type: "post",
-//       data: {action:action},
-//       success: function(data){
-//         $('update-group-name-feedback').html(data);
-//       }
-//     });
-//   }
-//   else{
-//     $('update-group-name-feedback').html('Название группы не может быть пустым!');
-//   }
-// };
+function update_group_name(){
+  var new_name=$('#new_group_name').val();
+  if(new_name!='' && new_name.trim()!='')
+  {
+    var action = 'update_group_name';
+    $.ajax({
+      url: "groups_functions.php",
+      type: "post",
+      data: {action:action},
+      success: function(data){
+        $('update-group-name-feedback').html(data);
+      }
+    });
+  }
+  else{
+    $('update-group-name-feedback').html('Название группы не может быть пустым!');
+  }
+};
 
 function get_group_tasks(group_id) {
   var action = "get_info";

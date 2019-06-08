@@ -53,11 +53,11 @@ $(document).ready(function () {
                     {
                         
                         switch(result[key]["status"]){
-                            case '1': liStarted += '<li class="task-element"><p class="font-weight-bold mr-3">'+result[key]["title"]+'</p><span>'+result[key]["due_date"]+'</span><br><span>'+result[key]["description"]+'</span></li>';
+                            case '1': liStarted += '<li class="task-element" data-taskid="'+result[key]["task_id"]+'"><p class="font-weight-bold mr-3">'+result[key]["title"]+'</p><span>'+result[key]["due_date"]+'</span><br><span>'+result[key]["description"]+'</span></li>';
                              break;
-                            case '2': liInProcessing += '<li class="task-element"><p class="font-weight-bold mr-3">'+result[key]["title"]+'</p><span>'+result[key]["due_date"]+'</span><br><span>'+result[key]["description"]+'</span></li>';
+                            case '2': liInProcessing += '<li class="task-element" data-taskid="'+result[key]["task_id"]+'"><p class="font-weight-bold mr-3">'+result[key]["title"]+'</p><span>'+result[key]["due_date"]+'</span><br><span>'+result[key]["description"]+'</span></li>';
                              break;
-                            case '3': liComplete += '<li class="task-element">'+result[key]["title"]+' '+result[key]["due_date"]+'</li>';
+                            case '3': liComplete += '<li class="task-element" data-taskid="'+result[key]["task_id"]+'">'+result[key]["title"]+' '+result[key]["due_date"]+'</li>';
                              break;
                         }
                     }
@@ -334,39 +334,39 @@ $(document).ready(function () {
         height: 550
     });
 
-    // $(document).on('click', '#btn_group_settings_dialog', function(){
+    $(document).on('click', '#btn_group_settings_dialog', function(){
 
-    //     $('#group_settings_dialog').dialog("open");
-    //     $('#group_settings_dialog').attr('data-groupid', $(this).data('groupid'));
-    //     var group_id=$(this).data('groupid');
-    //     $.ajax({
-    //         url: "group_settings_form.php",
-    //         method: "post",
-    //         success:function(data){
-    //             $("#group_settings_dialog").html(data);                
-    //             var action='info';
-    //             $.ajax({
-    //                 url: "groups_functions.php",
-    //                 method: "post", 
-    //                 data:{group_id:group_id, action:action},                   
-    //                 success: function(data){
-    //                     var result = JSON.parse(data);
-    //                     $('#current_group_photo').attr('src', result[0]["photo"]);
-    //                     $('#new_group_name').val(result[0]["chat_name"]);                        
-    //                 }
-    //             });
-    //             var action='participants';
-    //             $.ajax({
-    //                 url: "groups_functions.php",
-    //                 method: "post",
-    //                 data:{group_id: group_id, action:action},
-    //                 success: function(data){
-    //                     $('#group_participants').html(data);
-    //                 }
-    //             });
-    //         }
-    //     });
-    // });
+        $('#group_settings_dialog').dialog("open");
+        $('#group_settings_dialog').attr('data-groupid', $(this).data('groupid'));
+        var group_id=$(this).data('groupid');
+        $.ajax({
+            url: "group_settings_form.php",
+            method: "post",
+            success:function(data){
+                $("#group_settings_dialog").html(data);                
+                var action='info';
+                $.ajax({
+                    url: "groups_functions.php",
+                    method: "post", 
+                    data:{group_id:group_id, action:action},                   
+                    success: function(data){
+                        var result = JSON.parse(data);
+                        $('#current_group_photo').attr('src', result[0]["photo"]);
+                        $('#new_group_name').val(result[0]["chat_name"]);                        
+                    }
+                });
+                var action='participants';
+                $.ajax({
+                    url: "groups_functions.php",
+                    method: "post",
+                    data:{group_id: group_id, action:action},
+                    success: function(data){
+                        $('#group_participants').html(data);
+                    }
+                });
+            }
+        });
+    });
 
 
 

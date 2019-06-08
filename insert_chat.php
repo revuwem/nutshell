@@ -34,21 +34,26 @@ try{
         ':user_sender' => $_SESSION['user_id'],
         ':user_receiver' => $_POST['to_user_id']);
 
+
+    
     $query="SELECT
             count(chat_id) as count
             FROM
-            `users_chats_complicity`
+            `users_chats`
             WHERE
             (user_1 = :user_sender AND user_2 = :user_receiver) OR (user_1 = :user_receiver AND user_2 = :user_sender)";
     $statement=$connect->prepare($query);
     $statement->execute($complicity);
     $result=$statement->fetchColumn();
 
+
+    //Если количество chat_id, где User_1 - отправитель и user_2 - получатель(или наоборот) - создаем для них новый chat_id
+    //Если найден 1 chat_id - узнаем его значение
     if($result==0)
     {
-        $query="INSERT INTO `users_chats` (`chat_id`) VALUES (NULL);";
+        $query="INSERT INTO `users_chats` (`user_1`, `user_2`) VALUES (:user_sender, :user_receiver);";
         $statement=$connect->prepare($query);
-        $statement->execute();
+        $statement->execute($complicity);
 
         $query  = $connect->query("SELECT LAST_INSERT_ID() FROM `users_chats`");
         $chat_id = $query->fetchColumn();
@@ -56,14 +61,7 @@ try{
         if($chat_id!='')
         {  
 
-            $query="INSERT INTO `users_chats_complicity` (`complicity_id`, `chat_id`, `user_1`, `user_2`) VALUES (NULL, '$chat_id', :user_sender, :user_receiver);";
-            $statement=$connect->prepare($query);
-            $statement->execute($complicity);
-            $result=$statement->rowCount();
-            if($result==1)
-            {
-                insert_chat_message($connect, $chat_id);
-            }
+            insert_chat_message($connect, $chat_id);
         }
         else 
         {
@@ -75,7 +73,7 @@ try{
         $query="SELECT
             chat_id
             FROM
-            `users_chats_complicity`
+            `users_chats`
             WHERE
             (user_1 = :user_sender AND user_2 = :user_receiver) OR (user_1 = :user_receiver AND user_2 = :user_sender)";
         $statement=$connect->prepare($query);

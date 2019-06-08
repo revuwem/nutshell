@@ -5,7 +5,7 @@ session_start();
 
 //Выборка диалогов, в которых состоит пользователь
 $query="SELECT * 
-        FROM `users_chats_complicity` 
+        FROM `users_chats` 
         WHERE user_1 = :user_id 
         OR user_2=:user_id
         ";
@@ -20,7 +20,7 @@ $output='';
     foreach($resultDialogs as $rowDialog)
     {
         //Выбираем данные текущего диалога
-        $query="SELECT * FROM `users_chats_complicity` WHERE chat_id = '".$rowDialog['chat_id']."'";
+        $query="SELECT * FROM `users_chats` WHERE chat_id = '".$rowDialog['chat_id']."'";
         $statement=$connect->prepare($query);
         $statement->execute();
         $result=$statement->fetchAll();
