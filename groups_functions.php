@@ -148,44 +148,53 @@ function get_group_participants($connect, $group_id){
 
 //Фукнция обновления фото группы
 function update_group_photo($connect, $group_id, $filePath, $errorCode){
-
+    
     try {
         
-        $newphoto=load_photo($filePath, $errorCode);
-        if($newphoto!=''){
+        if($filePath!='')
+        {
+            $newphoto=load_photo($filePath, $errorCode);
+            if($newphoto!=''){
 
-            $query="UPDATE `chat_groups` SET `photo` = :newphoto WHERE `chat_groups`.`chat_group_id` = :group_id";
-            $statement=$connect->prepare($query);
-            $statement->execute(
-                array(
-                    ':newphoto' => $newphoto,
-                    ':group_id' => $group_id
-                )
-            );
-            $result=$statement->rowCount();
-            if($result==1)
-            {
-               echo $output='<div class="alert alert-success alert-dismissible">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <strong>Успешно!</strong> Фото будет обновлено.
-                            </div>';
+                $query="UPDATE `chat_groups` SET `photo` = :newphoto WHERE `chat_groups`.`chat_group_id` = :group_id";
+                $statement=$connect->prepare($query);
+                $statement->execute(
+                    array(
+                        ':newphoto' => $newphoto,
+                        ':group_id' => $group_id
+                    )
+                );
+                $result=$statement->rowCount();
+                if($result==1)
+                {
+                echo $output='<div class="alert alert-success alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    <strong>Успешно!</strong> Фото будет обновлено.
+                                </div>';
+                }
+                else{
+                    echo $output='<div class="alert alert-warning alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    <strong>Внимание!</strong> Не удалось обновить фото.
+                                </div>';
+                };            
             }
-            else{
+            else{            
                 echo $output='<div class="alert alert-warning alert-dismissible">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <strong>Не удалось!</strong> Ошибка.
-                            </div>';
-            };            
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    <strong>Внимание!</strong> Не удалось загрузить файл.
+                                </div>';
+            };
         }
-        else{            
-            echo $output='<div class="alert alert-danger alert-dismissible">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                 <strong>Не удалось!</strong> Ошибка.
-                            </div>';
+        else{
+            echo $output='<div class="alert alert-warning alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    <strong>Внимание!</strong> Файл не выбран!
+                                </div>';
         };
     } catch (Exception $th) {
         echo $th;
-    }
+    }    
 };
 
 //Функция обновления названия группы
@@ -201,9 +210,10 @@ switch($_POST["action"])
 {
     case 'add': add_new_group($connect, $_POST['group_name']);break;
     case 'info': get_group_data($connect, $_POST['group_id']); break;
-    case 'participants': get_group_participants($connect, $_POST['group_id']); break; 
-                   break;
+    case 'participants': get_group_participants($connect, $_POST['group_id']); break;                    
     case 'update_group_name': update_group_name($connect); break;
     case 'update_photo': update_group_photo($connect, $_POST["group_id"], $_FILES['input_new_group_photo']['tmp_name'], $_FILES['input_new_group_photo']['error']); break;
 }
+
+
 ?>

@@ -58,34 +58,43 @@ function add_task($connect, $group_id, $title, $description, $due_date){
     $output='';
     try {
 
-        $query="INSERT INTO `task_list` (`task_id`, `group_id`, `title`, `description`, `due_date`, `status`) 
-        VALUES (NULL, :group_id, :title, :description, :due_date, :status);";
-        $statement=$connect->prepare($query);
-        $statement->execute(
-            array(
-                ':group_id' => $group_id,
-                ':title' => $title,
-                ':description' => $description,
-                ':due_date' => $due_date,
-                ':status' => '1'
-            )
-        );
+        if($title!='' && $description!='' && $due_date!=''){
+            $query="INSERT INTO `task_list` (`task_id`, `group_id`, `title`, `description`, `due_date`, `status`) 
+            VALUES (NULL, :group_id, :title, :description, :due_date, :status);";
+            $statement=$connect->prepare($query);
+            $statement->execute(
+                array(
+                    ':group_id' => $group_id,
+                    ':title' => $title,
+                    ':description' => $description,
+                    ':due_date' => $due_date,
+                    ':status' => '1'
+                )
+            );
 
-        $result = $statement->rowCount();
-        if($result==1){
-            $output .= '<div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Успешно!</strong> Новая задача появится в списке назначенных задач.
-          </div>';
-          echo $output;
+            $result = $statement->rowCount();
+            if($result==1){
+                $output .= '<div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Успешно!</strong> Новая задача появится в списке назначенных задач.
+            </div>';
+            echo $output;
+            }
+            else{
+                $output .= '<div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                Не удалось создать задачу. <strong>Попробуйте еще раз!</strong>
+            </div>';
+            echo $output;
+            };
         }
         else{
-            $output .= '<div class="alert alert-danger alert-dismissible">
+            $output .= '<div class="alert alert-warning alert-dismissible">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            Не удалось создать задачу. <strong>Попробуйте еще раз!</strong>
-          </div>';
-          echo $output;
-        };
+            Внимание. <strong>Для создания задачи укажите все необходимые атрибуты!</strong>
+        </div>';
+        echo $output;
+        }
 
     } catch (Exception $ex) {
         echo $ex;

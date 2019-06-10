@@ -276,7 +276,48 @@ function createNewGroup(group_name) {
 
 //TODO: настройки группы: изменить фото, название, удалить\добавить участников
 
+var file;
 
+$('input[type=file]').on('change', prepareUpload);
+
+function prepareUpload(event) {
+  file = event.target.files;
+};
+
+function update_group_photo(e){
+  e.preventDefault();
+  $('#update-group-photo-feedback').css("display", "none");
+
+
+  var form = $('#form_updateGroupPhoto'),
+  formdata = new FormData(form.get(0)),
+  action="update_photo",
+  group_id = $('#group_settings_dialog').data('groupid');
+
+  formdata.append('action', action);
+  formdata.append('group_id', group_id);
+  formdata.append('userfile', file);
+
+
+    $.ajax({
+      type:"post",
+      url:"groups_functions.php",
+      processData: false,
+      contentType: false,
+      data:formdata,
+      success:function(data){
+        $('#update-group-photo-feedback').html(data);
+        $('#update-group-photo-feedback').css("display", "block");
+        file=null;
+      },
+      error:function(xhr, str){
+        debugger;
+        alert("Ошибка обновления фото");
+      }
+    });
+  
+  
+};
 
 
 function get_group_tasks(group_id) {

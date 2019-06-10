@@ -93,8 +93,7 @@ if(!isset($_SESSION['user_id']))
                                     <select class="form-control" id="selectUserGroups" name="selectUserGroups"
                                         style="font-size: .8rem">
 
-                                    </select>
-                                    <button class="btn btn-sm btn-info m-1" type="button">Посмотреть отчет</button>
+                                    </select> <br>                                    
                                 </div>
                             </div>
                             <div class="col col-12 col-sm-6" id="load-tasks-feedback">
