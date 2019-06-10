@@ -276,96 +276,221 @@ function createNewGroup(group_name) {
 
 //TODO: настройки группы: изменить фото, название, удалить\добавить участников
 
-var file;
+
+//Обновление фото группы
+var file; //временный путь к фото в директории на сервере
 
 $('input[type=file]').on('change', prepareUpload);
 
+//Функция сохраняет в file временный путь к файлу, выбранному в input[type=file]
 function prepareUpload(event) {
   file = event.target.files;
 };
 
-function update_group_photo(e){
+//Функция обновления фотографии группы
+function update_group_photo(e) {
   e.preventDefault();
   $('#update-group-photo-feedback').css("display", "none");
 
 
   var form = $('#form_updateGroupPhoto'),
-  formdata = new FormData(form.get(0)),
-  action="update_photo",
-  group_id = $('#group_settings_dialog').data('groupid');
+    formdata = new FormData(form.get(0)),
+    action = "update_photo",
+    group_id = $('#group_settings_dialog').data('groupid');
 
   formdata.append('action', action);
   formdata.append('group_id', group_id);
   formdata.append('userfile', file);
 
 
-    $.ajax({
-      type:"post",
-      url:"groups_functions.php",
-      processData: false,
-      contentType: false,
-      data:formdata,
-      success:function(data){
-        $('#update-group-photo-feedback').html(data);
-        $('#update-group-photo-feedback').css("display", "block");
-        file=null;
-      },
-      error:function(xhr, str){
-        debugger;
-        alert("Ошибка обновления фото");
-      }
-    });
-  
-  
+  $.ajax({
+    type: "post",
+    url: "groups_functions.php",
+    processData: false,
+    contentType: false,
+    data: formdata,
+    success: function (data) {
+      $('#update-group-photo-feedback').html(data);
+      $('#update-group-photo-feedback').css("display", "block");
+      file = null;
+    },
+    error: function (xhr, str) {
+      alert("Ошибка обновления фото");
+    }
+  });
+
 };
+
+//Обновление названия группы
+function update_group_name(e) {
+  e.preventDefault();
+  $('#update-group-name-feedback').css("display", "none");
+
+  var new_name = $('#new_group_name').val(),
+    group_id = $('#group_settings_dialog').data('groupid');
+  action = "update_group_name";
+
+  $.ajax({
+    type: "post",
+    url: "groups_functions.php",
+    data: { new_name: new_name, group_id: group_id, action: action },
+    success: function (data) {
+      $('#update-group-name-feedback').html(data);
+      $('#update-group-name-feedback').css("display", "block");
+    },
+    error: function (xhr, str) {
+      alert("Ошибка обновления названия группы");
+    }
+  });
+};
+
+//Функция выполняет ajax-запрос для получения данных несостоящих в группе пользователей с кнопкой Добавить и заполняет таблицу Участники
+function fetch_new_group_participants(param) {
+
+  var action = "fetch_new_participants";
+
+  $.ajax({
+    url: "groups_functions.php",
+    type: "post",
+    data: { action: action, param: param },
+    success: function (data) {
+      $('#group_participants').html(data);
+    }
+  });
+}
+
+
+
+$(document).on('keypress', '#search_new_group_participants', function () {
+  // загружаем пользователей, не состоящих в группе
+  fetch_new_group_participants($(this).val()); 
+});
+$(document).on('keydown', '#search_new_group_participants', function () {
+  // загружаем пользователей, не состоящих в группе
+  fetch_new_group_participants($(this).val()); 
+});
+$(document).on('keyup', '#search_new_group_participants', function () {
+  // загружаем пользователей, не состоящих в группе
+  fetch_new_group_participants($(this).val()); 
+});
+
+$(document).on('click', '#search_new_group_participants', function () {
+  // загружаем пользователей, не состоящих в группе
+  fetch_new_group_participants($(this).val()); 
+  //Показываем кнопку отмены 
+  $('#btn_cancel_search_new_group_participants>span').css("display", "block");
+});
+
+//Кнопка отмены добавления новых участников
+$(document).on('click', '#btn_cancel_search_new_group_participants', function () {
+
+  //Загружаем список участников
+  var group_id = $('#group_settings_dialog').data('groupid');
+  var action = 'participants';
+  $.ajax({
+    url: "groups_functions.php",
+    method: "post",
+    data: { group_id: group_id, action: action },
+    success: function (data) {
+      $('#group_participants').html(data);
+    }
+  });  
+  
+  //Прячем кнопку отмены
+  $('#btn_cancel_search_new_group_participants>span').css("display", "none");
+  $('#btn_cancel_search_new_group_participants').blur();
+  //Очищаем поле поиска 
+  $('#search_new_group_participants').val('');
+  
+});
+
+//Добавление нового участника в группу
+$(document).on('click', '.add_user_to_group', function(e){
+
+  e.preventDefault();
+
+  var group_id = $('#group_settings_dialog').data('groupid');
+  var user_id = $(this).data('userid');
+  var action ="add_user_to_group";
+
+  $.ajax({
+    type:"post",
+    url: "groups_functions.php",
+    data: {action:action, user_id:user_id, group_id:group_id},
+    success:function(data){
+      $('#participants-feedback').html(data);
+    }
+  });
+});
+
+
+//Удаление участника из группы
+$(document).on('click', '.drop_user_from_group', function(e){
+
+  e.preventDefault();
+
+  var group_id = $('#group_settings_dialog').data('groupid');
+  var user_id = $(this).data('userid');
+  var action ="drop_user_from_group";
+
+  $.ajax({
+    type:"post",
+    url: "groups_functions.php",
+    data: {action:action, user_id:user_id, group_id:group_id},
+    success:function(data){
+      $('#participants-feedback').html(data);
+    }
+  });
+});
+
+
 
 
 function get_group_tasks(group_id) {
   var action = "get_info";
 
   $.ajax({
-      url: "todo-functions.php",
-      type: "post",
-      data: {
-          action: action,
-          group_id: group_id
-      },
-      success: function (data) {
-          if (data) {
-              var result = JSON.parse(data); 
-              var liStarted='',
-              liInProcessing='',
-              liComplete='';                   
-              for(var key in result)
-              {
-                  
-                  switch(result[key]["status"]){
-                      case '1': liStarted += '<li class="task-element"><p class="font-weight-bold mr-3">'+result[key]["title"]+'</p><span>'+result[key]["due_date"]+'</span><br><span>'+result[key]["description"]+'</span><span class="btnUpdateTaskElement" data-taskid="'+result[key]["task_id"]+'">\u2192</span><span class="btnDeleteTaskElement" data-taskid="'+result[key]["task_id"]+'">\u00D7</span></li>';
-                       break;
-                      case '2': liInProcessing += '<li class="task-element"><p class="font-weight-bold mr-3">'+result[key]["title"]+'</p><span>'+result[key]["due_date"]+'</span><br><span>'+result[key]["description"]+'</span><span class="btnUpdateTaskElement" data-taskid="'+result[key]["task_id"]+'">\u2192</span><span class="btnDeleteTaskElement" data-taskid="'+result[key]["task_id"]+'">\u00D7</span></li>';
-                       break;
-                      case '3': liComplete += '<li class="task-element"><p class="font-weight-bold mr-3">'+result[key]["title"]+'</p><span>'+result[key]["due_date"]+'</span><br><span>'+result[key]["description"]+'</span><span class="btnDeleteTaskElement" data-taskid="'+result[key]["task_id"]+'">\u00D7</span></li>';
-                       break;
-                  }
-              }
-              $('#tasksStarted').html(liStarted);
-              $('#tasksInProcessing').html(liInProcessing);
-              $('#tasksComplete').html(liComplete);
+    url: "todo-functions.php",
+    type: "post",
+    data: {
+      action: action,
+      group_id: group_id
+    },
+    success: function (data) {
+      if (data) {
+        var result = JSON.parse(data);
+        var liStarted = '',
+          liInProcessing = '',
+          liComplete = '';
+        for (var key in result) {
 
+          switch (result[key]["status"]) {
+            case '1': liStarted += '<li class="task-element"><p class="font-weight-bold mr-3">' + result[key]["title"] + '</p><span>' + result[key]["due_date"] + '</span><br><span>' + result[key]["description"] + '</span><span class="btnUpdateTaskElement" data-taskid="' + result[key]["task_id"] + '">\u2192</span><span class="btnDeleteTaskElement" data-taskid="' + result[key]["task_id"] + '">\u00D7</span></li>';
+              break;
+            case '2': liInProcessing += '<li class="task-element"><p class="font-weight-bold mr-3">' + result[key]["title"] + '</p><span>' + result[key]["due_date"] + '</span><br><span>' + result[key]["description"] + '</span><span class="btnUpdateTaskElement" data-taskid="' + result[key]["task_id"] + '">\u2192</span><span class="btnDeleteTaskElement" data-taskid="' + result[key]["task_id"] + '">\u00D7</span></li>';
+              break;
+            case '3': liComplete += '<li class="task-element"><p class="font-weight-bold mr-3">' + result[key]["title"] + '</p><span>' + result[key]["due_date"] + '</span><br><span>' + result[key]["description"] + '</span><span class="btnDeleteTaskElement" data-taskid="' + result[key]["task_id"] + '">\u00D7</span></li>';
+              break;
           }
-          else {
-              var output = '<br><div class="alert alert-warning alert-dismissible">';
-              output += '<button type="button" class="close" data-dismiss="alert">&times;</button>';
-              output += 'У этой группы нет задач. <strong>Будьте первым!</strong>';
-              output += '</div>';
+        }
+        $('#tasksStarted').html(liStarted);
+        $('#tasksInProcessing').html(liInProcessing);
+        $('#tasksComplete').html(liComplete);
 
-              $('#load-tasks-feedback').html(output);
-          }
-      },
-      error: function (xhr, str) {
-          debugger;
-          alert('Ошибка получения задач');
       }
+      else {
+        var output = '<br><div class="alert alert-warning alert-dismissible">';
+        output += '<button type="button" class="close" data-dismiss="alert">&times;</button>';
+        output += 'У этой группы нет задач. <strong>Будьте первым!</strong>';
+        output += '</div>';
+
+        $('#load-tasks-feedback').html(output);
+      }
+    },
+    error: function (xhr, str) {
+      debugger;
+      alert('Ошибка получения задач');
+    }
   });
 };
 
@@ -387,7 +512,7 @@ function add_new_group_task() {
       description: description,
       due_date: due_date
     },
-    success: function(data) {
+    success: function (data) {
       $('#create-task-feedback').html(data);
       $('#inputAddTaskTitle').val('');
       $('#inputAddTaskDescription').val('');
@@ -399,62 +524,62 @@ function add_new_group_task() {
 
 };
 
-$(document).on('click', '.btnUpdateTaskElement', function(){
+$(document).on('click', '.btnUpdateTaskElement', function () {
 
   var task_id = $(this).data('taskid'),
-  action = 'update_status',
-  group_id = $("#selectUserGroups option:selected").data('groupid');
+    action = 'update_status',
+    group_id = $("#selectUserGroups option:selected").data('groupid');
 
   $.ajax({
     url: "todo-functions.php",
     type: "post",
-    data:{task_id:task_id, action:action},
-    success: function(data){
+    data: { task_id: task_id, action: action },
+    success: function (data) {
 
       var fail = '<div class="alert alert-warning alert-dismissible">';
       fail += '<button type="button" class="close" data-dismiss="alert">&times;</button>';
       fail += '<strong>Не удалось!</strong> Пожалуйста, попробуйте еще раз.';
       fail += '</div>';
-      
-      if(data){
+
+      if (data) {
         get_group_tasks(group_id);
       }
-      else{
+      else {
         $('#load-tasks-feedback').html(fail);
       };
     },
-    error: function(xhr, str){
+    error: function (xhr, str) {
       debugger;
       alert("Ошибка обновления статуса задачи. " + xhr.responseCode);
     }
   });
 });
 
-$(document).on('click', '.btnDeleteTaskElement', function(){
+$(document).on('click', '.btnDeleteTaskElement', function () {
 
   var task_id = $(this).data('taskid'),
-  action = 'delete',
-  group_id = $("#selectUserGroups option:selected").data('groupid');
+    action = 'delete',
+    group_id = $("#selectUserGroups option:selected").data('groupid');
 
   $.ajax({
     url: "todo-functions.php",
     type: "post",
-    data:{task_id:task_id, action:action},
-    success: function(data){
+    data: { task_id: task_id, action: action },
+    success: function (data) {
 
       var fail = '<div class="alert alert-warning alert-dismissible">';
       fail += '<button type="button" class="close" data-dismiss="alert">&times;</button>';
       fail += '<strong>Не удалось!</strong> Пожалуйста, попробуйте еще раз.';
       fail += '</div>';
-      
-      if(data){
+
+      if (data) {
         get_group_tasks(group_id);
       }
-      else{
+      else {
         $('#load-tasks-feedback').html(fail);
       };
     },
-    error: function(xhr, str){
+    error: function (xhr, str) {
       debugger;
       alert("Ошибка обновления статуса задачи. " + xhr.responseCode);
     }

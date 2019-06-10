@@ -59,7 +59,7 @@ function fetch_filtered_groups_details($connect, $param){
                 $output .= '<li class="list-group-item btn btn-light groupElement mt-1" data-chatgroupid="'.$rowGroup['chat_group_id'].'" data-chatgroupname="'.get_group_chat_name($rowGroup['chat_group_id'], $connect).'">
                         <div class="row">
                             <div class="col col-2 col-sm-3 col-md-2 col-lg-1">
-                                <img class="rounded-circle  avatar" src="https://bootdey.com/img/Content/avatar/avatar4.png">
+                                <img class="rounded-circle  avatar" src="'.get_group_photo($rowGroup['chat_group_id'], $connect).'">
                             </div>
                             <div class="col col-10 col-sm-9 col-md-10 col-lg-11">
                                 <p class="font-weight-bold">'.get_group_chat_name($rowGroup['chat_group_id'], $connect).'</p><br>
