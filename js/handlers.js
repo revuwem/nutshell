@@ -271,12 +271,6 @@ function createNewGroup(group_name) {
 };
 
 
-
-
-
-//TODO: настройки группы: изменить фото, название, удалить\добавить участников
-
-
 //Обновление фото группы
 var file; //временный путь к фото в директории на сервере
 
@@ -445,7 +439,7 @@ $(document).on('click', '.drop_user_from_group', function(e){
 
 
 
-
+//Получение данных задач группы и заполнение доски задач
 function get_group_tasks(group_id) {
   var action = "get_info";
 
@@ -494,7 +488,7 @@ function get_group_tasks(group_id) {
   });
 };
 
-
+//Добавление новой задачи
 function add_new_group_task() {
   var group_id = $("#selectUserGroups option:selected").data('groupid'),
     title = $('#inputAddTaskTitle').val(),
@@ -524,6 +518,8 @@ function add_new_group_task() {
 
 };
 
+
+//Изменение статуса задачи
 $(document).on('click', '.btnUpdateTaskElement', function () {
 
   var task_id = $(this).data('taskid'),
@@ -555,6 +551,7 @@ $(document).on('click', '.btnUpdateTaskElement', function () {
   });
 });
 
+//Удаление задачи
 $(document).on('click', '.btnDeleteTaskElement', function () {
 
   var task_id = $(this).data('taskid'),
@@ -585,6 +582,22 @@ $(document).on('click', '.btnDeleteTaskElement', function () {
     }
   });
 });
+
+//Формирование отчета и отправка его на e-mail
+function send_report(){
+
+  var group_id= $("#selectUserGroups option:selected").data('groupid'),
+  month = $("#selectTaskMonth option:selected").val();
+
+  $.ajax({
+    type: "post",
+    url: "task_perfomance_report.php",
+    data:{group_id: group_id, month:month},
+    success: function(data){
+      $('#send-report-feedback').html(data);
+    }
+  });
+};
 
 
 

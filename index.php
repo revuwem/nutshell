@@ -86,18 +86,45 @@ if(!isset($_SESSION['user_id']))
                 <!--/#Dialogs-->
                 <div class="tab-pane" id="Tasks" role="tabpanel">
                     <div class="container-fluid todo-panel shadow">
-                        <div class="row todo-panel-header">
-                            <div class="col col-12 col-7">
+                        <div class="row todo-panel-header m-3 ">
+                            <div class="col col-12 col-sm-4 shadow-sm bg-white pt-2">
                                 <div class="form-group">
                                     <label for="sel1">Группы, в которых Вы состоите:</label><br>
                                     <select class="form-control" id="selectUserGroups" name="selectUserGroups"
                                         style="font-size: .8rem">
-
+                                    </select> 
+                                </div>
+                            </div> 
+                            <div class="col col-12 col-sm-4 shadow-sm bg-white pt-2">
+                                <div class="form-group">
+                                <label for="sel1">Период:</label><br>
+                                    <select class="form-control" id="selectTaskMonth" name="selectTaskMonth"
+                                        style="font-size: .8rem">
+                                        <option value="00">Текущее</option>
+                                        <option value="01">Январь</option>
+                                        <option value="02">Февраль</option>
+                                        <option value="03">Март</option>
+                                        <option value="04">Апрель</option>
+                                        <option value="05">Май</option>
+                                        <option value="06">Июнь</option>
+                                        <option value="07">Июль</option>
+                                        <option value="08">Август</option>
+                                        <option value="09">Сентябрь</option>
+                                        <option value="10">Октябрь</option>
+                                        <option value="11">Ноябрь</option>
+                                        <option value="12">Декабрь</option>
                                     </select> <br>                                    
                                 </div>
                             </div>
+                            <div class="col col-12 col-sm-2 m-2">
+                                <div class="form-group">
+                                    <button class="btn btn-sm btn-info" onclick="javascript:send_report();">Отправить отчет</button>
+                                </div>
+                            </div>  
+                            <div class="col col-12 col-sm-5">
+                                <div id="send-report-feedback"></div>
+                            </div>                         
                             <div class="col col-12 col-sm-6" id="load-tasks-feedback">
-
                             </div>
                         </div>
                         <div class="row todo-panel-app">

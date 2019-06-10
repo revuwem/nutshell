@@ -314,6 +314,8 @@ $(document).ready(function () {
         height: 550
     });
 
+    
+//Вызов формы настроек группы
     $(document).on('click', '#btn_group_settings_dialog', function(){
 
         $('#group_settings_dialog').dialog("open");
