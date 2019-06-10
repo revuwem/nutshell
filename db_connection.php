@@ -1,14 +1,23 @@
 <?php
-$connect = new PDO("mysql:host-localhost;dbname:nutshellchat", "root", "");
-$dsn = "mysql:host=localhost;dbname=nutshellchat;charset=utf8";
+include('config.php');
+
+try{
+
 $opt=array(
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
 );
-$connect = new PDO($dsn, 'root', '', $opt);
+$connect = new PDO($dsn, $user, $password, $opt);
+}
+catch(Exception $ex){
+ die("Ошибка подключения к базе данных. Проверьте параметры конфигурации подключения к базе данных config.php");
+
+};
 
 date_default_timezone_set('Europe/Moscow');
 
+
+// Функция возвращает время, когда пользователь последний раз авторизовывался
 function fetch_user_last_activity($user_id, $connect)
 {
     $query="
@@ -26,6 +35,7 @@ function fetch_user_last_activity($user_id, $connect)
     }
 };
 
+// Функция возвращает историю сообщений приватного чата
 function fetch_user_chat_history($from_user_id, $to_user_id, $connect)
 {
     $query = "
@@ -76,6 +86,7 @@ function fetch_user_chat_history($from_user_id, $to_user_id, $connect)
     return $output;
 };
 
+// Фукнция возвращает имя пользователя для $user_id
 function get_user_name($user_id, $connect)
 {
     $output='';
@@ -89,6 +100,8 @@ function get_user_name($user_id, $connect)
     }
 };
 
+
+//Функция возвращает фото пользователя для $user_id
 function get_user_photo($user_id, $connect){
     $query="SELECT photo FROM users WHERE user_id = '$user_id'";
     $statement=$connect->prepare($query);
@@ -99,6 +112,8 @@ function get_user_photo($user_id, $connect){
     }
 };
 
+
+//Функция возвращает фото группы для $group_id
 function get_group_photo($group_id, $connect){
     $query="SELECT photo FROM chat_groups WHERE chat_group_id = '$group_id'";
     $statement=$connect->prepare($query);
@@ -108,6 +123,8 @@ function get_group_photo($group_id, $connect){
         return $row['photo'];
     }
 };
+
+//Функция возвращает количество непрочитанных сообщений в чате
 
 function count_unseen_message($from_user_id, $to_user_id, $connect)
 {
@@ -151,6 +168,8 @@ function fetch_is_type_status($user_id, $connect)
     return $output;
 };
 
+
+//Функция возвращает название группы $chat_group_id
 function get_group_chat_name($chat_group_id, $connect)
 {
     $query = "SELECT chat_name FROM chat_groups WHERE chat_group_id = '$chat_group_id'";
@@ -163,6 +182,8 @@ function get_group_chat_name($chat_group_id, $connect)
     }
 };
 
+
+//Функция возвращает историю чата группы 
 function fetch_group_chat_history($from_user_id, $to_chat_id, $connect)
 {
      $query="

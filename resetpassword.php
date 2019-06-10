@@ -1,6 +1,9 @@
 <?php
+
+
 include('db_connection.php');
 
+// Функция изменяет пароль пользователя на временный и отправляет письмо на почту с новым паролем
 function reset_password($connect) {
 
     $message='';

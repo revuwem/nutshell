@@ -2,6 +2,7 @@
 include('db_connection.php');
 session_start();
 
+//Отображение списка контактов пользователя с кнопкой перехода к диалогу
 
 $query="SELECT * FROM users WHERE user_id != '".$_SESSION['user_id']."'";
 $statement=$connect->prepare($query);
@@ -29,9 +30,10 @@ foreach($result as $row)
     }
     $output .= '
         <tr>
-            <td><img src="" alt="фото"></td>
-            <td>'.$row['username'].' '.$status.' '.count_unseen_message($row['user_id'], $_SESSION['user_id'], $connect).' '.fetch_is_type_status($row['user_id'], $connect).'<br></td>            
-            <td><button class="btn btn-outline-info btn-sm start_chat" type="button" data-touserid="'.$row['user_id'].'" data-tousername="'.$row['username'].'">К диалогу</button></td>            
+            <td><img class="avatar" src="'.get_user_photo($row['user_id'], $connect).'" alt="фото"></td>
+            <td><p class="font-weight-bold">'.$row['username'].'</p> '.$status.'<br> <p class="font-weight-lighter">'.$row['position'] .'</p><br><p class="font-weight-lighter">Рабочий номер телефона: '.$row['worknumber'].'</p>
+            <br><p class="font-weight-lighter">Мобильный номер телефона: '.$row['mobilenumber'].'</p></td>            
+           
         </tr>
     ';
 }

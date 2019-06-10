@@ -46,9 +46,7 @@ if(!isset($_SESSION['user_id']))
                 <a class="list-group-item list-group-item-action" data-toggle="list" href="#Tasks" role="tab"><span
                         class="fa fa-tasks fa-fw" aria-hidden="true"></span> Задачи</a>
                 <a class="list-group-item list-group-item-action" data-toggle="list" href="#Contacts" role="tab"><span
-                        class="fa fa-address-book-o fa-fw" aria-hidden="true"></span> Контакты</a>
-                <a class="list-group-item list-group-item-action" data-toggle="list" href="#Marks" role="tab"><span
-                        class="fa fa-thumb-tack fa-fw" aria-hidden="true"></span> Закладки</a>
+                        class="fa fa-address-book-o fa-fw" aria-hidden="true"></span> Контакты</a>               
                 <a class="list-group-item list-group-item-action" data-toggle="list" href="#Profile" role="tab"><span
                         class="fa fa-cogs fa-fw" aria-hidden="true"></span> Профиль</a>
             </div>
@@ -89,13 +87,14 @@ if(!isset($_SESSION['user_id']))
                 <div class="tab-pane" id="Tasks" role="tabpanel">
                     <div class="container-fluid todo-panel shadow">
                         <div class="row todo-panel-header">
-                            <div class="col col-12 col-sm-6">
+                            <div class="col col-12 col-7">
                                 <div class="form-group">
-                                    <label for="sel1">Группы, в которых Вы состоите:</label>
+                                    <label for="sel1">Группы, в которых Вы состоите:</label><br>
                                     <select class="form-control" id="selectUserGroups" name="selectUserGroups"
                                         style="font-size: .8rem">
 
                                     </select>
+                                    <button class="btn btn-sm btn-info m-1" type="button">Посмотреть отчет</button>
                                 </div>
                             </div>
                             <div class="col col-12 col-sm-6" id="load-tasks-feedback">
@@ -108,29 +107,7 @@ if(!isset($_SESSION['user_id']))
                 </div>
                 <div class="tab-pane" id="Contacts" role="tabpanel">
                     <div class="row">
-                        <div class="container contacts-content">
-                            <div class="row header">
-                                <div class="col col-12 col-sm-8">
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" id="searchContact" name="searchContact"
-                                            placeholder="Поиск по имени">
-                                        <div class="input-group-append">
-                                            <span class="fa fa-search fa-fw"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col col-12 col-sm-4">
-                                    <div class="form-group">
-                                        <select class="form-control" id="filterContactsByPosition">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="container contacts-content">                            
                             <div class="row main justify-content-center">
                                 <div class="col col-12 col-md-8 shadow" id="contacts-panel">
 

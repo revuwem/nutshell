@@ -5,6 +5,7 @@ session_start();
 
 
 
+//Возвращает уведомление о результате изменения основной информации в профиле пользователя
 function updateUserBasicInfo($connect, $username, $perconname, $position, $filePath, $errorCode){
     $message='';
     if($username!='' && $perconname!='' &&  $position!='')
@@ -66,6 +67,8 @@ function updateUserBasicInfo($connect, $username, $perconname, $position, $fileP
 echo $message;
 };
 
+
+//Возвращает уведомление о результате изменения контактной информации в профиле пользователя
 function updateUserContactsInfo($connect, $worknumber, $mobilenumber){
     $output='';
     try{
@@ -93,6 +96,7 @@ function updateUserContactsInfo($connect, $worknumber, $mobilenumber){
     }      
 };
 
+//Фукнция вовзращает уведомление о результате изменения пароля пользователя
 function updateUserPassword($connect, $currentPassword, $newPassword){
     $output='';
     try {

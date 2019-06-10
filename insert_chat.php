@@ -2,6 +2,8 @@
 include('db_connection.php');
 session_start();
 
+
+//Фукнция добавляет новое сообщение в историю сообщений приватного чата
 function insert_chat_message($connect, $chat_id){
     try
     {

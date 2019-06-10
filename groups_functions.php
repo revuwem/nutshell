@@ -4,55 +4,7 @@ include('upload_files.php');
 session_start();
 
 
-//возвращает tbody с пользователями и кнопкой добавить
-//предполагалось что если юзер состоит в группе - кнопка удалить
-function fetch_users_as_new_participants($connect){
-    $ouput='<tbody>';
-    try{
-        $query="SELECT * FROM users WHERE user_id!= :current_user";
-        $statement=$connect->prepare($query);
-        $statement->execute(
-            array(':current_user' => $_SESSION['user_id'])
-        );
-        $result=$statement->fetchAll();
-        if(count($result)>0)
-        {
-            foreach($result as $row)
-            {
-                //Определение статуса пользователя
-                //Если последняя активность > (текущее время-10s) - пользователь в сети(online)
-                $status='';
-                $current_timestamp=strtotime(date('Y-m-d H:i:s').'-10 second');
-                $current_timestamp = date('Y-m-d H:i:s', $current_timestamp);
-                $user_last_activity = fetch_user_last_activity($row['user_id'], $connect);
-                if($user_last_activity>$current_timestamp)
-                {
-                $status = '<span class="badge badge-pill badge-success ml-1 p-1"> </span>'; 
-                }
-                else
-                {
-                    $status = '<span class="badge badge-pill badge-danger ml-1 p-1"> </span>';
-                }
-
-                $ouput .= '<tr>
-                            <td class="text-right"><img  class="avatar" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="фото"></td>   
-                            <td>'.get_user_name($row['user_id'], $connect).' '.$status.'</td>
-                            <td><button class="btn btn-success btn-sm btn-xs" data-userid="'.$result['user_id'].'">Добавить</button></td>                        
-                        </tr>';
-            }
-            $ouput .= '</tbody>';
-        }
-        else{
-            $ouput .= '<tr><td>Не найдено ни одного контакта.<td><tr>';
-        }
-        echo $ouput;
-    }
-    catch(Exception $ex){
-        echo $ex;
-    };
-};
-
-
+//Фукнция создает новую группу и возвращает сообщение об успешном или неуспешном результате
 function add_new_group($connect, $group_name){
 
     $output='';
@@ -90,6 +42,7 @@ function add_new_group($connect, $group_name){
     };
 };
 
+//Фукнция возвращает информацию о группе
 function get_group_data($connect, $group_id){
     try{
 
@@ -108,6 +61,8 @@ function get_group_data($connect, $group_id){
     }
 };
 
+
+//Функция возвращает таблицу с участниками группы 
 function get_group_participants($connect, $group_id){
 
     try{
@@ -182,11 +137,8 @@ function get_group_participants($connect, $group_id){
                 };
             };
 
-        };
-        
-              
-        
-        
+        };   
+
         echo $output;
     }
     catch(Exception $ex){
@@ -194,51 +146,49 @@ function get_group_participants($connect, $group_id){
     }
 };
 
+//Фукнция обновления фото группы
 function update_group_photo($connect, $group_id, $filePath, $errorCode){
 
-    
-    echo $o=';jgf';
-
-    // try {
+    try {
         
-    //     $newphoto=load_photo($filePath, $errorCode);
-    //     if($newphoto!=''){
+        $newphoto=load_photo($filePath, $errorCode);
+        if($newphoto!=''){
 
-    //         $query="UPDATE `chat_groups` SET `photo` = :newphoto WHERE `chat_groups`.`chat_group_id` = :group_id";
-    //         $statement=$connect->prepare($query);
-    //         $statement->execute(
-    //             array(
-    //                 ':newphoto' => $newphoto,
-    //                 ':group_id' => $group_id
-    //             )
-    //         );
-    //         $result=$statement->rowCount();
-    //         if($result==1)
-    //         {
-    //            echo $output='<div class="alert alert-success alert-dismissible">
-    //                             <button type="button" class="close" data-dismiss="alert">&times;</button>
-    //                             <strong>Успешно!</strong> Фото будет обновлено.
-    //                         </div>';
-    //         }
-    //         else{
-    //             echo $output='<div class="alert alert-warning alert-dismissible">
-    //                             <button type="button" class="close" data-dismiss="alert">&times;</button>
-    //                             <strong>Не удалось!</strong> Ошибка.
-    //                         </div>';
-    //         };            
-    //     }
-    //     else{            
-    //         echo $output='<div class="alert alert-danger alert-dismissible">
-    //                             <button type="button" class="close" data-dismiss="alert">&times;</button>
-    //                              <strong>Не удалось!</strong> Ошибка.
-    //                         </div>';
-    //     };
-    // } catch (Exception $th) {
-    //     echo $th;
-    // }
+            $query="UPDATE `chat_groups` SET `photo` = :newphoto WHERE `chat_groups`.`chat_group_id` = :group_id";
+            $statement=$connect->prepare($query);
+            $statement->execute(
+                array(
+                    ':newphoto' => $newphoto,
+                    ':group_id' => $group_id
+                )
+            );
+            $result=$statement->rowCount();
+            if($result==1)
+            {
+               echo $output='<div class="alert alert-success alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <strong>Успешно!</strong> Фото будет обновлено.
+                            </div>';
+            }
+            else{
+                echo $output='<div class="alert alert-warning alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <strong>Не удалось!</strong> Ошибка.
+                            </div>';
+            };            
+        }
+        else{            
+            echo $output='<div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                 <strong>Не удалось!</strong> Ошибка.
+                            </div>';
+        };
+    } catch (Exception $th) {
+        echo $th;
+    }
 };
 
-
+//Функция обновления названия группы
 function update_group_name($connect){
     $output='<div class="alert alert-warning alert-dismissible">
                                  <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -254,5 +204,6 @@ switch($_POST["action"])
     case 'participants': get_group_participants($connect, $_POST['group_id']); break; 
                    break;
     case 'update_group_name': update_group_name($connect); break;
+    case 'update_photo': update_group_photo($connect, $_POST["group_id"], $_FILES['input_new_group_photo']['tmp_name'], $_FILES['input_new_group_photo']['error']); break;
 }
 ?>

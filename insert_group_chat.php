@@ -1,5 +1,7 @@
 <?php
 
+
+//Добавление сообщения в историю чата группы
 include('db_connection.php');
 session_start();
 

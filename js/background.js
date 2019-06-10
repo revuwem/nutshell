@@ -33,6 +33,7 @@ $(document).ready(function () {
         });
     };
 
+    //Получение списка задач и формирование доски задач группы
     function get_group_tasks(group_id) {
         var action = "get_info";
 
@@ -53,18 +54,17 @@ $(document).ready(function () {
                     {
                         
                         switch(result[key]["status"]){
-                            case '1': liStarted += '<li class="task-element" data-taskid="'+result[key]["task_id"]+'"><p class="font-weight-bold mr-3">'+result[key]["title"]+'</p><span>'+result[key]["due_date"]+'</span><br><span>'+result[key]["description"]+'</span></li>';
+                            case '1': liStarted += '<li class="task-element"><p class="font-weight-bold mr-3">'+result[key]["title"]+'</p><span>'+result[key]["due_date"]+'</span><br><span>'+result[key]["description"]+'</span><span class="btnUpdateTaskElement" data-taskid="'+result[key]["task_id"]+'">\u2192</span><span class="btnDeleteTaskElement" data-taskid="'+result[key]["task_id"]+'">\u00D7</span></li>';
                              break;
-                            case '2': liInProcessing += '<li class="task-element" data-taskid="'+result[key]["task_id"]+'"><p class="font-weight-bold mr-3">'+result[key]["title"]+'</p><span>'+result[key]["due_date"]+'</span><br><span>'+result[key]["description"]+'</span></li>';
+                            case '2': liInProcessing += '<li class="task-element"><p class="font-weight-bold mr-3">'+result[key]["title"]+'</p><span>'+result[key]["due_date"]+'</span><br><span>'+result[key]["description"]+'</span><span class="btnUpdateTaskElement" data-taskid="'+result[key]["task_id"]+'">\u2192</span><span class="btnDeleteTaskElement" data-taskid="'+result[key]["task_id"]+'">\u00D7</span></li>';
                              break;
-                            case '3': liComplete += '<li class="task-element" data-taskid="'+result[key]["task_id"]+'">'+result[key]["title"]+' '+result[key]["due_date"]+'</li>';
+                            case '3': liComplete += '<li class="task-element"><p class="font-weight-bold mr-3">'+result[key]["title"]+'</p><span>'+result[key]["due_date"]+'</span><br><span>'+result[key]["description"]+'</span><span class="btnUpdateTaskElement" data-taskid="'+result[key]["task_id"]+'">\u2192</span><span class="btnDeleteTaskElement" data-taskid="'+result[key]["task_id"]+'">\u00D7</span></li>';
                              break;
                         }
                     }
                     $('#tasksStarted').html(liStarted);
                     $('#tasksInProcessing').html(liInProcessing);
-                    $('#tasksComplete').html(liComplete);
-                    todo_list_ini();
+                    $('#tasksComplete').html(liComplete);                   
 
                 }
                 else {
@@ -84,30 +84,7 @@ $(document).ready(function () {
     };
 
 
-    
-
-    function todo_list_ini() {
-        // Create a "delete" button and append it to each list item
-        var myNodelist = document.getElementsByClassName("task-element");
-        var i;
-        for (i = 0; i < myNodelist.length; i++) {
-            var span = document.createElement('span');
-            var txt = document.createTextNode("\u00D7");
-            span.className = "btnDeleteTaskElement";
-            span.appendChild(txt);
-            myNodelist[i].appendChild(span);
-        }
-
-        //Create a "task-up" button and append it to each list item            
-        for (i = 0; i < myNodelist.length; i++) {
-            var span = document.createElement('span');
-            var txt = document.createTextNode("\u2192");
-            span.className = "btnUpdateTaskElement";
-            span.appendChild(txt);
-            myNodelist[i].appendChild(span);
-        }
-    };
-
+    //Подключаем HTML доски задач группы
     function link_todo_list(group_id) {
         $.ajax({
             url: "to-do.php",
@@ -119,6 +96,7 @@ $(document).ready(function () {
         });
     };
 
+    //Заполнение выпадающий список групп, в которых состоит пользователь
     function get_user_group_list() {
         var action = 'user_groups';
         $.ajax({
@@ -132,6 +110,7 @@ $(document).ready(function () {
         });
     };
 
+    //Обработчик изменения выбранного элемента в списке групп, в которых состоит пользователь
     $( "#selectUserGroups" ).change(function() {
         link_todo_list($("#selectUserGroups option:selected").data('groupid'));
         
@@ -325,6 +304,7 @@ $(document).ready(function () {
         $("#dialog").dialog("open");
     });
 
+
     $('#group_settings_dialog').dialog({
         autoOpen: false,
         title: "Настройки группы",
@@ -369,17 +349,7 @@ $(document).ready(function () {
     });
 
 
-
-
-
-
-
-
-
-    // Click on a delete button to hide the current list item
-    $(document).on('click', 'btnDeleteTaskElement', function () {
-        alert('works!');
-    });
+   
 
 
 

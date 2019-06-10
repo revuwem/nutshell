@@ -2,7 +2,7 @@
 include('db_connection.php');
 session_start();
 
-
+//Фукнция возвращает список групп, в которых состоит пользователь
 function get_users_group($connect, $user_id)
 {
     $output='';
@@ -32,7 +32,7 @@ function get_users_group($connect, $user_id)
     }
 };
 
-
+//Фукнция возвращает JSON со списком задач группы $group_id
 function get_group_tasks($connect, $group_id)
 {
     try {
@@ -44,9 +44,7 @@ function get_group_tasks($connect, $group_id)
 
         
         $json = json_encode($result);
-        echo $json;
-
-        
+        echo $json;       
           
 
     } catch (Exception $ex) {
@@ -54,6 +52,8 @@ function get_group_tasks($connect, $group_id)
     }
 };
 
+
+//Функция добавляет новую задачу и возвращает уведомление с результатом
 function add_task($connect, $group_id, $title, $description, $due_date){
     $output='';
     try {
@@ -92,6 +92,69 @@ function add_task($connect, $group_id, $title, $description, $due_date){
     };
 };
 
+//Функция возвращает результат обновления статуса задачи
+function update_task_status($connect, $task_id){
+
+    try {
+       
+        $new_status=null;
+
+        $query="SELECT status FROM task_list WHERE task_id=?";
+        $statement=$connect->prepare($query);
+        $statement->execute(array($task_id));
+        $result=$statement->fetchAll();
+
+        foreach($result as $row){
+
+            switch ($row['status']){
+                case 1: $new_status=2;break;
+                case 2: $new_status=3;break;
+            };
+
+            
+            $query="UPDATE task_list SET status=? WHERE task_id=? ";
+            $statement=$connect->prepare($query);
+            $statement->execute(
+                array($new_status, $task_id)
+            );
+            $result=$statement->rowCount();
+
+            if($result==1){
+                echo $ouptut="true";
+            }
+            else{
+                echo $ouptut="false";
+            };
+        };
+
+    } catch (Exception $ex) {
+        echo $ex;
+    }
+};
+
+//Фукнция возвращает результат удаления задачи
+function delete_task($connect, $task_id){
+    try {
+        $output='';
+        
+        $query="DELETE FROM task_list WHERE task_id=?";
+        $statement=$connect->prepare($query);
+        $statement->execute(array($task_id));
+        $result=$statement->rowCount();
+
+        if($result==1)
+        {
+            echo $ouptut="true";
+        }
+        else{
+            echo $ouptut="false";
+        };
+
+    } catch (Exception $ex) {
+        echo $ex;
+    }
+};
+
 
 switch ($_POST["action"]){
 
@@ -100,4 +163,6 @@ switch ($_POST["action"]){
         add_task($connect, $_POST["group_id"], $_POST["title"], $_POST["description"], $_POST["due_date"]);
         break;
     case 'get_info': get_group_tasks($connect, $_POST["group_id"]); break;
+    case 'update_status': update_task_status($connect, $_POST["task_id"]); break;
+    case 'delete': delete_task($connect, $_POST["task_id"]); break;
 };

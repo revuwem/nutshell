@@ -2,6 +2,8 @@
 include('db_connection.php');
 session_start();
 
+
+//Функция возвращает список групп с применением фильтра по названию группы
 function fetch_filtered_groups_details($connect, $param){
     
     $output='';

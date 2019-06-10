@@ -271,51 +271,13 @@ function createNewGroup(group_name) {
 };
 
 
-function update_group_photo(){
-  var form=$('#form_updateGroupPhoto'),
-  formdata= new FormData(form.get(0)),
-  action='update_photo',
-  group_id=$('#group_settings_dialog').data('groupid');
 
-  $.ajax({
-    type: "POST",
-    url: "groups_functions.php",
-    processData: false,
-    contentType: false,
-    data:{formdata: formdata, action: action, group_id:group_id},
-    success: function(data){
-      $('#update-photo-feedback').html(data);
-    },
-    error:function(xhr, str){
-      debugger;
-      alert('Ошибка загрузки фото ', xhr.responseCode);
-    }
-  }); 
-};
+
 
 //TODO: настройки группы: изменить фото, название, удалить\добавить участников
 
 
-//Код ниже абсолютно не работает
 
-function update_group_name(){
-  var new_name=$('#new_group_name').val();
-  if(new_name!='' && new_name.trim()!='')
-  {
-    var action = 'update_group_name';
-    $.ajax({
-      url: "groups_functions.php",
-      type: "post",
-      data: {action:action},
-      success: function(data){
-        $('update-group-name-feedback').html(data);
-      }
-    });
-  }
-  else{
-    $('update-group-name-feedback').html('Название группы не может быть пустым!');
-  }
-};
 
 function get_group_tasks(group_id) {
   var action = "get_info";
@@ -337,11 +299,11 @@ function get_group_tasks(group_id) {
               {
                   
                   switch(result[key]["status"]){
-                      case '1': liStarted += '<li class="task-element"><p class="font-weight-bold mr-3">'+result[key]["title"]+'</p><span>'+result[key]["due_date"]+'</span><br><span>'+result[key]["description"]+'</span></li>';
+                      case '1': liStarted += '<li class="task-element"><p class="font-weight-bold mr-3">'+result[key]["title"]+'</p><span>'+result[key]["due_date"]+'</span><br><span>'+result[key]["description"]+'</span><span class="btnUpdateTaskElement" data-taskid="'+result[key]["task_id"]+'">\u2192</span><span class="btnDeleteTaskElement" data-taskid="'+result[key]["task_id"]+'">\u00D7</span></li>';
                        break;
-                      case '2': liInProcessing += '<li class="task-element"><p class="font-weight-bold mr-3">'+result[key]["title"]+'</p><span>'+result[key]["due_date"]+'</span><br><span>'+result[key]["description"]+'</span></li>';
+                      case '2': liInProcessing += '<li class="task-element"><p class="font-weight-bold mr-3">'+result[key]["title"]+'</p><span>'+result[key]["due_date"]+'</span><br><span>'+result[key]["description"]+'</span><span class="btnUpdateTaskElement" data-taskid="'+result[key]["task_id"]+'">\u2192</span><span class="btnDeleteTaskElement" data-taskid="'+result[key]["task_id"]+'">\u00D7</span></li>';
                        break;
-                      case '3': liComplete += '<li class="task-element">'+result[key]["title"]+' '+result[key]["due_date"]+'</li>';
+                      case '3': liComplete += '<li class="task-element"><p class="font-weight-bold mr-3">'+result[key]["title"]+'</p><span>'+result[key]["due_date"]+'</span><br><span>'+result[key]["description"]+'</span><span class="btnDeleteTaskElement" data-taskid="'+result[key]["task_id"]+'">\u00D7</span></li>';
                        break;
                   }
               }
@@ -395,6 +357,68 @@ function add_new_group_task() {
   });
 
 };
+
+$(document).on('click', '.btnUpdateTaskElement', function(){
+
+  var task_id = $(this).data('taskid'),
+  action = 'update_status',
+  group_id = $("#selectUserGroups option:selected").data('groupid');
+
+  $.ajax({
+    url: "todo-functions.php",
+    type: "post",
+    data:{task_id:task_id, action:action},
+    success: function(data){
+
+      var fail = '<div class="alert alert-warning alert-dismissible">';
+      fail += '<button type="button" class="close" data-dismiss="alert">&times;</button>';
+      fail += '<strong>Не удалось!</strong> Пожалуйста, попробуйте еще раз.';
+      fail += '</div>';
+      
+      if(data){
+        get_group_tasks(group_id);
+      }
+      else{
+        $('#load-tasks-feedback').html(fail);
+      };
+    },
+    error: function(xhr, str){
+      debugger;
+      alert("Ошибка обновления статуса задачи. " + xhr.responseCode);
+    }
+  });
+});
+
+$(document).on('click', '.btnDeleteTaskElement', function(){
+
+  var task_id = $(this).data('taskid'),
+  action = 'delete',
+  group_id = $("#selectUserGroups option:selected").data('groupid');
+
+  $.ajax({
+    url: "todo-functions.php",
+    type: "post",
+    data:{task_id:task_id, action:action},
+    success: function(data){
+
+      var fail = '<div class="alert alert-warning alert-dismissible">';
+      fail += '<button type="button" class="close" data-dismiss="alert">&times;</button>';
+      fail += '<strong>Не удалось!</strong> Пожалуйста, попробуйте еще раз.';
+      fail += '</div>';
+      
+      if(data){
+        get_group_tasks(group_id);
+      }
+      else{
+        $('#load-tasks-feedback').html(fail);
+      };
+    },
+    error: function(xhr, str){
+      debugger;
+      alert("Ошибка обновления статуса задачи. " + xhr.responseCode);
+    }
+  });
+});
 
 
 

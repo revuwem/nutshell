@@ -2,6 +2,8 @@
 include('db_connection.php');
 session_start();
 
+
+//Функция возвращает список пользователей с применением фильтра по имени пользователя $param
 function fetch_filtered_dialogs_details($connect, $param){
     
     $output='';
