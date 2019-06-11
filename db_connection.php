@@ -218,6 +218,17 @@ function fetch_group_chat_history($from_user_id, $to_chat_id, $connect)
     return $output;
 };
 
+function get_user_email($connect, $user_id){
+    $output='';
+    $query = "SELECT email FROM users WHERE user_id = '$user_id'";
+    $statement = $connect->prepare($query);
+    $statement->execute();
+    $result=$statement->fetchAll();
+    foreach($result as $row)
+    {        
+        return $row['email'];
+    }
+}
 
 
 ?>

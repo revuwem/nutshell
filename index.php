@@ -95,12 +95,13 @@ if(!isset($_SESSION['user_id']))
                                     </select> 
                                 </div>
                             </div> 
-                            <div class="col col-12 col-sm-4 shadow-sm bg-white pt-2">
+                            <div class="col col-12 col-sm-7 shadow-sm bg-white pt-2 m-3">
                                 <div class="form-group">
-                                <label for="sel1">Период:</label><br>
+                                <div id="send-report-feedback"></div>
+                                <label for="sel1">Отчет за период:</label><br>
                                     <select class="form-control" id="selectTaskMonth" name="selectTaskMonth"
                                         style="font-size: .8rem">
-                                        <option value="00">Текущее</option>
+                                        <option value="00">Текущий месяц</option>
                                         <option value="01">Январь</option>
                                         <option value="02">Февраль</option>
                                         <option value="03">Март</option>
@@ -113,17 +114,10 @@ if(!isset($_SESSION['user_id']))
                                         <option value="10">Октябрь</option>
                                         <option value="11">Ноябрь</option>
                                         <option value="12">Декабрь</option>
-                                    </select> <br>                                    
+                                    </select> <br> 
+                                    <button class="btn btn-sm btn-info" onclick="javascript:send_report();">Отправить отчет</button>                                                                 
                                 </div>
-                            </div>
-                            <div class="col col-12 col-sm-2 m-2">
-                                <div class="form-group">
-                                    <button class="btn btn-sm btn-info" onclick="javascript:send_report();">Отправить отчет</button>
-                                </div>
-                            </div>  
-                            <div class="col col-12 col-sm-5">
-                                <div id="send-report-feedback"></div>
-                            </div>                         
+                            </div>                                                    
                             <div class="col col-12 col-sm-6" id="load-tasks-feedback">
                             </div>
                         </div>
@@ -233,6 +227,9 @@ if(!isset($_SESSION['user_id']))
                                                 style="display:none">
 
                                             </div>
+                                            <label for="inputUserEmail">E-mail</label>
+                                            <input type="email" class="form-control" name="inputUserEmail"
+                                                id="inputUserEmail" autocomplete="off">
                                             <label for="inputUserWorkNumber">Рабочий номер</label>
                                             <input type="tel" class="form-control" name="inputUserWorkNumber"
                                                 id="inputUserWorkNumber">

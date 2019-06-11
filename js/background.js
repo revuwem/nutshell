@@ -162,6 +162,8 @@ $(document).ready(function () {
 
                 $('#inputUserWorkNumber').val(result[0]["worknumber"]);
                 $('#inputUserMobileNumber').val(result[0]["mobilenumber"]);
+
+                $('#inputUserEmail').val(result[0]["email"]);
             },
             error: function (xhr, str) {
                 alert("Ошибка ", xhr.responseCode);

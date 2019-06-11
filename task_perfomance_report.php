@@ -202,7 +202,7 @@ function make_task_analyse_report($connect, $group_id, $month){
                 $report .= $tablebody;
                 $report .= $tablefooter;
 
-                $email='revuwem@gmail.com';
+                $email=get_user_email($connect, $_SESSION['user_id']);
                 $headers = 'From: nutshellkrow88@gmail.com';
                 $headers  .= 'MIME-Version: 1.0' . "\r\n";
                 $headers .= "Content-type: text/html; charset = \"utf-8\".\r\n";

@@ -69,16 +69,17 @@ echo $message;
 
 
 //Возвращает уведомление о результате изменения контактной информации в профиле пользователя
-function updateUserContactsInfo($connect, $worknumber, $mobilenumber){
+function updateUserContactsInfo($connect, $worknumber, $mobilenumber, $email){
     $output='';
     try{
-        $query="UPDATE `users` SET `worknumber` = :worknumber, `mobilenumber` = :mobilenumber WHERE `users`.`user_id` = :user_id;";
+        $query="UPDATE `users` SET `worknumber` = :worknumber, `mobilenumber` = :mobilenumber, `email` =:email WHERE `users`.`user_id` = :user_id;";
         $statement=$connect->prepare($query);
         $statement->execute(
             array(
             ':worknumber' => $worknumber,
             ':mobilenumber' => $mobilenumber,
-            ':user_id' => $_SESSION['user_id']
+            ':user_id' => $_SESSION['user_id'],
+            ':email' =>$email
             )
         );
         $result=$statement->rowCount();
@@ -141,7 +142,7 @@ switch($_GET['action']){
         updateUserBasicInfo($connect, $_POST["inputUserName"], $_POST['inputPersonName'], $_POST['inputUserPosition'], $_FILES['inputUserPhoto']['tmp_name'], $_FILES['inputUserPhoto']['error']);
         break;
     case 'contacts':
-        updateUserContactsInfo($connect, $_POST["inputUserWorkNumber"], $_POST["inputUserMobileNumber"]);
+        updateUserContactsInfo($connect, $_POST["inputUserWorkNumber"], $_POST["inputUserMobileNumber"], $_POST["inputUserEmail"]);
         break;
     case 'security':
         updateUserPassword($connect, $_POST["inputCurrentUserPassword"], $_POST["inputNewUserPassword"]);
