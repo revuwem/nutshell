@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июн 11 2019 г., 11:14
+-- Время создания: Июн 13 2019 г., 23:11
 -- Версия сервера: 5.6.41
 -- Версия PHP: 7.2.10
 
@@ -35,6 +35,16 @@ CREATE TABLE `chat_groups` (
   `timestamp_created` timestamp NOT NULL COMMENT 'дата создания',
   `photo` varchar(500) NOT NULL DEFAULT 'pics/societe.png' COMMENT 'ссылка на фото в папке на сервере'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `chat_groups`
+--
+
+INSERT INTO `chat_groups` (`chat_group_id`, `chat_name`, `chat_group_creator`, `timestamp_created`, `photo`) VALUES
+(1, 'СПП', 3, '2019-06-13 18:59:20', 'pics/societe.png'),
+(2, 'СПП', 3, '2019-06-13 18:59:53', 'pics/societe.png'),
+(3, 'СПП', 3, '2019-06-13 19:00:29', 'pics/societe.png'),
+(4, 'группа №1', 3, '2019-06-13 19:02:32', 'pics/societe.png');
 
 --
 -- Триггеры `chat_groups`
@@ -88,6 +98,13 @@ CREATE TABLE `chat_message` (
   `status` int(1) NOT NULL COMMENT 'статус'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Дамп данных таблицы `chat_message`
+--
+
+INSERT INTO `chat_message` (`message_id`, `chat_id`, `timestamp`, `from_user_id`, `to_user_id`, `chat_message`, `status`) VALUES
+(1, 1, '2019-06-13 20:07:29', 2, 3, 'Привет!', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -100,6 +117,16 @@ CREATE TABLE `login_details` (
   `last_activity` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'последняя активность',
   `is_type` enum('no','yes') NOT NULL COMMENT 'пишет(да\\нет)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `login_details`
+--
+
+INSERT INTO `login_details` (`login_details_id`, `user_id`, `last_activity`, `is_type`) VALUES
+(1, 2, '2019-06-13 18:33:53', 'no'),
+(2, 3, '2019-06-13 20:05:01', 'no'),
+(3, 2, '2019-06-13 20:11:38', 'no'),
+(4, 3, '2019-06-13 20:07:53', 'no');
 
 -- --------------------------------------------------------
 
@@ -168,11 +195,19 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL COMMENT 'пароль',
   `perconname` varchar(500) DEFAULT NULL COMMENT 'имя пользователя учетной записи',
   `position` varchar(100) DEFAULT NULL COMMENT 'должность',
-  `worknumber` varchar(50) DEFAULT NULL COMMENT 'рабочий телефон',
-  `mobilenumber` varchar(50) DEFAULT NULL COMMENT 'мобильный телефон',
+  `worknumber` varchar(50) DEFAULT 'не указан' COMMENT 'рабочий телефон',
+  `mobilenumber` varchar(50) DEFAULT 'не указан' COMMENT 'мобильный телефон',
   `photo` varchar(500) NOT NULL DEFAULT 'pics/user.jpg' COMMENT 'ссылка на фото в папке на сервере',
   `email` varchar(100) NOT NULL COMMENT 'электронная почта'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `users`
+--
+
+INSERT INTO `users` (`user_id`, `username`, `password`, `perconname`, `position`, `worknumber`, `mobilenumber`, `photo`, `email`) VALUES
+(2, 'ivanov', '$2y$10$IujBWWwBrhFMxEBNZDlyD.Z7Vh7JbDGPWl8nj9O3USDKQFsxO.3O2', 'Иванов Иван Иванович', 'менеджер', 'не указан', 'не указан', 'pics/user.jpg', 'e@mail.com'),
+(3, 'petrov', '$2y$10$kJkjiUlHasxKeOVwnOxcHevyU/jqiqiruXe0U.Ojobo8JhDTDMy.a', 'Петров Петр Петрович', 'специалист продаж', 'не указан', 'не указан', 'pics/user.jpg', 'petrov@mail.com');
 
 -- --------------------------------------------------------
 
@@ -185,6 +220,13 @@ CREATE TABLE `users_chats` (
   `user_1` int(11) NOT NULL COMMENT 'участник 1',
   `user_2` int(11) NOT NULL COMMENT 'участник 2'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `users_chats`
+--
+
+INSERT INTO `users_chats` (`chat_id`, `user_1`, `user_2`) VALUES
+(1, 2, 3);
 
 --
 -- Индексы сохранённых таблиц
@@ -272,7 +314,7 @@ ALTER TABLE `users_chats`
 -- AUTO_INCREMENT для таблицы `chat_groups`
 --
 ALTER TABLE `chat_groups`
-  MODIFY `chat_group_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'уникальный код группы';
+  MODIFY `chat_group_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'уникальный код группы', AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `chat_groups_messages`
@@ -284,19 +326,19 @@ ALTER TABLE `chat_groups_messages`
 -- AUTO_INCREMENT для таблицы `chat_groups_participants`
 --
 ALTER TABLE `chat_groups_participants`
-  MODIFY `relation_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'уникальный код отношения';
+  MODIFY `relation_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'уникальный код отношения', AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `chat_message`
 --
 ALTER TABLE `chat_message`
-  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'уникальный код сообщения';
+  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'уникальный код сообщения', AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `login_details`
 --
 ALTER TABLE `login_details`
-  MODIFY `login_details_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'уникальный код авторизации';
+  MODIFY `login_details_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'уникальный код авторизации', AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `relation_types`
@@ -320,13 +362,13 @@ ALTER TABLE `task_status`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'уникальный код пользователя';
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'уникальный код пользователя', AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `users_chats`
 --
 ALTER TABLE `users_chats`
-  MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'уникальный код диалога';
+  MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'уникальный код диалога', AUTO_INCREMENT=2;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
