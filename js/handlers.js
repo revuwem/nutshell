@@ -417,15 +417,9 @@ $(document).on('click', '.add_user_to_group', function(e){
   });
 });
 
+function delete_group_participant(group_id, user_id){
 
-//Удаление участника из группы
-$(document).on('click', '.drop_user_from_group', function(e){
-
-  e.preventDefault();
-
-  var group_id = $('#group_settings_dialog').data('groupid');
-  var user_id = $(this).data('userid');
-  var action ="drop_user_from_group";
+  var action ="drop_user_from_group"; 
 
   $.ajax({
     type:"post",
@@ -435,6 +429,45 @@ $(document).on('click', '.drop_user_from_group', function(e){
       $('#participants-feedback').html(data);
     }
   });
+};
+
+//Диалоговое окно подтверждения выхода из группы создателя группы
+$('#exit_admin_confirm').dialog({
+  autoOpen: false,
+  title: "Выход из группы",
+  modal: true,
+  buttons: [
+        { text: "OK", click: function(){
+          delete_group_participant($(this).data('groupid'), $(this).data('userid'));
+          $(this).dialog("close");
+        }
+      },
+     {text: "Отмена", click: function () { $(this).dialog("close") }}],
+  width: 400,
+  height: 160
+});
+
+
+//Выход создателя из группы - подтверждение выхода
+$(document).on('click', '.exit_admin_from_group', function(e){
+  e.preventDefault();
+  $('#exit_admin_confirm').dialog("open");
+  $('#exit_admin_confirm').css("display", "block");
+  $('#exit_admin_confirm').attr("data-userid", $(this).data('userid'));
+  $('#exit_admin_confirm').attr("data-groupid", $('#group_settings_dialog').data('groupid'));
+});
+
+
+//Удаление участника из группы
+$(document).on('click', '.drop_user_from_group', function(e){
+
+  e.preventDefault();
+
+  var group_id = $('#group_settings_dialog').data('groupid');
+  var user_id = $(this).data('userid');
+
+  delete_group_participant(group_id, user_id);
+  
 });
 
 

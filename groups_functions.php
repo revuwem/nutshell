@@ -100,9 +100,9 @@ function get_group_participants($connect, $group_id){
 
                     $output .= '</td>';
                 
-                    if($row['user_id']==$_SESSION["user_id"])
-                    {
-                        $output .= '<td width="30%"><br><button class="btn btn-danger btn-xs drop_user_from_group" type="button" data-userid="'.$row['user_id'].'">Выйти</button></td>
+                    if($row['user_id']==$_SESSION["user_id"])                    {
+                        
+                        $output .= '<td width="30%"><br><button class="btn btn-danger btn-xs exit_admin_from_group" type="button" data-userid="'.$row['user_id'].'">Выйти</button></td>
                         ';
                     }
                     else{

@@ -24,7 +24,7 @@ function get_users_group($connect, $user_id)
             echo $output;
         }
         else{
-            $output .= '<option>У вас нет групп</option>';
+            $output .= '<option>Вы не состоите ни в одной группе.</option>';
             echo $output;
         };
     } catch (Exception $ex) {

@@ -98,3 +98,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      
 }
+
+.text-warning{
+  color: rgb(211, 182, 21);
+}
+
+.text-danger{
+  color:#EF3B3A;
+}

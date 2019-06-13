@@ -11,69 +11,75 @@ if(isset($_SESSION['user_id']))
 
 if(isset($_POST["createuser"]))
 {
-    $query="SELECT COUNT(*) FROM users WHERE username= :username";
-    $statement=$connect->prepare($query);
-    $statement->execute(
-        array(':username'=>$_POST["username"])
-    );
-    $count=$statement->fetchColumn();
-    if($count>0)
-    {
-        $message='<label class="text-danger">Имя пользователя должно быть уникальным!</label>';
-    }
-    else
-    {
-      $query="SELECT COUNT(*) FROM users WHERE email= :email";
+
+    if(trim($_POST["personname"])!='' && trim($_POST["position"])!='' && trim($_POST["username"])!='' && trim($_POST["email"])!=''){
+      
+      $query="SELECT COUNT(*) FROM users WHERE username= :username";
       $statement=$connect->prepare($query);
       $statement->execute(
-          array(':email'=>$_POST["email"])
+          array(':username'=>$_POST["username"])
       );
       $count=$statement->fetchColumn();
       if($count>0)
       {
-          $message='<label class="text-danger">E-mail должен быть уникальным!</label>';
+          echo $message='<label class="text-danger">Имя пользователя должно быть уникальным!</label>';
       }
       else
       {
-          $query="INSERT INTO `users` (`user_id`, `username`, `password`, `firstname`, `lastname`, `position`, `email`) 
-                  VALUES (NULL, :username, :password, :personname, :personsurname, :personposition, :email);
-          ";
-          $statement=$connect->prepare($query);
-          $statement->execute(
-              array(
-                  ':username'=>$_POST["username"],
-                  ':password'=>password_hash($_POST["password"], PASSWORD_DEFAULT),
-                  'personname'=>$_POST["personname"],
-                  ':personsurname'=>$_POST["personsurname"],
-                  ':personposition'=>$_POST["personposition"],
-                  ':email' => $_POST["email"]
-              )
-          );
-          $result=$statement->rowCount();
-          //Если $result==0 - запись не удалось добавить, иначе авторизуем нового пользователя
-          if($result==0)
-          {
-              $message='<label>Ошибка регистрации!</label>';
-          }
-          else{
-              $query="SELECT user_id FROM users WHERE username = :username";
-              $statement=$connect->prepare($query);
-              $statement->execute(
-                array(':username'=>$_POST["username"])
-              );
-              $result=$statement->fetchAll();
-              foreach($result as $row)
-              {
-                $_SESSION['user_id']=$row['user_id'];
-                $_SESSION['username']=$_POST["username"];
-                $sub_query="INSERT INTO login_details(user_id) VALUES ('".$row['user_id']."')";
-                $statement=$connect->prepare($sub_query);
-                $statement->execute();
-                $_SESSION['login_details_id']=$connect->lastInsertId();
-                header("location:index.php");
-              }
-          } 
+        $query="SELECT COUNT(*) FROM users WHERE email= :email";
+        $statement=$connect->prepare($query);
+        $statement->execute(
+            array(':email'=>$_POST["email"])
+        );
+        $count=$statement->fetchColumn();
+        if($count>0)
+        {
+           $message='<label class="text-danger">E-mail должен быть уникальным!</label>';
+        }
+        else
+        {
+            $query="INSERT INTO `users` (`username`, `password`, `perconname`, `position`, `email`) 
+                    VALUES (:username, :password, :personname, :position, :email); 
+            ";
+            $statement=$connect->prepare($query);
+            $statement->execute(
+                array(
+                    ':username'=>$_POST["username"],
+                    ':password'=>password_hash($_POST["password"], PASSWORD_DEFAULT),
+                    'personname'=>$_POST["personname"],                  
+                    ':position'=>$_POST["position"],
+                    ':email' => $_POST["email"]
+                )
+            );
+            $result=$statement->rowCount();
+            //Если $result==0 - запись не удалось добавить, иначе авторизуем нового пользователя
+            if($result==0)
+            {
+                $message='<label>Ошибка регистрации!</label>';
+            }
+            else{
+                $query="SELECT user_id FROM users WHERE username = :username";
+                $statement=$connect->prepare($query);
+                $statement->execute(
+                  array(':username'=>$_POST["username"])
+                );
+                $result=$statement->fetchAll();
+                foreach($result as $row)
+                {
+                  $_SESSION['user_id']=$row['user_id'];
+                  $_SESSION['username']=$_POST["username"];
+                  $sub_query="INSERT INTO login_details(user_id) VALUES ('".$row['user_id']."')";
+                  $statement=$connect->prepare($sub_query);
+                  $statement->execute();
+                  $_SESSION['login_details_id']=$connect->lastInsertId();
+                  header("location:index.php");
+                }
+            } 
+        }
       }
+    }
+    else{
+      $message='<label class="text-warning">Пожалуйста, заполните все поля!</label>';      
     }
 }
 
@@ -87,8 +93,7 @@ if(isset($_POST["createuser"]))
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Nutshell - Регистрация</title>
 
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    
     <link href="css/loginform.css" rel="stylesheet">   
   </head>
  
@@ -101,12 +106,11 @@ if(isset($_POST["createuser"]))
         <form class="login-form" method="post" autocomplete="off">
         <input style="display:none">
         <input type="password" style="display:none">
-        <label for="personname" style="text-align:left">Имя</label>
-          <input type="text" class="form-control" name="personname" required autocomplete="off"/>
-          <label for="personsurname" style="text-align:left">Фамилия</label>
-          <input type="text" class="form-control" name="personsurname" required autocomplete="off"/>
+        <label for="personname" style="text-align:left">ФИО</label>
+          <input type="text" class="form-control" name="personname" required autocomplete="off"/>          
           <label for="personposition" style="text-align:left">Должность</label>
-          <input type="text" class="form-control" name="personposition" required autocomplete="off"/>
+          <input type="text" class="form-control" name="position" required autocomplete="off"/>
+          <input type="text" class="form-control" name="email" value="" style="display:none" autocomplete="on"/> 
           <label for="personposition" style="text-align:left">E-mail</label>
           <input type="email" class="form-control" name="email" required autocomplete="off"/>  
           <label for="username" style="text-align:left">Имя пользователя</label>

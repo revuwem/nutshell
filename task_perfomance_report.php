@@ -218,7 +218,7 @@ function make_task_analyse_report($connect, $group_id, $month){
                 else{
                     echo $output='<div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>Внимание!</strong> Не удалось отправить отчет. 
+                    <strong>Внимание!</strong> Не удалось отправить отчет. Проверьте, что в вашем профиле указан e-mail. 
                         </div>';
                 }; 
         }

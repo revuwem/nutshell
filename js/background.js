@@ -304,6 +304,8 @@ $(document).ready(function () {
     //Открыть диалоговое окно создания группы
     $(document).on('click', '#btn_create_group_dialog', function () {
         $("#dialog").dialog("open");
+        $('#create_group_feedback').css("display","none");
+        $('#input_new_group_name').val('');
     });
 
 
@@ -352,7 +354,7 @@ $(document).ready(function () {
         });
     });
 
-
+    
    
 
 

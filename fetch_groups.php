@@ -55,7 +55,7 @@ if(count($resultGroups)>0)
 }
 else 
 {
-    $output = '<br><span>Вы не состоите ни в одной беседе</span>'; 
+    $output = '<br><span>Вы не состоите ни в одной группе.</span>'; 
 }
 echo $output;
 ?>

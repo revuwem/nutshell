@@ -73,6 +73,7 @@ if(!isset($_SESSION['user_id']))
                             <div id="group_settings_dialog">
                                 <div id="settings_group_feedback"></div>
                             </div>
+                            <div id="exit_admin_confirm" style="display:none"><span>Вы - создатель группы. Настройки группы будут недоступны другим участникам, если Вы покинете группу. Продолжить?</span></div>
                         </div>
                     </div>
                 </div>
