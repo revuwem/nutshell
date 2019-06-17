@@ -179,16 +179,16 @@ function make_task_analyse_report($connect, $group_id, $month){
                                 <table cellpadding='20' cellspacing='0' width='100%' id='emailBody' style='border: 1px solid grey;'>
                                     <tr>
                                     <td align='center' valign='top'>
-                                        ".$completed_tasks."%
+                                        ".$completed_tasks_percent."%
                                     </td>
                                     <td align='center' valign='top'>
-                                    ".$running_tasks."%
+                                    ".$running_tasks_percent."%
                                     </td>
                                     <td align='center' valign='top'>
-                                    ".$tasks_to_perform."%
+                                    ".$tasks_to_perform_percent."%
                                     </td>
                                     <td align='center' valign='top'>
-                                    ".$non_completed_tasks."%
+                                    ".$non_completed_tasks_percent."%
                                     </td>
                                     </tr> 
                                     <tr cellpadding='0' cellspacing='0' width='100%' id='emailBody'>
