@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
@@ -158,7 +158,7 @@ CREATE TABLE `task_list` (
   `group_id` int(11) NOT NULL COMMENT 'код группы',
   `title` varchar(500) NOT NULL COMMENT 'заголовок',
   `description` varchar(500) NOT NULL COMMENT 'описание',
-  `create_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `create_date` datetime,
   `due_date` date NOT NULL COMMENT 'выполнить до',
   `status` int(11) NOT NULL DEFAULT '1' COMMENT 'код статуса'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='общая таблица для хранения всех задач';

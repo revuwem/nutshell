@@ -32,7 +32,7 @@ if(count($result)!=0){
         $output .= '
             <tr>
                 <td><img class="avatar" src="'.get_user_photo($row['user_id'], $connect).'" alt="фото"></td>
-                <td><p class="font-weight-bold">'.$row['username'].'</p> '.$status.'<br> <p class="font-weight-lighter">'.$row['position'] .'</p><br><p class="font-weight-lighter">Рабочий номер телефона: '.$row['worknumber'].'</p>
+                <td><p class="font-weight-bold">'.get_user_name($row['user_id'], $connect).' <i class="font-weight-lighter">'.$row['username'].'</i></p> '.$status.'<br> <p class="font-weight-lighter">'.$row['position'] .'</p><br><br><p class="font-weight-lighter">E-mail: '.get_user_email($connect, $row['user_id']).'</p><br><br><p class="font-weight-lighter">Рабочий номер телефона: '.$row['worknumber'].'</p>
                 <br><p class="font-weight-lighter">Мобильный номер телефона: '.$row['mobilenumber'].'</p></td>            
             
             </tr>
