@@ -64,7 +64,7 @@ function make_task_analyse_report($connect, $group_id, $month){
                 
 
                 //Если текущая дата больше срока выполнения задачи - она считается невыполненной
-                if($current_date>$row['due_date']){
+                if(($current_date>$row['due_date'])&&($row["status"]!=STATUS_COMPLETED)){
 
                     $non_completed_tasks=$non_completed_tasks+1;
 

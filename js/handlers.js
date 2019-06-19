@@ -254,6 +254,7 @@ function createNewGroup(group_name) {
       data: { group_name: group_name, action: action },
       success: function (data) {
         $('#create_group_feedback').html(data);
+        $('#create_group_feedback').css("display", "block");
       }
     });
   }
@@ -263,6 +264,7 @@ function createNewGroup(group_name) {
     output += 'Пожалуйста, укажите <strong>название группы</strong>.';
     output += '</div>';
     $('#create_group_feedback').html(output);
+    $('#create_group_feedback').css("display", "block");
 
     $("#dialog").dialog({
       height: 200
